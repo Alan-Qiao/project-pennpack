@@ -1,0 +1,12 @@
+.Homepage {
+    /* background: #88cf88; */
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 20%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 92px;;
+}

@@ -1,23 +1,19 @@
 import { React } from 'react';
-// import '../styles/Homepage.css';
+import '../styles/Homepage.css';
 
 function Homepage() {
 
 	return (
 		<div className="Homepage">
-			<h1>TEST H1</h1>
-            erganglna;dn
-            <button className="button" type="button">
-					Login
+			<h1>PennPack</h1>
+			<button className="button" type="button">
+				Login
 			</button>
-            
-            <input type="text"
-                className="center-rectangle enter"
-                placeholder="Enter your email..." />
-                
-            
+			<div className="spacer"/>
+			<button className="button" type="button">
+				New user
+			</button>
 		</div>
-		
 	);
 }
 

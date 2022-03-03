@@ -63,3 +63,7 @@ h1 {
   border-radius: 10px;
 }
 
+.spacer{
+  height: 1.5vh;
+  min-height: 10px;
+}
