@@ -1,8 +1,12 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
 
-function BackpackNavbar({ setDisplay }) {
+// this was passed as an argument { setDisplay }
+function BackpackNavbar() {
   const navigate = useNavigate();
 
   return (

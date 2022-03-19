@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import { resetCurrentUser, updateName, updatePassword, updateUsername } from '../redux/currentUserSlice';
 import { createUser, readUser } from '../api/storage';
 
@@ -22,8 +21,8 @@ export const signupUser = (name, username, password) => {
   return '';
 };
 
-export const loginUser = (username, password) => {
-  const dispatch = useDispatch();
+export const loginUser = (dispatch, username, password) => {
+  // const dispatch = useDispatch();
   try {
     const user = readUser(username, password);
     dispatch(updateName(user.name));
@@ -35,13 +34,11 @@ export const loginUser = (username, password) => {
   return '';
 };
 
-export const logoutUser = () => {
-  const dispatch = useDispatch();
+export const logoutUser = dispatch => {
   dispatch(resetCurrentUser());
 };
 
-export const updateUser = (name, password) => {
-  const dispatch = useDispatch();
+export const updateUser = (dispatch, name, password) => {
   if (name && !validateString(name, validName)) {
     return 'Invalid Name, please try again';
   }

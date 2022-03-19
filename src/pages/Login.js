@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import '../styles/LoginSignup.css';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import BackpackNavbar from '../components/BackpackNavbar';
 import { loginUser } from '../components/user';
 
@@ -9,10 +10,12 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    setError(loginUser(username, password));
-    if (!error) {
+    const err = loginUser(dispatch, username, password);
+    setError(err); // state is only updated after the function finishes updated and react re-renders
+    if (!err) {
       navigate('/');
     }
   };
@@ -37,19 +40,20 @@ function Login() {
           Password
         </div>
         <input
-          type="text"
+          type="password"
           className="center-rectangle enter"
           placeholder="Enter your password..."
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
         <div className="spacer" />
-        {error && <p>{error}</p>}
         <div className="spacer" />
         <div className="spacer" />
         <button className="button" type="button" onClick={() => handleSubmit()}>
           Continue
         </button>
+        {error && <div className="spacer" />}
+        {error && <p className="warning">{error}</p>}
       </div>
     </>
   );

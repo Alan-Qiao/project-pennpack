@@ -13,8 +13,9 @@ function Signup() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    setError(signupUser(name, username, password));
-    if (!error) {
+    const err = signupUser(name, username, password);
+    setError(err);
+    if (!err) {
       navigate('/login');
     }
   };
@@ -57,12 +58,13 @@ function Signup() {
           onChange={e => setPassword(e.target.value)}
         />
         <div className="spacer" />
-        { error && <p>{error}</p> }
         <div className="spacer" />
         <div className="spacer" />
         <button className="button" type="button" onClick={() => handleSubmit()}>
           Continue
         </button>
+        { error && <div className="spacer" />}
+        { error && <p className="warning">{error}</p> }
       </div>
     </>
   );
