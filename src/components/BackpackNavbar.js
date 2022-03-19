@@ -2,17 +2,17 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
 
-const BackpackNavbar = ({ setDisplay }) => {
+function BackpackNavbar({ setDisplay }) {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-    return (
-        <div className="BackpackNavbar">
-            <div className="backpackIcon"
-                onClick={_ => navigate('/')}/>
-        </div>
-    )
-
+  return (
+    <div className="BackpackNavbar">
+      <div
+        className="backpackIcon"
+        onClick={() => navigate('/')}
+      />
+    </div>
+  );
 }
 
 export default BackpackNavbar;
