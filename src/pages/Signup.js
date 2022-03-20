@@ -1,9 +1,10 @@
 import { React } from 'react';
 import '../styles/LoginSignup.css';
+import { useNavigate } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
 
 function Signup() {
-
+    const navigate = useNavigate();
 	return (
 		<>
 			<BackpackNavbar/>	
@@ -32,7 +33,7 @@ function Signup() {
                 <div className='spacer'/>
                 <div className='spacer'/>
                 <div className='spacer'/>
-                <button className="button" type="button">
+                <button className="button" type="button" onClick={_ => navigate('/classDashboard')}>
 					Continue
 				</button>
 			</div>

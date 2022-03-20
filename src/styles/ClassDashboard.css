@@ -1,0 +1,88 @@
+.ClassDashboard {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 15%;
+    text-align: center;
+    /* border: 1px solid rgb(180, 13, 13); */
+}
+
+h5 {
+    font-family: 'Lato', sans-serif;
+    color: #7EBAC7; 
+    font-size: 82px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    margin-left:500px;
+    text-align: left;
+}
+
+h6 {
+    font-family: 'Lato', sans-serif;
+    color: #898888; 
+    font-size: 32px;
+    margin-left:500px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.left-align {
+    position: relative;
+    left: -230px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #898888;
+}
+
+.button1 {
+    width: 900px;
+    height: 60px;
+    border: 1px solid #3a5a3d;
+    background-color: #E0EDC5;
+    border: 1px solid #92AA83;
+    padding: 10px;
+    text-align: center;
+    text-decoration: bold;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 10px;
+  }
+
+  .button2 {
+    width: 900px;
+    height: 60px;
+    background-color: #F1F7EE;
+    border: 1px solid #92AA83;
+    padding: 10px;
+    text-align: center;
+    text-decoration: bold;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 10px;
+  }
+
+  .left-rectangle {
+    display: flex;
+    align-items: left;
+    padding-left: 10px;
+    margin: 0 auto;
+    width: 500px;
+    height: 50px;;
+    font-size: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #E0EDC5;
+    border: 1px solid #92AA83;
+    border-radius: 10px;
+  }
+
+  .button:hover {
+    cursor: grab;
+  }
