@@ -1,18 +1,22 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
 
-const BackpackNavbar = ({ setDisplay }) => {
+// this was passed as an argument { setDisplay }
+function BackpackNavbar() {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-    return (
-        <div className="BackpackNavbar">
-            <div className="backpackIcon"
-                onClick={_ => navigate('/')}/>
-        </div>
-    )
-
+  return (
+    <div className="BackpackNavbar">
+      <div
+        className="backpackIcon"
+        onClick={() => navigate('/')}
+      />
+    </div>
+  );
 }
 
 export default BackpackNavbar;
