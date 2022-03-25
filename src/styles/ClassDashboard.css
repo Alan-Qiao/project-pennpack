@@ -13,18 +13,17 @@ h5 {
     font-size: 82px;
     margin-top:10px;
     margin-bottom: 10px;
-    margin-left:500px;
-    text-align: left;
+    text-align: center;
 }
 
 h6 {
     font-family: 'Lato', sans-serif;
     color: #898888; 
     font-size: 32px;
-    margin-left:500px;
+    /* margin-left:500px; */
     margin-top:10px;
-    margin-bottom: 10px;
-    text-align: left;
+    margin-bottom: 50px;
+    text-align: center;
 }
 
 .left-align {
@@ -52,6 +51,10 @@ h6 {
     margin: 10px;
   }
 
+  .button1:hover {
+    cursor: grab;
+  }
+
   .button2 {
     width: 900px;
     height: 60px;
@@ -66,6 +69,10 @@ h6 {
     text-align: center;
     border-radius: 10px;
     margin: 10px;
+  }
+
+  .button2:hover {
+    cursor: grab;
   }
 
   .left-rectangle {

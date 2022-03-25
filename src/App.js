@@ -10,7 +10,7 @@ import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ClassDashboard from './pages/ClassDashboard';
-import ClassNote from './pages/ClassNote';
+import AddClassNote from './pages/AddClassNote';
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/classDashboard" element={<ClassDashboard />} />
-        <Route path="/classNote" element={<ClassNote />} />
+        <Route path="/addclassnote" element={<AddClassNote />} />
       </Routes>
     </BrowserRouter>,
     document.getElementById('root'),

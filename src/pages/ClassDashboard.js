@@ -12,19 +12,14 @@ function ClassDashboard() {
 			<div className="ClassDashboard">
 				<h5>Class Name</h5>
                 <h6>Professor Name</h6>
-			
-			
 				<button className="button1" type="button"
-					onClick={_ => navigate('/classNote')}>
+					onClick={_ => navigate('/addclassnote')}>
 					+ Add New Class Note
 				</button>
-			
-			<div></div>
 				<button className="button2" type="button"
 					onClick={_ => navigate('/classNote')}>
 					React Applications
 				</button>
-			<div></div>
 				<button className="button2" type="button"
 					onClick={_ => navigate('/classNote')}>
 					Asynchronous Functions
