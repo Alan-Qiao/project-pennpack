@@ -1,20 +1,20 @@
-import React from 'react';
-import { render } from 'react-dom';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { initLocalStorage } from './api/storage';
 
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ClassDashboard from './pages/ClassDashboard';
 import AddClassNote from './pages/AddClassNote';
+import UserDashboard from './pages/UserDashboard';
 
 function App() {
+  useEffect(() => {
+    initLocalStorage();
+  }, []);
 
-  render(
+  return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -22,9 +22,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/classDashboard" element={<ClassDashboard />} />
         <Route path="/addclassnote" element={<AddClassNote />} />
+        <Route path="/userdashboard" element={<UserDashboard />} />
       </Routes>
-    </BrowserRouter>,
-    document.getElementById('root'),
+    </BrowserRouter>
   );
 }
 
