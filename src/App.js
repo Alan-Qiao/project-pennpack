@@ -5,6 +5,8 @@ import { initLocalStorage } from './api/storage';
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ClassDashboard from './pages/ClassDashboard';
+import AddClassNote from './pages/AddClassNote';
 import UserDashboard from './pages/UserDashboard';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/classDashboard" element={<ClassDashboard />} />
+        <Route path="/addclassnote" element={<AddClassNote />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
       </Routes>
     </BrowserRouter>

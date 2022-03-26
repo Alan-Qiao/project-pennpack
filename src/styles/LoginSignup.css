@@ -15,6 +15,31 @@
     color: #898888;
 }
 
+.text-area {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    height: 7vh;
+    min-width: 400px;
+    min-height: 30px;
+    font-size: 100%;
+  }
+  
+  .center-rectangle {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    margin: 0 auto;
+    width: 500px;
+    height: 50px;;
+    font-size: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #F1F7EE;
+    border: 1px solid #B0BEA9;
+    border-radius: 10px;
+  }
+
 .warning {
     color: #FF0000;
 }
