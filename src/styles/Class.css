@@ -1,0 +1,12 @@
+.Class {
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
+    border-radius: 20%;
+    background-color: #F1F7EE;
+    color: #92AA83;
+    font-size: 25px;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px;
+}

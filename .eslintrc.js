@@ -23,6 +23,7 @@ module.exports = {
   ],
   rules: {
     'react/jsx-filename-extension': 'off',
+    'react/jsx-indent': 'off',
     'react/prop-types': 'off',
     'linebreak-style': 'off',
     'object-curly-newline': 'off',
