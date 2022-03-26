@@ -25,7 +25,7 @@ function Signup() {
       <BackpackNavbar />
       <div className="Login">
         <h1>Create account</h1>
-        <div className="left-align">
+        <div className="left-align-login">
           Name
         </div>
         <input
@@ -36,7 +36,7 @@ function Signup() {
           onChange={e => setName(e.target.value)}
         />
         <div className="spacer" />
-        <div className="left-align">
+        <div className="left-align-login">
           Username
         </div>
         <input
@@ -47,7 +47,7 @@ function Signup() {
           onChange={e => setUsername(e.target.value)}
         />
         <div className="spacer" />
-        <div className="left-align">
+        <div className="left-align-login">
           Password
         </div>
         <input
