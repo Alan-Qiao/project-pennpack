@@ -1,15 +1,38 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Class.css';
+import { readClass } from '../api/storage';
 
-function Class({ className }) {
-//   const navigate = useNavigate();
+export const getClassData = id => {
+  try {
+    const data = readClass(id);
+    return data;
+  } catch (err) {
+    console.log(`${id} trigger this error: ${err}`);
+    return { id, err };
+  }
+};
+
+export const dayTitle = ({ type, date, topic }) => {
+  const dateObj = new Date(date);
+  const shortDate = `${dateObj.getMonth()}/${dateObj.getDate()}`;
+  return `${type} ${shortDate}: ${topic}`;
+};
+
+function ClassIcon({ className }) {
+  const navigate = useNavigate();
 
   return (
-    <div className="Class">
+    <div
+      className="Class"
+      onClick={() => navigate(`/classdashboard/${className}`)}
+      onKeyPress={() => navigate(`/classdashboard/${className}`)}
+      role="link"
+      tabIndex={0}
+    >
       {className}
     </div>
   );
 }
 
-export default Class;
+export default ClassIcon;

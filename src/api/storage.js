@@ -1,4 +1,9 @@
+const fakeData = require('./temporary.json');
+
 export const initLocalStorage = () => {
+  localStorage.clear();
+  localStorage.setItem('users', JSON.stringify(fakeData.users));
+  localStorage.setItem('classes', JSON.stringify(fakeData.classes));
   if (!localStorage.getItem('users')) {
     localStorage.setItem('users', JSON.stringify([]));
     localStorage.setItem('classes', JSON.stringify([]));
@@ -14,7 +19,7 @@ export const createUser = (name, username, password) => {
   if (findUser(username, users) >= 0) {
     throw Error('user already exists!');
   }
-  users.push({ name, username, password });
+  users.push({ name, username, password, classes: [] });
   localStorage.setItem('users', JSON.stringify(users));
 };
 
@@ -51,14 +56,14 @@ export const deleteUser = username => {
 };
 
 /* Class Section */
-const findById = (id, objList) => objList.findIndex(obj => obj.id === id);
+const findById = (id, objList) => objList.findIndex(obj => obj.id === id.toLowerCase());
 
 export const createClass = (id, { professor, days }) => {
   const classes = JSON.parse(localStorage.getItem('classes'));
   if (findById(id, classes) >= 0) {
     throw Error('Class already exists!');
   }
-  classes.push({ id, professor, days: days || [] });
+  classes.push({ id: id.toLowerCase(), professor, days: days || [] });
   localStorage.setItem('classes', JSON.stringify(classes));
 };
 
@@ -72,6 +77,15 @@ export const removeClass = id => {
   localStorage.setItem('classes', JSON.stringify(classes));
 };
 
+export const readClass = id => {
+  const classes = JSON.parse(localStorage.getItem('classes'));
+  const ind = findById(id, classes);
+  if (ind < 0) {
+    throw Error('Class not found!');
+  }
+  return classes[ind];
+};
+
 /* Class Day Section */
 export const addClassDay = (classId, dayId, { type, date, topic, notes }) => {
   const classes = JSON.parse(localStorage.getItem('classes'));
@@ -80,7 +94,7 @@ export const addClassDay = (classId, dayId, { type, date, topic, notes }) => {
     throw Error('Cannot add day to nonexistent class!');
   }
   const { days, ...classAttr } = classes[classInd];
-  days.push({ id: dayId, type, date, topic, notes: notes || [] });
+  days.push({ id: dayId.toLowerCase(), type, date, topic, notes: notes || [] });
   classes[classInd] = { ...classAttr, days };
   localStorage.setItem('classes', JSON.stringify(classes));
 };
@@ -122,7 +136,14 @@ export const addNote = (
   if (findById(noteId, notes) >= 0) {
     throw Error('Note already exists!');
   }
-  notes.push({ noteId, username, date, body, attachment, likes, comments: comments || [] });
+  notes.push({
+    noteId: noteId.toLowerCase(),
+    username,
+    date,
+    body,
+    attachment,
+    likes,
+    comments: comments || [] });
   days[dayInd] = { ...dayAttr, notes };
   classes[classInd] = { ...classAttr, days };
   localStorage.setItem('classes', JSON.stringify(classes));

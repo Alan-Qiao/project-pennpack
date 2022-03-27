@@ -15,6 +15,10 @@ function BackpackNavbar() {
         className="backpackIcon"
         onClick={() => navigate('/')}
       />
+      <div className="buttonStack">
+        <button type="button" className="textButton" onClick={() => navigate('/joinclass')}>Join A Class</button>
+        <button type="button" className="textButton" onClick={() => navigate('/newclass')}>Create a Class</button>
+      </div>
     </div>
   );
 }

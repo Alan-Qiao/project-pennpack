@@ -1,0 +1,52 @@
+{
+    "users": [
+        {
+            "name": "Alan Qiao",
+            "username": "alanqiao",
+            "password": "123123",
+            "classes": [
+                "cis350"
+            ]
+        },
+        {
+            "name": "Test-User-1",
+            "username": "test_user-1",
+            "password": "test123!",
+            "classes": [
+                "cis350"
+            ]
+        }
+    ],
+    "classes": [
+        {
+            "id": "cis350",
+            "professor": "Eric Fouh",
+            "days": [
+                {
+                    "id": "2022022601",
+                    "type": "Lecture",
+                    "date": "2022-02-26",
+                    "topic": "React Applications",
+                    "notes": [
+                        {
+                            "noteId": "alanqiao2022022701",
+                            "username": "alanqiao",
+                            "date": "2022-02-27",
+                            "body": "Typed Lecture Note with Pictures",
+                            "attachment": "https://httpbin.org/get",
+                            "likes": "3",
+                            "comments": []
+                        }
+                    ]
+                },
+                {
+                    "id": "2022022401",
+                    "type": "Lecture",
+                    "date": "2022-02-24",
+                    "topic": "Testing",
+                    "notes": []
+                }
+            ]
+        }
+    ]
+}

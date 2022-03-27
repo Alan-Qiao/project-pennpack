@@ -1,6 +1,8 @@
 .BackpackNavbar {
     margin-left: 40px;
     margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .backpackIcon {
@@ -11,4 +13,25 @@
     background-repeat: no-repeat;
     cursor: pointer;
     float: left;
+}
+
+.buttonStack {
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.textButton {
+    border: none;
+    background-color: inherit;
+    font: Lato;
+    font-size: 16px;
+    color: #92AA83;
+    text-align: right;
+}
+
+.textButton:hover {
+    text-decoration: underline;
+    cursor: grab;
 }
