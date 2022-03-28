@@ -7,23 +7,27 @@
     /* border: 1px solid rgb(180, 13, 13); */
 }
 
-h5 {
+h5.title {
+    position: relative;
     font-family: 'Lato', sans-serif;
     color: #7EBAC7; 
-    font-size: 82px;
+    font-size: 60px;
     margin-top:10px;
     margin-bottom: 10px;
-    text-align: center;
+    left: 10%;
+    text-align: left;
 }
 
-h6 {
+h6.subtitle {
+    position: relative;
     font-family: 'Lato', sans-serif;
     color: #898888; 
     font-size: 32px;
     /* margin-left:500px; */
     margin-top:10px;
     margin-bottom: 50px;
-    text-align: center;
+    left: 10%;
+    text-align: left;
 }
 
 .left-align {

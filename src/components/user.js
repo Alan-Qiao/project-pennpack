@@ -1,4 +1,5 @@
 import { resetCurrentUser, updateName, updatePassword, updateUsername } from '../redux/currentUserSlice';
+import { setClassList } from '../redux/classListSlice';
 import { createUser, readUser } from '../api/storage';
 
 const validUsername = /^[0-9a-z\-_]+$/i;
@@ -28,6 +29,7 @@ export const loginUser = (dispatch, username, password) => {
     dispatch(updateName(user.name));
     dispatch(updateUsername(user.username));
     dispatch(updatePassword(user.password));
+    dispatch(setClassList(user.classes));
   } catch (e) {
     return e.message;
   }

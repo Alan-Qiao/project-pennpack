@@ -23,6 +23,15 @@ h4 {
   text-align: center;
 }
 
+h5 {
+  font-family: 'Lato', sans-serif;
+  color: #898888; 
+  font-size: 40px;
+  margin-top:10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .left-align {
   position: relative;
   left: -300px;

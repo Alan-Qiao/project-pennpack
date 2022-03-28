@@ -3,7 +3,7 @@ import '../styles/LoginSignup.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import BackpackNavbar from '../components/BackpackNavbar';
-import { loginUser } from '../components/user';
+import { loginUser } from '../components/User';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -16,7 +16,7 @@ function Login() {
     const err = loginUser(dispatch, username, password);
     setError(err); // state is only updated after the function finishes updated and react re-renders
     if (!err) {
-      navigate('/');
+      navigate('/userdashboard');
     }
   };
 
