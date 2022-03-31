@@ -1,8 +1,6 @@
 .BackpackNavbar {
     margin-left: 40px;
     margin-top: 40px;
-    display: flex;
-    justify-content: space-between;
 }
 
 .backpackIcon {
@@ -15,11 +13,21 @@
     float: left;
 }
 
+.envelopeIcon {
+    background-image: url('../images/envelope.png');
+    min-width: 70px;
+    min-height: 70px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    float: left;
+}
+
 .buttonStack {
     margin-right: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    float: right;
 }
 
 .textButton {
@@ -32,6 +40,6 @@
 }
 
 .textButton:hover {
-    text-decoration: underline;
+    font-weight: bold;
     cursor: grab;
 }

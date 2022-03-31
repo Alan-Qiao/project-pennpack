@@ -5,23 +5,25 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
 
-function BackpackNavbar() {
+function BackpackEnvelopeNavbar() {
   const navigate = useNavigate();
 
   return (
-    <>
-      <div className="BackpackNavbar">
-        <div
-          className="backpackIcon"
-          onClick={() => navigate('/')}
-        />
-      </div>
+    <div className="BackpackNavbar">
+      <div
+        className="backpackIcon"
+        onClick={() => navigate('/')}
+      />
+      <div
+        className="envelopeIcon"
+        onClick={() => navigate('/chat')}
+      />
       <div className="buttonStack">
         <button type="button" className="textButton" onClick={() => navigate('/joinclass')}>Join A Class</button>
         <button type="button" className="textButton" onClick={() => navigate('/newclass')}>Create a Class</button>
       </div>
-    </>
+    </div>
   );
 }
 
-export default BackpackNavbar;
+export default BackpackEnvelopeNavbar;

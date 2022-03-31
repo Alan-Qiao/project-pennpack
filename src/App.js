@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import ClassDashboard from './pages/ClassDashboard';
 import AddClassNote from './pages/AddClassNote';
 import UserDashboard from './pages/UserDashboard';
+import Chat from './pages/Chat';
 
 function App() {
   useEffect(() => {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/classDashboard" element={<ClassDashboard />}>
           <Route path=":id" element={<ClassDashboard />} />
         </Route>
+        <Route path="/chat" element={<Chat />} />
         <Route path="/addclassnote" element={<AddClassNote />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
       </Routes>
