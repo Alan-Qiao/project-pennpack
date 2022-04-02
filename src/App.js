@@ -21,11 +21,9 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/classDashboard" element={<ClassDashboard />}>
-          <Route path=":id" element={<ClassDashboard />} />
-        </Route>
+        <Route path="/classdashboard/:id" element={<ClassDashboard />} />
+        <Route path="/classdashboard/:id/addclassnote" element={<AddClassNote />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/addclassnote" element={<AddClassNote />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
       </Routes>
     </BrowserRouter>

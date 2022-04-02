@@ -30,7 +30,7 @@ function ClassDashboard() {
         <button
           className="button1"
           type="button"
-          onClick={() => navigate('/addclassnote')}
+          onClick={() => navigate(`/classDashboard/${id}/addclassnote`)}
         >
           + Add Class Date
         </button>

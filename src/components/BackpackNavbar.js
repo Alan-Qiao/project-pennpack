@@ -3,24 +3,29 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../redux/currentUserSlice';
 import '../styles/Navbar.css';
 
 function BackpackNavbar() {
   const navigate = useNavigate();
+  const user = useSelector(selectCurrentUser);
+
+  const handleRedirect = () => {
+    if (user.name) {
+      navigate('/userdashboard');
+    } else {
+      navigate('./');
+    }
+  };
 
   return (
-    <>
-      <div className="BackpackNavbar">
-        <div
-          className="backpackIcon"
-          onClick={() => navigate('/')}
-        />
-      </div>
-      <div className="buttonStack">
-        <button type="button" className="textButton" onClick={() => navigate('/joinclass')}>Join A Class</button>
-        <button type="button" className="textButton" onClick={() => navigate('/newclass')}>Create a Class</button>
-      </div>
-    </>
+    <div className="BackpackNavbar">
+      <div
+        className="backpackIcon"
+        onClick={handleRedirect}
+      />
+    </div>
   );
 }
 

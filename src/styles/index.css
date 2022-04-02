@@ -65,3 +65,7 @@ h1 {
   height: 1.5vh;
   min-height: 10px;
 }
+
+.warning {
+  color: #FF0000;
+}

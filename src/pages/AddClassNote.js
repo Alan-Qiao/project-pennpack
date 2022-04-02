@@ -1,25 +1,39 @@
 import { React, useState } from 'react';
 import '../styles/AddClassNote.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
+import { addClassDay } from '../api/storage';
 
 function AddClassNote() {
   const navigate = useNavigate();
 
+  const { id: classId } = useParams();
+
+  const [type, setType] = useState('');
+  const [date, setDate] = useState(new Date(Date.now()).toISOString().substring(0, 10));
+  const [topic, setTopic] = useState('');
+  const [incomplete, setIncomplete] = useState(false);
+
+  function handleSubmit() {
+    if (!type || !topic) {
+      setIncomplete(true);
+      return;
+    }
+    console.log('this ran');
+    addClassDay(classId, date.replaceAll('-', ''), { type, date, topic });
+    navigate(`/ClassDashboard/${classId}`);
+  }
+
   const [lectureClicked, setLectureClicked] = useState(0);
   const [recitationClicked, setRecitationClicked] = useState(0);
   const [seminarClicked, setSeminarClicked] = useState(0);
-
-  const bgColors = {
-    lightGreen: '#F1F7EE',
-    darkGreen: '#E0EDC5',
-  };
 
   function clickedLecture() {
     console.log('clicked lecture');
     setLectureClicked(1);
     setRecitationClicked(0);
     setSeminarClicked(0);
+    setType('Lecture');
   }
 
   function clickedRecitation() {
@@ -27,6 +41,7 @@ function AddClassNote() {
     setLectureClicked(0);
     setRecitationClicked(1);
     setSeminarClicked(0);
+    setType('Recitation');
   }
 
   function clickedSeminar() {
@@ -34,6 +49,7 @@ function AddClassNote() {
     setLectureClicked(0);
     setRecitationClicked(0);
     setSeminarClicked(1);
+    setType('Seminar');
   }
 
   return (
@@ -43,25 +59,22 @@ function AddClassNote() {
         <h3>Adding a New Class Day...</h3>
         <div className="left-align-classnote">Type</div>
         <button
-          className="button_1"
+          className={lectureClicked ? 'button_1_checked' : 'button_1'}
           type="button"
-          style={{ backgroundColor: lectureClicked ? bgColors.darkGreen : bgColors.lightGreen }}
           onClick={clickedLecture}
         >
           Lecture
         </button>
         <button
-          className="button_1"
+          className={recitationClicked ? 'button_1_checked' : 'button_1'}
           type="button"
-          style={{ backgroundColor: recitationClicked ? bgColors.darkGreen : bgColors.lightGreen }}
           onClick={clickedRecitation}
         >
           Recitation
         </button>
         <button
-          className="button_1"
+          className={seminarClicked ? 'button_1_checked' : 'button_1'}
           type="button"
-          style={{ backgroundColor: seminarClicked ? bgColors.darkGreen : bgColors.lightGreen }}
           onClick={clickedSeminar}
         >
           Seminar
@@ -69,17 +82,23 @@ function AddClassNote() {
 
         <div className="left-align-classnote">Date</div>
         <input
-          type="text"
+          type="date"
           className="center-rectangle2 enter"
-          placeholder="Enter date..."
+          onChange={e => setDate(e.target.value)}
+          value={date}
         />
         <div className="left-align-classnote">Topic</div>
         <input
           type="text"
           className="center-rectangle2 enter"
           placeholder="Enter the class topic..."
+          onChange={e => setTopic(e.target.value)}
+          value={topic}
         />
-        <button className="button_3" type="button" onClick={() => navigate('/classDashboard')}>
+        { incomplete && <div className="spacer" />}
+        { !incomplete ? <div className="spacer" /> : <p className="warning">All fields need to be completed</p>}
+        <div className="spacer" />
+        <button className="button_3" type="button" onClick={handleSubmit}>
           Continue
         </button>
       </div>
