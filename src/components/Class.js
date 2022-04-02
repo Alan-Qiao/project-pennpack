@@ -14,8 +14,10 @@ export const getClassData = id => {
 };
 
 export const dayTitle = ({ type, date, topic }) => {
-  const dateObj = new Date(date);
-  const shortDate = `${dateObj.getMonth()}/${dateObj.getDate()}`;
+  const datePieces = date.split('-');
+  const month = Number(datePieces[1]);
+  const day = Number(datePieces[2]);
+  const shortDate = `${month}/${day}`;
   return `${type} ${shortDate}: ${topic}`;
 };
 

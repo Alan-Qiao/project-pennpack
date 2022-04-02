@@ -43,6 +43,27 @@ h3 {
   margin-right: 10px;
 }
 
+.button_1:hover {
+  cursor: grab;
+}
+
+.button_1_checked {
+  width: 300px;
+  height: 60px;
+  border: 1px solid #3a5a3d;
+  background-color: #E0EDC5;
+  border: 1px solid #92AA83;
+  padding: 10px;
+  text-align: center;
+  text-decoration: bold;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
 .button_2 {
   width: 900px;
   height: 60px;
@@ -72,10 +93,6 @@ h3 {
   background-color: #E0EDC5;
   border: 1px solid #92AA83;
   border-radius: 10px;
-}
-
-.button_1:hover {
-  cursor: grab;
 }
 
 .text-area {
@@ -117,7 +134,6 @@ h3 {
   line-height: 25px;
   text-align: center;
   border-radius: 10px;
-  margin-top: 50px;
 }
 
 .button_3:hover {
