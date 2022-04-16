@@ -1,5 +1,5 @@
 {
-    "name": "pennpack server",
+    "name": "pennpack-server",
     "version": "1.0.0",
     "description": "RESTful API's in node.js, express and mongodb for user login/sign-up and logout",
     "main": "index.js",
@@ -7,8 +7,8 @@
       "start": "node index.js",
       "test": "jest --coverage --runInBand --detectOpenHandles --forceExit"
     },
-    "author": "Thy Tran <tatran@seas.upenn.edu, Felicity Yick, Amy Shen",
-    "license": "Boba",
+    "author": "Alan Qiao, Amy Shen, Anisha Bhatia, Anthony Bell",
+    "license": "ISC",
     "engines": {
       "node": "16.x"
     },
@@ -23,7 +23,6 @@
       "jsonwebtoken": "^8.5.1",
       "mongoose": "^5.11.16",
       "multer": "^1.4.2",
-      "mysql": "^2.17.1",
       "nodemailer": "^6.5.0",
       "react": "^17.0.1",
       "react-dom": "^17.0.1",
