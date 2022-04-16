@@ -1,8 +1,27 @@
-const User = require('../models/userModel')
 const express = require('express');
-const router = express.Router()
+const User = require('../models/userModel');
 
-// router.get('/', async (req, res) => {
+const router = express.Router();
+
+router.post('/login', async (req, res, next) => {
+  try {
+    const { body: { username, password } } = req;
+    const user = await user.findOne({ username });
+    if (!user) {
+      res.status(404).json({ error: 'user not found'});
+    }
+    user.checkPassword(password, function (err, isRight) {
+      if (isRight) {
+        // generate jwt and send back
+        res.status(200).send(`Logged in ${username}`);
+      } else {
+        res.status(401).json({ error: 'incorrect password' });
+      }
+    })
+  } catch (err) {
+    next(err);
+});
+
 // 	let token = req.cookies.auth;
 // 	const { email, password } = req.query
 //   User.findByToken(token, (err, user) => {
@@ -46,4 +65,4 @@ const router = express.Router()
 //   });
 // })
 
-// module.exports = router
+module.exports = router;
