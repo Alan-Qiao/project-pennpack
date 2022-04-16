@@ -3,7 +3,7 @@ import '../styles/LoginSignup.css';
 //import '../styles/JoinClassCreateClass.css';
 import { useNavigate } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
-import { classAdd } from '../components/class';
+// import { classAdd } from '../components/Class';
 
 function CreateClass() {
   const [error, setError] = useState('');
@@ -13,12 +13,13 @@ function CreateClass() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    const err = classAdd(course, prof);
-    setError(err);
+    // const err = classAdd(course, prof);
+    // setError(err);
 
-    if (!err) {
-      navigate('/classDashboard');
-    }
+    // if (!err) {
+    //   navigate('/classDashboard');
+    // }
+    alert('submitted')
   };
 
   return (
@@ -50,7 +51,7 @@ function CreateClass() {
           type="text"
           className="center-rectangle enter"
           placeholder="Enter Professor..."
-          value={username}
+          value={prof}
           onChange={e => setProf(e.target.value)}
         />
        

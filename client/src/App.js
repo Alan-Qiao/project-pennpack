@@ -8,6 +8,8 @@ import Signup from './pages/Signup';
 import ClassDashboard from './pages/ClassDashboard';
 import AddClassNote from './pages/AddClassNote';
 import UserDashboard from './pages/UserDashboard';
+import JoinClass from './pages/JoinClass';
+import CreateClass from './pages/CreateClass';
 import Chat from './pages/Chat';
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
         <Route path="/classdashboard/:id/addclassnote" element={<AddClassNote />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
+        <Route path="/joinclass" element={<JoinClass />} />
+        <Route path="/createclass" element={<CreateClass />} />
       </Routes>
     </BrowserRouter>
   );
