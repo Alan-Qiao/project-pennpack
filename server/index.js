@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const db = require('./config/config').get(process.env.NODE_ENV);
-// EXAMPLE OF USING ROUTERS BELOW
+const db = require('./config').get(process.env.NODE_ENV);
 // const LoginRouter = require('./routers/comment')
 // const DeactivateRouter = require('./routers/deactivate')
 // const SignupRouter = require('./routers/follow')
@@ -13,10 +12,10 @@ mongoose.Promise = global.Promise;
 mongoose.connect(db.DATABASE, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}, async function (err) {
+}, async err => {
   if (err) {
-    console.log(err)
-  };
+    console.log(err);
+  }
   console.log('Database is connected');
 });
 
@@ -27,11 +26,9 @@ app.use(express.json());
 // app.use('/signup', SignupRouter);
 // app.use('/class', ClassRouter );
 
-
 // listening port
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`App is live at ${PORT}`);
-})
-
+});

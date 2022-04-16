@@ -30,8 +30,8 @@ function BackpackEnvelopeNavbar() {
         onClick={() => navigate('/chat')}
       />
       <div className="buttonStack">
-        <button type="button" className="textButton" onClick={() => navigate('/joinclass')}>Join A Class</button>
-        <button type="button" className="textButton" onClick={() => navigate('/newclass')}>Create a Class</button>
+        <button type="button" className="textButton" onClick={() => navigate('/JoinClass')}>Join A Class</button>
+        <button type="button" className="textButton" onClick={() => navigate('/createclass')}>Create a Class</button>
       </div>
     </div>
   );
