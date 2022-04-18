@@ -1,0 +1,24 @@
+/* @import url('https://fonts.googleapis.com/css?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'); */
+
+.Contact {
+  height: fit-content;
+	display: flex;
+	flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgb(126, 186, 199, .2);
+  border-radius: 10%;
+}
+
+.spacer {
+  padding-top: 10px;
+}
+
+.Contact:hover {
+  background-color: #B0BEA9;
+  cursor: grab;
+  border-radius: 10%;
+}
