@@ -8,7 +8,7 @@ const config = {
     DATABASE: process.env.MONGODB_URI,
   },
   default: {
-    SECRET: 'mysecretkey',
+    SECRET: 'Adayq130hqehuQYAHg0qT69TRG99r5679F97R7f95e5E7RItv80c9E5YPBYVc65eRVOCe9cCW5E6ORFtyc9e5',
     DATABASE: 'mongodb+srv://cis557project:cis557project@cis557project.apfvx.mongodb.net/cis557project?retryWrites=true&w=majority',
   },
 };
