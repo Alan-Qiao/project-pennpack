@@ -11,6 +11,7 @@ import UserDashboard from './pages/UserDashboard';
 import JoinClass from './pages/JoinClass';
 import CreateClass from './pages/CreateClass';
 import Chat from './pages/Chat';
+import Profile from './pages/Profile';
 
 function App() {
   useEffect(() => {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/joinclass" element={<JoinClass />} />
         <Route path="/createclass" element={<CreateClass />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

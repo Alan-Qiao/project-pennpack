@@ -30,5 +30,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'arrow-parens': ['error', 'as-needed'],
     'no-param-reassign': ['error', { props: false }],
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
   },
 };

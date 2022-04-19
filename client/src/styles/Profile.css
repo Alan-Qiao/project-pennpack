@@ -1,0 +1,75 @@
+.Profile {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 15%;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+h3 {
+  font-family: 'Lato', sans-serif;
+  color: #7EBAC7; 
+  font-size: 62px;
+  margin-top:10px;
+  margin-bottom: 10px;
+  margin-right: 100px;
+  text-align: center;
+}
+
+h5 {
+  font-family: 'Lato', sans-serif;
+  color: #B0BEA9; 
+  font-size: 50px;
+  margin-top: 50px;
+  margin-left: 200px;
+  text-align: left;
+}
+
+h6 {
+  font-family: 'Lato', sans-serif;
+  color: rgba(176, 190, 169, 0.5); 
+  font-size: 35px;
+  margin-top: 50px;
+  margin-left: 200px;
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.notesUploaded {
+  text-align: left;
+  margin-left: 200px;
+  color: rgba(133, 133, 133); 
+}
+
+.chatButton {
+  display: flex;
+  flex-direction: row;
+}
+
+.chatButton:hover {
+  cursor: grab;
+}
+
+.envelope {
+  background-image: url('../images/envelope.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  min-width: 70px;
+  min-height: 70px;
+}
+
+.chatWithMe {
+  text-align: center;
+  font-size: 35px;
+  margin-top: 20px;
+  margin-left: 15px;
+  color: #3A405A;
+}
