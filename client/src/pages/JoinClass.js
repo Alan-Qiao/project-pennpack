@@ -1,7 +1,7 @@
 import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/JoinClass.css';
-import BackpackNavbar from '../components/BackpackNavbar';
+import Navbar from '../components/Navbar';
 import ClassGrid from '../components/ClassGrid';
 
 function JoinClass() {
@@ -9,7 +9,7 @@ function JoinClass() {
 
   return (
     <>
-      <BackpackNavbar />
+      <Navbar />
       <div className="JoinClass">
       <div className="left-align">
         Classes On PennPack

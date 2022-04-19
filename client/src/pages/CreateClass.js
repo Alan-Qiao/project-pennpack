@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import '../styles/CreateClass.css';
-import { useNavigate } from 'react-router-dom';
-import BackpackEnvelopeNavbar from '../components/BackpackEnvelopeNavbar';
+// import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 // import { classAdd } from '../components/Class';
 
 function CreateClass() {
@@ -9,7 +9,7 @@ function CreateClass() {
   const [prof, setProf] = useState('');
   const [incomplete, setIncomplete] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   function handleSubmit() {
     if (!course || !prof) {
@@ -19,7 +19,7 @@ function CreateClass() {
 
   return (
     <>
-      <BackpackEnvelopeNavbar />
+      <Navbar />
       <div className="CreateClass">
         <h3>Add a new class!</h3>
         <div className="left-align-course">Course</div>

@@ -1,12 +1,12 @@
 import { React } from 'react';
 import '../styles/UserDashboard.css';
-import BackpackEnvelopeNavbar from '../components/BackpackEnvelopeNavbar';
+import Navbar from '../components/Navbar';
 import ClassGrid from '../components/ClassGrid';
 
 function UserDashboard() {
   return (
     <>
-      <BackpackEnvelopeNavbar />
+      <Navbar />
       <div className="UserDashboard">
         <div className="left-align">
           Your classes
