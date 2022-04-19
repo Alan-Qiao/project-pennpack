@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const db = require('./config').get(process.env.NODE_ENV);
-// const LoginRouter = require('./routers/comment')
+const AccountRouter = require('./routers/accounts');
 // const DeactivateRouter = require('./routers/deactivate')
 // const SignupRouter = require('./routers/follow')
 const app = express();
@@ -21,8 +22,10 @@ mongoose.connect(db.DATABASE, {
 
 app.use(express.json());
 
+app.use(cookieParser());
+
 // Endpoints (JUST EXAMPLES FOR NOW)
-// app.use('/login', LoginRouter);
+ app.use('/login', AccountRouter);
 // app.use('/signup', SignupRouter);
 // app.use('/class', ClassRouter );
 

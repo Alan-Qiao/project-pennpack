@@ -13,6 +13,7 @@ const userSchema = new Schema({
   passwordResetToken: { type: String },
   passwordResetExpires: { type: Date },
   classesEnrolled: { type: [mongoose.Types.ObjectId] },
+  chats: { type: [mongoose.Types.ObjectId] },
 }, { timestamps: true, collection: 'Users' });
 
 // hash password before saving
