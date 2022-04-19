@@ -1,42 +1,23 @@
 import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import './CSS/todo.css'
+import '../styles/JoinClass.css';
 import BackpackNavbar from '../components/BackpackNavbar';
-
+import ClassGrid from '../components/ClassGrid';
 
 function JoinClass() {
-    const navigate = useNavigate();
-  
-    return (
-      <>
-        <BackpackNavbar />
-        <div className="UserDashboard">
-        <div className="left-align">
-          <h1>Classes On PennPack</h1>
-          </div>
+  const navigate = useNavigate();
 
-          {/* //how do i add the classes from class.js? */}
-          <button
-            className="button"
-            type="button"
-            onClick={() => navigate('/class1')}
-          >
-            class1.name
-          </button>
+  return (
+    <>
+      <BackpackNavbar />
+      <div className="JoinClass">
+      <div className="left-align">
+        Classes On PennPack
+      </div>
+      {/* REPLACE ABOVE WITH A MAPPING OF ALL CLASSES FROM DB */}
+      </div>
+    </>
+  );
+}
 
-          <div className="spacer" />
-          <button
-            className="button"
-            type="button"
-            onClick={() => navigate('/class2')}
-          >
-            class2.name
-          </button>
-        </div>
-      </>
-  
-    
-    );
-  }
-  
-  export default JoinClass;
+export default JoinClass;

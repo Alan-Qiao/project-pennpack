@@ -20,13 +20,13 @@ function Chat() {
             <div class="conversation-container">
                 <div class="conversation-content">
                 <Message id={0}
-						 text ={'hello! what is up?'}					
+						 text ={'wow, amazing!'}					
                 />
                 <Message id={1}
 						 text ={'today i woke up and skipped class and ate udon and then went to recitation and then ate some more food at han dynasty then laid in bed for 2 hours'}					
-                />
+                />    
                 <Message id={0}
-						 text ={'wow, amazing!'}					
+						 text ={'hello! what is up?'}					
                 />
                 </div>
                 <div className='input-bar'>

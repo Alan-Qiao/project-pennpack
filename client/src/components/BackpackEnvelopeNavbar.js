@@ -15,7 +15,7 @@ function BackpackEnvelopeNavbar() {
     if (user.name) {
       navigate('/userdashboard');
     } else {
-      navigate('./');
+      navigate('/');
     }
   };
 
