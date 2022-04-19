@@ -1,72 +1,49 @@
 import { React, useState } from 'react';
-import '../styles/LoginSignup.css';
-//import '../styles/JoinClassCreateClass.css';
+import '../styles/CreateClass.css';
 import { useNavigate } from 'react-router-dom';
-import BackpackNavbar from '../components/BackpackNavbar';
+import BackpackEnvelopeNavbar from '../components/BackpackEnvelopeNavbar';
 // import { classAdd } from '../components/Class';
 
 function CreateClass() {
-  const [error, setError] = useState('');
-  const [course, setCourseID] = useState('');
+  const [course, setCourse] = useState('');
   const [prof, setProf] = useState('');
+  const [incomplete, setIncomplete] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    // const err = classAdd(course, prof);
-    // setError(err);
-
-    // if (!err) {
-    //   navigate('/classDashboard');
-    // }
-    alert('submitted')
-  };
+  function handleSubmit() {
+    if (!course || !prof) {
+      setIncomplete(true);
+    }
+  }
 
   return (
     <>
-      <BackpackNavbar />
-      <div className="UserDashboard">
-        <div className="left-align">
-        <h1>Add a New Class!</h1>
-        </div>
-        
-        <div className="left-align">
-          Course ID (i.e. CIS 350)
-        </div>
-
+      <BackpackEnvelopeNavbar />
+      <div className="CreateClass">
+        <h3>Add a new class!</h3>
+        <div className="left-align-course">Course</div>
         <input
           type="text"
-          className="center-rectangle enter"
-          placeholder="Enter course code..."
-          value={course}
-          onChange={e => setCourseID(e.target.value)}
+          className="center-rectangle2 enter"
+          placeholder="Enter the course (i.e. CIS 350) ..."
+          onChange={e => setCourse(e.target.value)}
         />
-
-
-        <div className="spacer" />
-        <div className="left-align">
-          Professor
-        </div>
+        <div className="left-align-course">Topic</div>
         <input
           type="text"
-          className="center-rectangle enter"
-          placeholder="Enter Professor..."
-          value={prof}
+          className="center-rectangle2 enter"
+          placeholder="Enter the class topic..."
           onChange={e => setProf(e.target.value)}
         />
-       
+        { incomplete && <div className="spacer" />}
+        { !incomplete ? <div className="spacer" /> : <p className="warning">All fields need to be completed</p>}
         <div className="spacer" />
-        <div className="spacer" />
-        <div className="spacer" />
-        <button className="button" type="button" onClick={() => handleSubmit()}>
+        <button className="button_3" type="button" onClick={handleSubmit}>
           Continue
         </button>
-        { error && <div className="spacer" />}
-        { error && <p className="warning">{error}</p> }
       </div>
-
     </>
   );
 }
-
 export default CreateClass;

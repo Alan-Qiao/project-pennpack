@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const chatSchema = new Schema({
   userIdA: { type: mongoose.Types.ObjectId },
   userIdB: { type: String },
-  messages: { type: [String] },
+  messages: { type: [mongoose.Types.ObjectId] },
 });
 
 const Chat = mongoose.model('Comment', chatSchema);

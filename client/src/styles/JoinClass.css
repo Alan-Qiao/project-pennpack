@@ -1,0 +1,47 @@
+.JoinClass {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 15%;
+  text-align: center;
+}
+
+.classes-container {
+  display: flex;
+  margin-left: 300px;
+  margin-right: 300px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+h4 {
+  font-family: 'Lato', sans-serif;
+  color: #7EBAC7; 
+  font-size: 60px;
+  margin-top:10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+h5 {
+  font-family: 'Lato', sans-serif;
+  color: #898888; 
+  font-size: 40px;
+  margin-top:10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.left-align {
+  position: relative;
+  left: -300px;
+  margin-bottom: 30px;
+  font-size: 18px;
+  color: #898888;
+  font-family: 'Lato', sans-serif;
+  color: #7EBAC7; 
+  font-size: 60px;
+  margin-top:10px;
+  text-align: center;
+  font-weight: bold;
+}
