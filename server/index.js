@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Endpoints (JUST EXAMPLES FOR NOW)
- app.use('/login', AccountRouter);
+app.use('/', AccountRouter);
 // app.use('/signup', SignupRouter);
 // app.use('/class', ClassRouter );
 

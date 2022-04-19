@@ -17,21 +17,15 @@ const userSchema = new Schema({
 }, { timestamps: true, collection: 'Users' });
 
 // hash password before saving
-userSchema.pre('save', function hashPass(next) {
-  const user = this;
-
-  if (!user.isModified('password')) {
-    next();
-  } else {
-    bcrypt.hash(user.password, 'salt', (err, hash) => {
-      user.password = hash;
-      next();
-    });
+userSchema.pre('save', async function hashPass() {
+  if (this.isModified('password')) {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
   }
 });
 
 // check whether entered password is the same as what is stored in the data base
-userSchema.methods.comparepassword = function unhashPass(password, cb) {
+userSchema.methods.checkPassword = function unhashPass(password, cb) {
   bcrypt.compare(password, this.password, (err, isRight) => {
     if (err) {
       cb(err);

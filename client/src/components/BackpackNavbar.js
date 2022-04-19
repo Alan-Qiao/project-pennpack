@@ -3,16 +3,15 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../redux/currentUserSlice';
+import { isAuthenticated } from '../api/services';
 import '../styles/Navbar.css';
 
 function BackpackNavbar() {
   const navigate = useNavigate();
-  const user = useSelector(selectCurrentUser);
 
-  const handleRedirect = () => {
-    if (user.name) {
+  const handleRedirect = async () => {
+    const auth = await isAuthenticated();
+    if (auth) {
       navigate('/userdashboard');
     } else {
       navigate('/');
@@ -23,7 +22,7 @@ function BackpackNavbar() {
     <div className="Navbar">
       <div
         className="backpack"
-        onClick={handleRedirect}
+        onClick={() => handleRedirect}
       />
     </div>
   );
