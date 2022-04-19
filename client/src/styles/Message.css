@@ -1,0 +1,31 @@
+.Message-right {
+  border-radius: 10px;
+  background: rgba(146,170,131,0.24);
+  padding: 0.5vh min(15px, 1vw) 0.5vh min(15px, 2vw);
+  margin-right: 20px;
+  margin-bottom: 10px;
+  align-self: flex-end;
+  max-width: 500px;
+}
+
+.Message-left {
+  border-radius: 10px;
+  background: rgb(229,229,229);
+  padding: 0.5vh min(15px, 1vw) 0.5vh min(15px, 2vw);
+  margin-right: 20px;
+  margin-bottom: 10px;
+  align-self: flex-start;
+  max-width: 500px;
+}
+
+.Message > .text-right {
+  text-align: right;
+  color: black;
+  font-size: 14px;
+}
+
+.Message > .text-left {
+  text-align: left;
+  color: black;
+  font-size: 14px;
+}

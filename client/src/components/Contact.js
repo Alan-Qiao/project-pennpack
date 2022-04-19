@@ -4,7 +4,7 @@ import '../styles/Contact.css';
 
 // Id is this contact's id
 // setContact set's the current user's contact
-const Contact = ({username}) => {
+const Contact = ({ username, handle }) => {
     // const [profilePicture, setProfilePicture] = useState(imgProfileDefault);
     // const [username, setUserName] = useState('');
 
@@ -12,7 +12,7 @@ const Contact = ({username}) => {
 
         <div className = 'Contact'>
             <div className = 'spacer'></div>
-            {username}
+            {username}{'\t@'}{handle}
         </div>
     )
 }

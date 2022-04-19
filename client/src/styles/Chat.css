@@ -38,186 +38,73 @@
 }
 
 .conversation-container {
+  display: flex;
+  flex-direction: column;
   flex: 3;
   border: 2px solid yellow;
   background-color: aqua;
   margin-top: 50px;
-  overflow-y: scroll;
   border-radius: 10px;
   background-color: rgb(126, 186, 199, 0.1);
   border: 1px solid rgb(126, 186, 199, 0.5);
   padding: 30px;
 }  
 
+.conversation-content {
+  height: 95%;
+  width: auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+  padding: 20px;
+}
 
+.input-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+	height: 5vh;
+}
 
-/* .ChatPage {
-    display: flex;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    min-width: 320px;
-    min-height: 568px;
-    padding: 2vh 3vw 2vh 3vw;
-    overflow: hidden;
-  } */
-/*   
-  .chats-container-title {
-    height:fit-content;
-    width: 100%;
-    min-width: 180px;
-    height: max(7vh, 35px);
-    color: #B0BEA9; 
-    font-size:max(20px, 4.5vh);
-    font-weight: bold;
-    margin-bottom: 1vh 0 1vh 0;
-    text-align: center;  
-  } */
+.input-message {
+  position: relative;
+  text-align:left;
+	padding: 10px;
+  background: #FFFFFF;
+  border: 1px solid #A8A8A8;
+  box-sizing: border-box;
+  border-radius: 10px;
+  height: 4vh;
+  width: 100%;
+	min-height: 30px;
+  min-width: 50px;
+  margin-right: 1vw;
+  padding-left: max(10px, 2vw);
+  color: rgba(167,167,167,1);
+}
 
-  /* .chats-container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 12em;
-    height: 70%;
-    margin-top: 50px;
-    border-radius: 10px;
-    border: 1px solid #B0BEA9;
-    background: #F1F7EE;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-  } */
-  
-  /* .chats {
-    width: 100%;
-    height: 100%;
-    margin-top: 30px;
-  }
-  
-  .conversation-container {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    margin-top: 50px;
-    width: 1000px;
-    height: 77%;
-    margin-left: 30px;
-  }
-  
-  .conversation-content {
-    overflow-y: scroll;
-    border-radius: 10px;
-    background-color: rgb(126, 186, 199, 0.1);
-    border: 1px solid rgb(126, 186, 199, 0.5);
-    padding: 30px;
-    width: -webkit-fill-available;
-  } */
-  
-  .input-bar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-      height: 5vh;
-  }
-  
-  .input-picture {
-    min-height: 20px;
-    min-width: 20px;
-    margin-right: 2vw;
-    /* background-image: url('../images/image-square-purple.png'); */
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .input-picture:hover {
-    border-radius: 50% ;
-    box-shadow: 0 0 0 0.3vh rgba(178,152,220,0.5);
-      transition: 0.3s;
-    cursor: grab;
-  }
-  
-  .input-video {
-    min-height: 20px;
-    min-width: 20px;
-    margin-right: 2vw;
-    /* background: url('../images/video-camera-purple.png'); */
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .input-video:hover {
-    border-radius: 50% ;
-    box-shadow: 0 0 0 0.3vh rgba(178,152,220,0.5);
-      transition: 0.3s;
-    cursor: grab;
-  }
-  
-  .input-audio {
-    min-height: 20px;
-    min-width: 20px;
-    margin-right: 2vw;
-    /* background: url('../images/music-notes-purple.png'); */
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  
-  .spacer{
-    height: 2vh;
-    min-height: 20px;
-  }
-  
-  .input-audio:hover {
-    border-radius: 50% ;
-    box-shadow: 0 0 0 0.3vh rgba(178,152,220,0.5);
-      transition: 0.3s;
-    cursor: grab;
-  }
-  
-  .input-message {
-    position: relative;
-    text-align:left;
-      padding: 10px;
-    background: #FFFFFF;
-    border: 1px solid #A8A8A8;
-    box-sizing: border-box;
-    border-radius: 10px;
-    height: 4vh;
-    width: 100%;
-      min-height: 30px;
-    min-width: 50px;
-    margin-right:2vw;
-    padding-left: max(10px, 2vw);
-    color: rgba(167,167,167,1);
-  }
-  
-  .input-message:focus {
-      outline: none !important;
-      box-shadow: 0 0 0 0.3vh rgba(178,152,220,0.5); 
-      transition: 0.3s;
-  }
-  
-  .input-message::placeholder {
-    color: rgba(167,167,167,1);
-  }
-  
-  .input-send {
-    min-height: 20px;
-    min-width: 20px;
-    margin-left: 1vw;
-    /* background: url('../images/paper-plane-tilt-purple.png'); */
-    background-size: contain;
-    background-repeat: no-repeat;
-    padding-left: max(10px, 1vw);
-  }
-  
-  .input-send:hover {
-    border-radius: 50% ;
-    box-shadow: 0 0 0 0.3vh rgba(178,152,220,0.5);
-      transition: 0.3s;
-    cursor: pointer;
-    cursor: grab;
-  }
+.input-message:focus {
+  outline: none !important;
+	box-shadow: 0 0 0 0.3vh rgba(82, 151, 166, 0.2); 
+	transition: 0.3s;
+}
+
+.input-message::placeholder {
+  color: rgba(167,167,167,1);
+}
+
+.input-send {
+  min-height: 20px;
+  min-width: 20px;
+  background: url('../images/send-paper-plane.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding-left: max(10px, 1vw);
+  margin-left: 1vw;
+}
+
+.input-send:hover {
+  cursor: grab;
+}
