@@ -2,6 +2,7 @@ import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Homepage.css';
 import BackpackNavbar from '../components/BackpackNavbar';
+// import Navbar from '../components/Navbar';
 
 function Homepage() {
   const navigate = useNavigate();

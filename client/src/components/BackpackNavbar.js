@@ -15,14 +15,14 @@ function BackpackNavbar() {
     if (user.name) {
       navigate('/userdashboard');
     } else {
-      navigate('./');
+      navigate('/');
     }
   };
 
   return (
-    <div className="BackpackNavbar">
+    <div className="Navbar">
       <div
-        className="backpackIcon"
+        className="backpack"
         onClick={handleRedirect}
       />
     </div>

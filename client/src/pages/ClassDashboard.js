@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import '../styles/ClassDashboard.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import BackpackNavbar from '../components/BackpackNavbar';
+import Navbar from '../components/Navbar';
 import { getClassData, dayTitle } from '../components/Class';
 
 function ClassDashboard() {
@@ -23,7 +23,7 @@ function ClassDashboard() {
 
   return (
     <>
-      <BackpackNavbar />
+      <Navbar />
       <div className="ClassDashboard">
         <h5 className="title">{id.toUpperCase()}</h5>
         <h6 className="subtitle">{prof}</h6>

@@ -1,17 +1,17 @@
 import { React } from 'react';
 import '../styles/Chat.css';
-import Contact from '../components/Contact'
-import Message from '../components/Message'
-import BackpackEnvelopeNavbar from '../components/BackpackEnvelopeNavbar';
+import Contact from '../components/Contact';
+import Message from '../components/Message';
+import Navbar from '../components/Navbar';
 
 function Chat() {
     const username = 'Amy';
-    const handle = 'amyshennn'
+    const handle = 'amyshennn';
 
   return (
 
     <div className='Chat-Page'>
-        <BackpackEnvelopeNavbar />
+        <Navbar />
         <div class="main-content">
             <div class="chats-container">
                 <div className="chats-container-title">Chats</div>
