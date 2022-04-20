@@ -1,6 +1,5 @@
-import { resetCurrentUser, updateName, updatePassword, updateUsername } from '../redux/currentUserSlice';
+import { createUser, authenticateUser, disconnectUser } from '../api/services';
 import { setClassList } from '../redux/classListSlice';
-import { createUser, readUser } from '../api/storage';
 
 const validUsername = /^[0-9a-z\-_]+$/i;
 const validName = /^([0-9a-z.'-] ?)+$/i;
@@ -22,33 +21,17 @@ export const signupUser = (name, username, password) => {
   return '';
 };
 
-export const loginUser = (dispatch, username, password) => {
-  // const dispatch = useDispatch();
+export const loginUser = async (dispatch, username, password) => {
   try {
-    const user = readUser(username, password);
-    dispatch(updateName(user.name));
-    dispatch(updateUsername(user.username));
-    dispatch(updatePassword(user.password));
-    dispatch(setClassList(user.classes));
+    const { user } = await authenticateUser(username, password);
+    console.log(user.classesEnrolled);
+    dispatch(setClassList(['CIS 350']));
   } catch (e) {
     return e.message;
   }
   return '';
 };
 
-export const logoutUser = dispatch => {
-  dispatch(resetCurrentUser());
-};
-
-export const updateUser = (dispatch, name, password) => {
-  if (name && !validateString(name, validName)) {
-    return 'Invalid Name, please try again';
-  }
-  if (name) {
-    dispatch(updateName(name));
-  }
-  if (password) {
-    dispatch(updatePassword(password));
-  }
-  return '';
+export const logoutUser = async () => {
+  await disconnectUser();
 };
