@@ -12,8 +12,8 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    const err = loginUser(dispatch, username, password);
+  const handleSubmit = async () => {
+    const err = await loginUser(dispatch, username, password);
     setError(err); // state is only updated after the function finishes updated and react re-renders
     if (!err) {
       navigate('/userdashboard');

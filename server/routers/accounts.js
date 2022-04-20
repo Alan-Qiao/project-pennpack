@@ -8,19 +8,19 @@ const router = express.Router();
 
 router.post('/login', async (req, res, next) => {
   try {
-    if (req.userId) {
-      res.status(200).send('Already logged in');
-      return;
-    }
-    const { body: { _id, username, password } } = req;
+    const { body: { username, password } } = req;
     const user = await User.findOne({ username });
     if (!user) {
       res.status(404).json({ error: 'user not found' });
       return;
     }
+    if (req.cookies.token) {
+      res.status(200).json({ message: 'Already logged in', user });
+      return;
+    }
     user.checkPassword(password, (err, isRight) => {
       if (isRight) {
-        const token = jwt.sign({ userId: _id }, SECRET);
+        const token = jwt.sign({ userId: user._id }, SECRET);
         res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
           .status(200)
           .json({ message: `Logged in ${username}`, user });
@@ -36,7 +36,7 @@ router.post('/login', async (req, res, next) => {
 router.post('/logout', authenticator, async (req, res, next) => {
   try {
     if (req.userId) req.userId = null;
-    res.clearCookie('token').status(200).send('Logged out.');
+    res.clearCookie('token').status(200).json({ message: 'Logged out.' });
   } catch (err) {
     next(err);
   }
@@ -59,7 +59,22 @@ router.post('/signup', async (req, res, next) => {
       return;
     }
     await User.create({ name, username, password });
-    res.status(201).send('User created');
+    res.status(201).json({ message: 'User created' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/authenticate', async (req, res, next) => {
+  const { token } = req.cookies;
+  if (!token) {
+    res.status(401).json({ message: 'unauthenticated' });
+    return;
+  }
+  try {
+    const { userId } = jwt.verify(token, SECRET);
+    req.userId = userId;
+    res.status(200).json({ message: 'authenticated' });
   } catch (err) {
     next(err);
   }
