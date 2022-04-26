@@ -56,32 +56,30 @@ router.post('/create', async (req, res, next) => {
   }
 });
 
-// router.post('/join', async (req, res, next) => {
-//   try {
-//     // the actual object id of the class
-//     const { body: { className, professor } } = req;
-//     const clas = await Class.findOne({ className })
-//     const user = User.findById(req.userId)
-//     if (!clas) {
-//       res.status(404).json({ error: 'class not found' });
-//       return;
-//     }
-//       if(user.classesEnrolled.findIndex(Class) !== -1){
-//         //add class to user's list ofclasses
-//         user.classesEnrolled.push(Class)
-//         res.status(201).json({ message: 'user joined class' });
+router.post('/join', async (req, res, next) => {
+  try {
+    const { body: { className, userId } } = req;
+    const classObj = await Class.findOne({ className });
+    const user = await User.findById(userId);
 
-//       } else {
-//         res.status(409).json({ message: 'user Already in class' });
-//         return;
+    if (!classObj) {
+      res.status(404).json({ error: 'class not found' });
+      return;
+    }
+      if(user.classesEnrolled.findIndex(classObj) !== -1){
+        user.classesEnrolled.push(classObj)
+        res.status(201).json({ message: 'user joined class' });
 
-//       }
+      } else {
+        res.status(409).json({ message: 'user Already in class' });
+        return;
+      }
       
-//   } catch (err) {
-//     next(err);
-//   }
+  } catch (err) {
+    next(err);
+  }
 
-// });
+});
 
 
 module.exports = router;

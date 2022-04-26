@@ -17,10 +17,11 @@ function CreateClass() {
     }
 
     const err = createNewClass(course, prof);
+    // TODO: call stuff for join (if you create a class you automatically join the class)
     setError(err);
     if (!err) {
       console.log('created class');
-      // navigate to the class's page
+      // TODO: navigate to the class's page
     }
   }
 
