@@ -1,5 +1,7 @@
 import { serverPath } from '../consts';
 
+
+/****** ACCOUNTS ******/
 export const createUser = async (name, username, password) => {
   const resp = await fetch(`${serverPath}/signup`, {
     method: 'POST',
@@ -8,6 +10,8 @@ export const createUser = async (name, username, password) => {
     },
     body: JSON.stringify({ name, username, password }),
   });
+  console.log('In createUser');
+  console.log(resp);
   if (resp.status === 409) {
     throw new Error('User already exists!');
   }

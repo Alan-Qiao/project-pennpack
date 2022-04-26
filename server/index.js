@@ -7,6 +7,7 @@ const ClassRouter = require('./routers/classes');
 // const DeactivateRouter = require('./routers/deactivate')
 // const SignupRouter = require('./routers/follow')
 const app = express();
+const cors = require('cors');
 
 // Database connection
 mongoose.Promise = global.Promise;
@@ -25,6 +26,8 @@ app.use(express.json());
 
 app.use(cookieParser());
 
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+
 // Endpoints (JUST EXAMPLES FOR NOW)
 app.use('/', AccountRouter);
 // app.use('/signup', SignupRouter);
@@ -34,10 +37,5 @@ app.use('/class', ClassRouter );
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  try {
-    db = await lib.connect(url);
-    console.log(`App is live at ${PORT}`);
-  } catch (err) {
-    throw new Error("Could not connect to db");
-  }
+  console.log(`App is live at ${PORT}`);
 });
