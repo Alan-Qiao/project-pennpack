@@ -4,15 +4,16 @@
   position: absolute;
   top: 15%;
   text-align: center;
-  /* border: 1px solid rgb(180, 13, 13); */
+  margin-top: 50px;
 }
 
-h3 {
+.add-class-title {
   font-family: 'Lato', sans-serif;
   color: #7EBAC7; 
   font-size: 82px;
-  margin-top:10px;
-  margin-bottom: 10px;
+  font-weight: bold;
+  /* margin-top:10px;
+  margin-bottom: 10px; */
   text-align: center;
 }
 

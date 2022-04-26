@@ -21,7 +21,9 @@ function CreateClass() {
     <>
       <Navbar />
       <div className="CreateClass">
-        <h3>Add a new class!</h3>
+        <div className="add-class-title">
+          Add a new class!
+        </div>
         <div className="left-align-course">Course</div>
         <input
           type="text"

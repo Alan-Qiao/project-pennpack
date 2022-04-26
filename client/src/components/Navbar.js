@@ -22,7 +22,7 @@ function Navbar() {
   };
 
   const clickedProfile = () => {
-    console.log('NAVIGATE TO PROFILE PAGE');
+    navigate('/profile');
   };
 
 
