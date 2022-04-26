@@ -48,6 +48,7 @@ router.post('/signup', async (req, res, next) => {
     res.status(400).json({ error: 'Missing Required Information' });
     return;
   }
+  
   if (!name.match(/^([0-9a-z.'-] ?)+$/i) || !username.match(/^[0-9a-z\-_]+$/i)) {
     res.status(400).json({ error: 'Invalid Username or Name' });
     return;
