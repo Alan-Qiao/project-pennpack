@@ -23,15 +23,12 @@ mongoose.connect(db.DATABASE, {
 });
 
 app.use(express.json());
-
 app.use(cookieParser());
-
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
-// Endpoints (JUST EXAMPLES FOR NOW)
+// Endpoints
+app.use('/class', ClassRouter);
 app.use('/', AccountRouter);
-// app.use('/signup', SignupRouter);
-app.use('/class', ClassRouter );
 
 // listening port
 const PORT = process.env.PORT || 5000;

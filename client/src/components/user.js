@@ -13,6 +13,7 @@ export const signupUser = (name, username, password) => {
   if (!validateString(username, validUsername)) {
     return 'Invalid Username, use letters, numbers, underscore, & hyphen';
   }
+
   try {
     createUser(name, username, password);
   } catch (e) {

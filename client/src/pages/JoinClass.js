@@ -1,11 +1,24 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/JoinClass.css';
 import Navbar from '../components/Navbar';
 import ClassGrid from '../components/ClassGrid';
+import { getAllClasses } from '../components/classes';
 
 function JoinClass() {
   const navigate = useNavigate();
+  const [classes, setClasses] = useState([]);
+
+  const fetchClasses = async () => {
+    console.log('in fetchClasses in JoinClass');
+		const allClasses = getAllClasses();
+    console.log(allClasses);
+	}
+
+  useEffect(() => {
+		fetchClasses()
+	}, []);
+
 
   return (
     <>

@@ -1,5 +1,38 @@
 import { serverPath } from '../consts';
 
+/****** CLASSES ******/
+export const createClass = async (className, professor) => {
+  const resp = await fetch(`${serverPath}/class/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ className, professor }),
+  })
+
+  if (resp.status === 409) {
+    throw new Error('Class already exists!');
+  }
+  if (!resp.ok) {
+    throw new Error(resp.json().error);
+  }
+}
+
+export const getClasses = async () => {
+  console.log('in getClasses in services');
+  const resp = await fetch(`${serverPath}/class/getclasses`, {
+    method: 'GET'
+  })
+
+  if (resp.status === 400) {
+    throw new Error('No classes');
+  }
+  if (!resp.ok) {
+    throw new Error(resp.json().error);
+  }
+}
+
 
 /****** ACCOUNTS ******/
 export const createUser = async (name, username, password) => {
@@ -10,8 +43,7 @@ export const createUser = async (name, username, password) => {
     },
     body: JSON.stringify({ name, username, password }),
   });
-  console.log('In createUser');
-  console.log(resp);
+
   if (resp.status === 409) {
     throw new Error('User already exists!');
   }
