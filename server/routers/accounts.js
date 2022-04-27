@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { SECRET } = require('../config').get(process.env.NODE_ENV);
-const authenticator = require('../middlewares/authenticator');
+const authenticate = require('../middlewares/authenticator');
 const User = require('../models/userModel');
 
 const router = express.Router();
@@ -33,7 +33,7 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.post('/logout', authenticator, async (req, res, next) => {
+router.post('/logout', authenticate, async (req, res, next) => {
   try {
     if (req.userId) req.userId = null;
     res.clearCookie('token').status(200).json({ message: 'Logged out.' });
@@ -48,7 +48,7 @@ router.post('/signup', async (req, res, next) => {
     res.status(400).json({ error: 'Missing Required Information' });
     return;
   }
-  
+
   if (!name.match(/^([0-9a-z.'-] ?)+$/i) || !username.match(/^[0-9a-z\-_]+$/i)) {
     res.status(400).json({ error: 'Invalid Username or Name' });
     return;
