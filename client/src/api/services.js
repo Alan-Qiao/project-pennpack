@@ -33,6 +33,25 @@ export const getClasses = async () => {
   }
 }
 
+export const joinClass = async (userId,classId) => {
+  //console.log('in getClasses in services');
+  const resp = await fetch(`${serverPath}/class/joinclass`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ userId, classId })
+  })
+
+  if (resp.status === 404) {
+    throw new Error('class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(resp.json().error);
+  }
+}
+
 
 /****** ACCOUNTS ******/
 export const createUser = async (name, username, password) => {
