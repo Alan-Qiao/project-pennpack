@@ -1,5 +1,7 @@
 const express = require('express');
 const Class = require('../models/classModel');
+const User = require('../models/userModel');
+const authenticate = require('../middlewares/authenticator');
 
 const router = express.Router();
 
@@ -51,29 +53,32 @@ router.post('/create', async (req, res, next) => {
   }
 });
 
-router.post('/join', async (req, res, next) => {
+router.post('/join', authenticate, async (req, res, next) => {
   try {
-    const { body: { className, userId } } = req;
-    const classObj = await Class.findOne({ className });
-    const user = await User.findById(userId);
+    const { body: { classId } } = req;
+    const classObj = await Class.findOne({ _id: classId });
+    const userId = req.userId;
+    console.log(classObj);
+    console.log(userId);
 
     if (!classObj) {
       res.status(404).json({ error: 'class not found' });
       return;
     }
-      if(user.classesEnrolled.findIndex(classObj) !== -1){
-        user.classesEnrolled.push(classObj)
-        res.status(201).json({ message: 'user joined class' });
 
-      } else {
-        res.status(409).json({ message: 'user Already in class' });
-        return;
-      }
+    if (user.classesEnrolled.findIndex(classId) !== -1){
+      user.classesEnrolled.push(classId)
+      user.save();
+      res.status(201).json({ message: 'user joined class' });
+
+    } else {
+      res.status(409).json({ message: 'user Already in class' });
+      return;
+    }
       
   } catch (err) {
     next(err);
   }
-
 });
 
 

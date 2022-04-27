@@ -11,7 +11,7 @@ function UserDashboard() {
         <div className="left-align">
           Your classes
         </div>
-        <ClassGrid />
+        {/* <ClassGrid /> */}
       </div>
     </>
   );

@@ -36,15 +36,14 @@ export const getClasses = async () => {
   return await resp.json();
 }
 
-export const joinClass = async (userId, classId) => {
-  //console.log('in getClasses in services');
-  const resp = await fetch(`${serverPath}/class/joinclass`, {
+export const joinClass = async (classId) => {
+  const resp = await fetch(`${serverPath}/class/join`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify({ userId, classId })
+    body: JSON.stringify({ classId })
   })
 
   if (resp.status === 404) {

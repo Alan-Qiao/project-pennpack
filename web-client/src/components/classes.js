@@ -11,7 +11,6 @@ export const getAllClasses = async () => {
   }
 }
 
-
 export const createNewClass = async (className, professor) => {
   try {
     const res = await createClass(className, professor);
@@ -21,9 +20,9 @@ export const createNewClass = async (className, professor) => {
   }
 }
 
-export const joinNewClass = async (userId, classId) => {
+export const joinNewClass = async (classId) => {
   try {
-    await joinClass(userId, classId);
+    await joinClass(classId);
   } catch (e) {
     return e.message;
   }

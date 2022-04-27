@@ -20,11 +20,9 @@ function CreateClass() {
 
     // The newly created class's id in the db
     const newlyCreatedClassId = res.newlyCreatedClass;
-    console.log(newlyCreatedClassId);
 
     // Add the class to the user's list of classes
-    // TODO: NEED THE CURRENT USER
-    // res = await joinNewClass(, newlyCreatedClassId);
+    await joinNewClass(newlyCreatedClassId);
 
     // TODO: navigate to the class's page
     
