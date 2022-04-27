@@ -11,7 +11,7 @@ function JoinClass() {
 
   const fetchClasses = async () => {
     console.log('in fetchClasses in JoinClass');
-		const allClasses = getAllClasses();
+		const allClasses = await getAllClasses();
     console.log(allClasses);
 	}
 
