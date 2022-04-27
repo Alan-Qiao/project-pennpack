@@ -6,8 +6,9 @@ export const createClass = async (className, professor) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ className, professor }),
   })
 
@@ -23,7 +24,8 @@ export const createClass = async (className, professor) => {
 export const getClasses = async () => {
   console.log('in getClasses in services');
   const resp = await fetch(`${serverPath}/class/getclasses`, {
-    method: 'GET'
+    method: 'GET',
+    credentials: 'include'
   })
 
   if (resp.status === 400) {
@@ -41,8 +43,9 @@ export const joinClass = async (classId) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ classId })
   })
 
@@ -62,6 +65,7 @@ export const createUser = async (name, username, password) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ name, username, password }),
   });
 
@@ -79,6 +83,7 @@ export const authenticateUser = async (username, password) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({ username, password }),
   });
   if (resp.status === 404) {
@@ -99,6 +104,7 @@ export const disconnectUser = async () => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify(),
   });
 }
@@ -106,6 +112,7 @@ export const disconnectUser = async () => {
 export const isAuthenticated = async () => {
   const resp = await fetch('/authenticate', {
     method: 'GET',
+    credentials: 'include'
   })
   return resp.ok;
 }

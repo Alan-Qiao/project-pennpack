@@ -8,6 +8,8 @@ const ClassRouter = require('./routers/classes');
 // const SignupRouter = require('./routers/follow')
 const app = express();
 const cors = require('cors');
+const bodyParser = require('body-parser')
+const multer = require('multer')
 
 // Database connection
 mongoose.Promise = global.Promise;

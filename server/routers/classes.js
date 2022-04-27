@@ -1,10 +1,7 @@
 const express = require('express');
 const Class = require('../models/classModel');
 const User = require('../models/userModel');
-<<<<<<< HEAD
 const authenticate = require('../middlewares/authenticator');
-=======
->>>>>>> 72815cb5f38d1f50f0489e297f3028eb0ac9998e
 
 const router = express.Router();
 
@@ -62,6 +59,7 @@ router.post('/join', authenticate, async (req, res, next) => {
     const classObj = await Class.findOne({ _id: classId });
     const userId = req.userId;
     console.log(classObj);
+    console.log('USER ID IN /JOIN');
     console.log(userId);
 
     if (!classObj) {

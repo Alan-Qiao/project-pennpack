@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pennpack",
+  "private_key_id": "0b50c7e190f4ddd06c3132f9b24f6fce4489ab5d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDMxpUyhyl+EQv1\n9eXWw193OlTO62tUFaRIAqEefsIN3yeEOWHzlU2rZIpDYLQLpMtMR1RXP9/AF2Nl\nq0Img/oPcpxGo2/LjSz/E9odWLoYIRVhplxljodRNzMrxn+otczvffCcR6UMtG9y\nd9yMDHD/yTRfHnIyXtj9NxC00l1yKDfTLW9BGlY0j6PtYdGGeUgkeUsTwv12IDQI\nHu+JryFdJWEedoS3/8zzRAxBIpo4SCxZHXU2M4tz0UnzhvpYpd+RoMCIcsFC1lwE\nFrsuOasDqKSj6sKdOKW/ms/BT+vgZbLIil9e651Qj65fC+WNxhRZR6F1Re35Gv9H\n17XGJUfNAgMBAAECggEAKUCWHNw6wSFJAg878pRgPoIbRKYLdKB5fGI/OAf8KtQ6\nPzpaH7qDr5PtAJ7SFohnxiGWfY8qEaYEiZ5DEMREk2kYz2gsZNq3ZlmG9qOBtcuw\nZYAgm/rnCrbukZKG9CNPui1qU+lg+Bq/WtWHshTtjLHpYYIeKkSOPRCjRnIcjhrs\nnTJSnMg4BWHIscSY6N1AjMxD6N4zsLx79BIOaYiHWdeDLDerD63oE9l8Egc0Q3l9\nvgwG0CUTuUC2/QyywgOcj2K68FHa7VuwWYHGXPM5OpA5CcuYUv3Xwc7neoZEwccR\ncMXuQd33iKW79V6zKZGtu77mU8YqtKYepV5iqzwxZwKBgQDzMMxJ7WPunpuaCT24\nCB1ltkvr+YQzwZfXG++COFtYR3sKZaXg3igHSWIwatzVp1P6GOOzcfjdl6qWsaJr\nUEO5DLcNd9DYWo/6BJnxuR17shwifi9M+HHFCUwuDDlrowWwme5+kg75Chds9fFb\nJrF0dF1QWi/JLPga/+71AeKRAwKBgQDXj8uNuN/zvJUcst/Xp5lQhIS1/1bPsq/s\n1gqYdZQa8XJvs6uDEKF0ezVsMoG3hdacu1bB/HaPD9PSUMLzDaZ/7YIP2K+TPKs3\nxZrnDWZKfQrLk/ad71k9ikTLlQB8zoix3GgHKHn+4j73BI1ob3XSdynvU7dEfo8p\nSAjcz/Si7wKBgFSY7xfwesjxZ9Onz06LlB5j0flerTyL5dQwpZq5HB2TkBvHzHJz\nFZ2jS4LoSbYRJUdlDSDJTvdW4ULWvFd0bnqbD7qhqYb5yggBPcQ2zyjOhrcBCldO\nPdV7LIMAQaFN7pbGlY52JLtBZXDEBZfd1/FY4XUoSmNDP3O1AF0+sKAdAoGAXGs4\nOGDlE5jszUsbkVg38T9/ro/05kOUDZSPImJ2xz5xc9ayWBUPQ+N3OhZFayukobno\nLm9RXXDJvkgF7TMTCZIIy0Z5sES4m8bK7PjfvFvz/uhHOdtehXX8nNQbS2c5UBhR\nOZBvDYpuuHVpMzdman/QqN1Zm7IvKuHJevJlzl0CgYAEO+CsUx8ETOCicaFy3Dr0\ndv08+GraHbNQkB5l/2Zzvr50H4SpmdZmcpLQR+/lVMykWm/tOP2e/bl6XK24IvHz\nqtglucPtbFYS4ovNAjVwNHz3gK0/O/iN8mqyYnfBcuVgM1Uq+DA3aVMuLsCKO808\ntlNZWQzNJpkb6Rhvq5nofQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "amyshen@pennpack.iam.gserviceaccount.com",
+  "client_id": "111062484223119610813",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/amyshen%40pennpack.iam.gserviceaccount.com"
+}
