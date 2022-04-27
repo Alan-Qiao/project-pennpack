@@ -37,4 +37,5 @@ function ClassIcon({ className }) {
   );
 }
 
+
 export default ClassIcon;

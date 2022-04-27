@@ -12,8 +12,8 @@ function JoinClass() {
   const fetchClasses = async () => {
     console.log('in fetchClasses in JoinClass');
 		const allClasses = await getAllClasses();
-    console.log(allClasses);
-	}
+    setClasses(allClasses);
+  }
 
   useEffect(() => {
 		fetchClasses()
@@ -27,10 +27,12 @@ function JoinClass() {
       <div className="left-align">
         Classes On PennPack
       </div>
+      <ClassGrid classes={classes}/>
       {/* REPLACE ABOVE WITH A MAPPING OF ALL CLASSES FROM DB */}
       </div>
     </>
   );
+  
 }
 
 export default JoinClass;

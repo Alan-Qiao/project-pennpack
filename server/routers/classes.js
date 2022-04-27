@@ -4,7 +4,7 @@ const Class = require('../models/classModel');
 const router = express.Router();
 
 
-router.get('/getclasses'), async (req, res) => {
+router.get('/getclasses', async (req, res) => {
   console.log('in router /class/getclasses');
   try {
     const classes = await Class.find();
@@ -21,7 +21,7 @@ router.get('/getclasses'), async (req, res) => {
   } catch (e) {
     console.log(e);
   }
-}
+})
 
 router.post('/create', async (req, res, next) => {
   try {
@@ -32,8 +32,6 @@ router.post('/create', async (req, res, next) => {
       console.log('missing required information')
       return;
     }
-
-    try {
       // Checking if this class already exists
       const existingClass = await Class.findOne({ className });
       if (existingClass) {
@@ -48,11 +46,6 @@ router.post('/create', async (req, res, next) => {
         newlyCreatedClass: newlyCreatedClass._id,
         message: 'Class is created' 
       });
-     
-    } catch (err) {
-      next(err);
-    }
-    
   } catch (err) {
     next(err);
   }

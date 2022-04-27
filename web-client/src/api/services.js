@@ -32,6 +32,8 @@ export const getClasses = async () => {
   if (!resp.ok) {
     throw new Error(resp.json().error);
   }
+
+  return await resp.json();
 }
 
 export const joinClass = async (userId, classId) => {

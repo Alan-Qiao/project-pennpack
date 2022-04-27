@@ -1,16 +1,13 @@
 import { React } from 'react';
-import { useSelector } from 'react-redux';
 import '../styles/UserDashboard.css';
 import Class from './Class';
-import { selectClassList } from '../redux/classListSlice';
 
-function ClassGrid() {
-  const userClassList = useSelector(selectClassList);
+function ClassGrid({ classes }) {
 
-  if (userClassList.length > 0) {
+  if (classes.length > 0) {
     return (
         <div className="classes-container">
-          { userClassList.map(id => <Class key={id} className={id} />)}
+          { classes.map(c => <Class key={c._id} className={c.className} />)}
         </div>
     );
   }
@@ -23,11 +20,3 @@ function ClassGrid() {
 }
 
 export default ClassGrid;
-
-/*
-  <Class className="CIS 350" />
-  <Class className="CIS 471" />
-  <Class className="CIS 401" />
-  <Class className="CRIM 240" />
-  <Class className="MATH 312" />
-*/
