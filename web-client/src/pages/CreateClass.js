@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import '../styles/CreateClass.css';
 import Navbar from '../components/Navbar';
-import { createNewClass } from '../components/classes';
+import { createNewClass, joinNewClass } from '../components/classes';
 
 function CreateClass() {
   const [course, setCourse] = useState('');
@@ -10,19 +10,24 @@ function CreateClass() {
   const [error, setError] = useState('');
 
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!course || !prof) {
       setIncomplete(true);
       return;
     }
 
-    const err = createNewClass(course, prof);
-    // TODO: call stuff for join (if you create a class you automatically join the class)
-    setError(err);
-    if (!err) {
-      console.log('created class');
-      // TODO: navigate to the class's page
-    }
+    let res = await createNewClass(course, prof);
+
+    // The newly created class's id in the db
+    const newlyCreatedClassId = res.newlyCreatedClass;
+    console.log(newlyCreatedClassId);
+
+    // Add the class to the user's list of classes
+    // TODO: NEED THE CURRENT USER
+    // res = await joinNewClass(, newlyCreatedClassId);
+
+    // TODO: navigate to the class's page
+    
   }
 
   return (

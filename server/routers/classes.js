@@ -41,9 +41,11 @@ router.post('/create', async (req, res, next) => {
         return;
       }
 
-      await Class.create({ className, professor });
+      let newlyCreatedClass = await Class.create({ className, professor });
+      console.log(newlyCreatedClass);
       res.status(201).json({ 
         className: className,
+        newlyCreatedClass: newlyCreatedClass._id,
         message: 'Class is created' 
       });
      

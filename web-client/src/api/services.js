@@ -17,6 +17,7 @@ export const createClass = async (className, professor) => {
   if (!resp.ok) {
     throw new Error(resp.json().error);
   }
+  return await resp.json();
 }
 
 export const getClasses = async () => {
@@ -33,7 +34,7 @@ export const getClasses = async () => {
   }
 }
 
-export const joinClass = async (userId,classId) => {
+export const joinClass = async (userId, classId) => {
   //console.log('in getClasses in services');
   const resp = await fetch(`${serverPath}/class/joinclass`, {
     method: 'POST',
