@@ -85,7 +85,7 @@ export const authenticateUser = async (username, password) => {
   if (resp.status === 404) {
     throw new Error('User does not exist!');
   }
-  if (resp.status === 409) {
+  if (resp.status === 401) {
     throw new Error('Incorrect Password');
   }
   if (!resp.ok) {
