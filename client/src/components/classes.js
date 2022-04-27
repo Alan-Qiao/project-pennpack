@@ -1,4 +1,4 @@
-import { createClass, getClasses } from '../api/services';
+import { createClass, getClasses,joinClass } from '../api/services';
 
 export const getAllClasses = () => {
   console.log('in getAllClasses in classes');
@@ -15,6 +15,15 @@ export const getAllClasses = () => {
 export const createNewClass = (className, professor) => {
   try {
     createClass(className, professor);
+  } catch (e) {
+    return e.message;
+  }
+  return '';
+}
+
+export const joinNewClass = (userId, classId) => {
+  try {
+    joinClass(userId, classId);
   } catch (e) {
     return e.message;
   }
