@@ -1,31 +1,39 @@
 import { React, useState } from 'react';
 import '../styles/CreateClass.css';
 import Navbar from '../components/Navbar';
-import { createNewClass, joinNewClass } from '../components/classes';
+import { createNewClass, joinNewClass } from '../components/Class';
+import { useNavigate } from 'react-router-dom';
 
 function CreateClass() {
   const [course, setCourse] = useState('');
   const [prof, setProf] = useState('');
-  const [incomplete, setIncomplete] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate()
 
 
   async function handleSubmit() {
     if (!course || !prof) {
-      setIncomplete(true);
+      setError('All fields need to be completed');
       return;
     }
 
-    let res = await createNewClass(course, prof);
+    const res = await createNewClass(course.replaceAll(/\s/,''), prof);
+
+    if (res.err) {
+      alert(`Could not create class`);
+    }
 
     // The newly created class's id in the db
     const newlyCreatedClassId = res.newlyCreatedClass;
 
     // Add the class to the user's list of classes
-    await joinNewClass(newlyCreatedClassId);
+    const resp = await joinNewClass(newlyCreatedClassId);
+    if (resp.err) {
+      alert(`Could not join the class created`);
+    }
 
     // TODO: navigate to the class's page
-    
+    navigate(`/classdashboard/${newlyCreatedClassId}`)
   }
 
   return (
@@ -54,8 +62,7 @@ function CreateClass() {
         <button className="button_3" type="button" onClick={handleSubmit}>
           Continue
         </button>
-        { incomplete && <div className="spacer" />}
-        { !incomplete ? <div className="spacer" /> : <p className="warning">All fields need to be completed</p>}
+        { error && <div className="spacer" />}
         { error ? <div className="spacer" /> : <p className="warning">{error}</p>}
       </div>
     </>

@@ -2,12 +2,12 @@ import { React } from 'react';
 import '../styles/UserDashboard.css';
 import Class from './Class';
 
-function ClassGrid({ classes }) {
+function ClassGrid({ classes, mode }) {
 
   if (classes.length > 0) {
     return (
         <div className="classes-container">
-          { classes.map(c => <Class key={c._id} className={c.className} />)}
+          { classes.map(c => <Class key={c._id} classId={c._id} className={c.className} mode={mode} />)}
         </div>
     );
   }

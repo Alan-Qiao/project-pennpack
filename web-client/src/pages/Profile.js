@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Profile.css';
 import Navbar from '../components/Navbar';
 import ClassGrid from '../components/ClassGrid';
+import { disconnectUser } from '../api/services';
 
 function Profile() {
   const navigate = useNavigate();
@@ -13,6 +14,11 @@ function Profile() {
   const [incomplete, setIncomplete] = useState(false);
 
   // const navigate = useNavigate();
+
+  function logout() {
+    disconnectUser();
+    navigate('/');
+  }
 
   function handleSubmit() {
     if (!course || !prof) {
@@ -48,6 +54,9 @@ function Profile() {
         <div className="notesUploaded">
           Notes uploaded: 4
         </div>
+        <button className="button" type="button" onClick={() => logout()}>
+          Logout
+        </button>
       </div>
     </>
   );
