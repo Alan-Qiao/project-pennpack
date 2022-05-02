@@ -51,7 +51,7 @@ function ClassDashboardMobile() {
   );
 }
 
-export default ClassDashboard;
+export default ClassDashboardMobile;
 
 const styles = StyleSheet.create({
   titleText: {
