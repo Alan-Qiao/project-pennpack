@@ -19,6 +19,12 @@ function Profile() {
     navigate('/');
   }
 
+  function handleSubmit() {
+    if (!course || !prof) {
+      setIncomplete(true);
+    }
+  }
+
   const clickedChatWithMe = () => {
     // TODO: ADD NEW CHAT
     navigate('/chat');

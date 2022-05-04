@@ -21,7 +21,8 @@ router.post('/login', async (req, res, next) => {
     user.checkPassword(password, (err, isRight) => {
       if (isRight) {
         const token = jwt.sign({ userId: user._id }, SECRET);
-        res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
+        console.log(process.env.NODE_ENV);
+        res.cookie('token', token, { secure: true, httpOnly: true, sameSite: 'none' })
           .status(200)
           .json({ message: `Logged in ${username}`, user });
         return;
