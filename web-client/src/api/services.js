@@ -6,7 +6,7 @@ export const createClass = async (className, professor) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
     },
     credentials: 'include',
     body: JSON.stringify({ className, professor }),
@@ -63,7 +63,7 @@ export const joinClass = async (classId) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
     },
     credentials: 'include',
     body: JSON.stringify({ classId })

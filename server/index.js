@@ -9,6 +9,8 @@ const ClassRouter = require('./routers/classes');
 // const SignupRouter = require('./routers/follow')
 const app = express();
 
+const multer = require('multer')
+
 // Database connection
 mongoose.Promise = global.Promise;
 

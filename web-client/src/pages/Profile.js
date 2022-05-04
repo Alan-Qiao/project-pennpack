@@ -13,7 +13,6 @@ function Profile() {
   const [prof, setProf] = useState('');
   const [incomplete, setIncomplete] = useState(false);
 
-  // const navigate = useNavigate();
 
   function logout() {
     disconnectUser();

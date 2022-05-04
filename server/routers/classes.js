@@ -56,7 +56,6 @@ router.post('/join', authenticate, async (req, res, next) => {
     const { body: { classId } } = req;
     const classObj = await Class.findOne({ _id: classId });
     const user = await User.findById(req.userId);
-    // console.log(classObj);
 
     if (!classObj) {
       res.status(404).json({ error: 'class not found' });
