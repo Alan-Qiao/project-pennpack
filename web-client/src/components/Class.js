@@ -4,20 +4,16 @@ import '../styles/Class.css';
 import { createClass, getClasses, getAllUserClasses, joinClass, readClass, readClassById } from '../api/services';
 
 export const getUserClasses = async() => {
-  console.log('in getUserClasses in classes');
   try {
     const { userClasses } = await getAllUserClasses();
-    console.log(userClasses);
     return userClasses;
   } catch (e) {
     return e.message;
   }
 }
 export const getAllClasses = async () => {
-  console.log('in getAllClasses in classes');
   try {
     const { classes } = await getClasses();
-    console.log(classes);
     return classes;
   } catch (e) {
     return e.message;

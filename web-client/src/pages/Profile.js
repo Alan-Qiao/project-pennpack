@@ -5,28 +5,31 @@ import Navbar from '../components/Navbar';
 import ClassGrid from '../components/ClassGrid';
 import { disconnectUser } from '../api/services';
 import { getClassDataById, getUserClasses } from '../components/Class';
+import { getUserInfo } from '../components/user';
 
 function Profile() {
   const navigate = useNavigate();
+  const [user, setUser] = useState('');
+  const [userHandle, setUserHandle] = useState('');
   const [userClasses, setUserClasses] = useState([]);
-  const user = 'Amy';
-  const handle = 'amyshennn';
+  
 
   const fetchUserClasses = async () => {
-    console.log('in fetchUserClasses in UserDashboard');
 		const allClasses = await getUserClasses();
     if (allClasses.err) {
       alert(`An error occured: ${allClasses.err}`)
     }
-    console.log('allClasses in fetchUserClasses is');
-    console.log(allClasses);
 
-    // Need to get each individual class (need id, classname)
     for (let i = 0; i < allClasses.length; i++) {
       const currClass = await getClassDataById(allClasses[i])
       setUserClasses(oldArray => [...oldArray, currClass]);
     }
-    
+  }
+
+  const fetchUserInfo = async () => {
+    const { name, username } = await getUserInfo();
+    setUser(name);
+    setUserHandle(username);
   }
 
   function logout() {
@@ -40,6 +43,7 @@ function Profile() {
   }
 
   useEffect(() => {
+    fetchUserInfo();
 		fetchUserClasses()
 	}, []);
 
@@ -49,7 +53,7 @@ function Profile() {
       <Navbar />
       <div className="Profile">
         <div className="header">
-          <h3>{user}{'@'}{handle}</h3>
+          <h3>{user}{', @'}{userHandle}</h3>
           <div
             className="chatButton"
             onClick={clickedChatWithMe}

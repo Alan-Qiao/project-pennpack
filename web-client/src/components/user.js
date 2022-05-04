@@ -1,10 +1,19 @@
-import { createUser, authenticateUser, disconnectUser } from '../api/services';
+import { createUser, authenticateUser, disconnectUser, getUser } from '../api/services';
 import { setClassList } from '../redux/classListSlice';
 
 const validUsername = /^[0-9a-z\-_]+$/i;
 const validName = /^([0-9a-z.'-] ?)+$/i;
 
 const validateString = (str, pattern) => Boolean(str.match(pattern));
+
+export const getUserInfo = async () => {
+  try {
+    const { user } = await getUser();
+    return user;
+  } catch (e) {
+    return e.message;
+  }
+}
 
 export const signupUser = (name, username, password) => {
   if (!validateString(name, validName)) {
