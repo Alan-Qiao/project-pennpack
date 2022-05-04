@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../styles/Contact.css';
 
 
 // Id is this contact's id
 // setContact set's the current user's contact
-const Contact = ({ username, handle }) => {
+const Contact = ({ username, name }) => {
     // const [profilePicture, setProfilePicture] = useState(imgProfileDefault);
     // const [username, setUserName] = useState('');
 
@@ -12,7 +12,7 @@ const Contact = ({ username, handle }) => {
 
         <div className = 'Contact'>
             <div className = 'spacer'></div>
-            {username}{'\t@'}{handle}
+            {name}{'\t@'}{username}
         </div>
     )
 }

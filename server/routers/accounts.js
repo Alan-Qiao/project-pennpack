@@ -29,7 +29,6 @@ router.get('/getuser', authenticate, async (req, res, next) => {
       res.status(404).json({ error: 'user not found' });
       return;
     }
-    console.log(user)
     res.status(200).json({
       user,
       message: 'Retrieved user information',

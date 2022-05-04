@@ -10,7 +10,9 @@ import {
 } from '../components/Class';
 import {
   getUserInfoByUsername,
+  getUserInfo,
 } from '../components/user';
+import { createChat } from '../components/Message';
 
 function Profile() {
   const navigate = useNavigate();
@@ -43,8 +45,18 @@ function Profile() {
     navigate('/');
   }
 
-  const clickedChatWithMe = () => {
-    // TODO: ADD NEW CHAT
+  async function clickedChatWithMe() {
+    // Check if the user is on their own profile
+    const signedInUser = await getUserInfo();
+    const signedInUsername = signedInUser.username
+    
+    // If the user is not on their own profile
+    if (username !== signedInUsername) {
+      const { _id } = await getUserInfoByUsername(username);
+
+      // Create a new chat if possible
+      await createChat(_id);
+    }
     navigate('/chat');
   }
 

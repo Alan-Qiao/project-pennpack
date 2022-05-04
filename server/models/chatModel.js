@@ -8,6 +8,6 @@ const chatSchema = new Schema({
   messages: { type: [mongoose.Types.ObjectId] },
 });
 
-const Chat = mongoose.model('Comment', chatSchema);
+const Chat = mongoose.model('Chat', chatSchema);
 
 module.exports = Chat;

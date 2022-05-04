@@ -1,7 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Class.css';
-import { createClass, getClasses, getAllUserClasses, getAllUserClassesByUsername, joinClass, readClass, readClassById } from '../api/services';
+import {
+  createClass,
+  getClasses,
+  getAllUserClasses,
+  getAllUserClassesByUsername,
+  joinClass,
+  readClass,
+  readClassById
+} from '../api/services';
 
 export const getUserClasses = async() => {
   try {

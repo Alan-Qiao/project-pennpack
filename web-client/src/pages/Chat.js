@@ -1,12 +1,24 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import '../styles/Chat.css';
 import Contact from '../components/Contact';
 import Message from '../components/Message';
 import Navbar from '../components/Navbar';
+import {
+    getChats,
+} from '../components/Message';
 
 function Chat() {
-    const username = 'Amy';
-    const handle = 'amyshennn';
+    const [chats, setChats] = useState([]);
+
+    async function fetchUserChats() {
+        setChats([]);
+		const userChats = await getChats();
+        setChats(userChats.userChats)
+	}
+
+    useEffect(() => {
+		fetchUserChats();
+	}, ([]));
 
   return (
 
@@ -15,7 +27,13 @@ function Chat() {
         <div class="main-content">
             <div class="chats-container">
                 <div className="chats-container-title">Chats</div>
-                <Contact username={username} handle={handle}></Contact>
+                    {chats.map(c => (
+                        <Contact key = {c}
+                            id = {c.id}
+                            username = {c.username}
+                            name = {c.name}
+                        />))
+                    }
             </div>
             <div class="conversation-container">
                 <div class="conversation-content">

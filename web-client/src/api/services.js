@@ -1,5 +1,34 @@
 import { serverPath } from '../consts';
 
+/****** MESSAGES ******/
+export const getUserChats = async () => {
+  console.log('in getUserChats in services');
+
+  const resp = await fetch(`${serverPath}/chat/getchats`, {
+    method: 'GET',
+    credentials: 'include',
+  })
+  const body = resp.json();
+  return body;
+}
+
+
+export const createNewChat = async (id) => {
+  console.log('in createNewChat in services');
+
+  const resp = await fetch(`${serverPath}/chat/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ userBId: id }),
+  })
+  const body = resp.json();
+  return body;
+}
+
 /****** CLASSES ******/
 export const getAllUserClasses = async () => {
   const resp = await fetch(`${serverPath}/class/getuserclasses`, {
