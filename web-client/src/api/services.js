@@ -1,6 +1,27 @@
 import { serverPath } from '../consts';
 
 /****** CLASSES ******/
+
+export const getAllUserClasses = async () => {
+  console.log('in getAllUserClasses in services');
+  const resp = await fetch(`${serverPath}/class/getuserclasses`, {
+    method: 'GET',
+    credentials: 'include',
+  })
+  const body = await resp.json();
+
+  if (resp.status === 400) {
+    throw new Error('No classes');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+
+  console.log('body in getAllUserClasses is');
+  console.log(body);
+  return body;
+}
+
 export const createClass = async (className, professor) => {
   const resp = await fetch(`${serverPath}/class/create`, {
     method: 'POST',
@@ -38,6 +59,22 @@ export const getClasses = async () => {
   }
 
   return body;
+}
+
+export const readClassById = async (classId) => {
+  const resp = await fetch(`/class/readbyid/${classId}`, {
+    method: 'GET',
+    credentials: 'include'
+  });
+  const body = await resp.json();
+
+  if (resp.status === 404) {
+    throw new Error('Class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body.class
 }
 
 export const readClass = async (name) => {

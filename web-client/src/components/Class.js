@@ -1,8 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Class.css';
-import { createClass, getClasses, joinClass, readClass } from '../api/services';
+import { createClass, getClasses, getAllUserClasses, joinClass, readClass, readClassById } from '../api/services';
 
+export const getUserClasses = async() => {
+  console.log('in getUserClasses in classes');
+  try {
+    const { userClasses } = await getAllUserClasses();
+    console.log(userClasses);
+    return userClasses;
+  } catch (e) {
+    return e.message;
+  }
+}
 export const getAllClasses = async () => {
   console.log('in getAllClasses in classes');
   try {
@@ -31,6 +41,16 @@ export const joinNewClass = async (classId) => {
     return e.message;
   }
 }
+
+export const getClassDataById = async (id) => {
+  try {
+    const data = await readClassById(id);
+    return data;
+  } catch (err) {
+    console.log(`${id} trigger this error: ${err.message}`);
+    return { id, err: err.message };
+  }
+};
 
 export const getClassData = async (name) => {
   try {

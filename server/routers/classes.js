@@ -5,6 +5,26 @@ const authenticate = require('../middlewares/authenticator');
 
 const router = express.Router();
 
+router.get('/getuserclasses', authenticate, async (req, res, next) => {
+  console.log('in router /class/getuserclasses');
+  try {
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      res.status(404).json({ error: 'user not found' });
+      return;
+    }
+    const userClasses = user.classesEnrolled;
+    res.status(200).json({
+      userClasses,
+      message: 'Retrieved all of users classes',
+    });
+
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/getclasses', async (req, res, next) => {
   console.log('in router /class/getclasses');
   try {
@@ -79,6 +99,21 @@ router.get('/read/:className', authenticate, async (req, res, next) => {
   try {
     const { params: { className } } = req;
     const result = await Class.findOne({ className });
+
+    if (!result) {
+      res.status(404).json({ error: 'class not found' });
+    } else {
+      res.status(200).json({ message: 'Read Class Data', class: result });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/readbyid/:classId', authenticate, async (req, res, next) => {
+  try {
+    const { params: { classId } } = req;
+    const result = await Class.findOne({ _id: classId });
 
     if (!result) {
       res.status(404).json({ error: 'class not found' });
