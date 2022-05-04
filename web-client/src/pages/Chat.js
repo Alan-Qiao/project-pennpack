@@ -30,13 +30,32 @@ function Chat() {
                 />
                 </div>
                 <div className='input-bar'>
-                        <input className="input-message" 
-                                id = "input-message" 
-                                type="text" 
-                                placeholder="Type something"
-                        >
-						</input>
-                        <div className="input-send"></div>
+                    <label htmlFor = 'upload-picture' className = 'input-picture' />
+                    <input id = 'upload-picture'
+                        type = 'file' 
+                        style={{ display: 'none' }} 
+                        accept = 'image/*'>
+                    </input>
+                    <label htmlFor = 'upload-video' className = 'input-video' />
+                    <input id = 'upload-video'
+                        type = 'file' 
+                        style={{ display: 'none' }} 
+                        accept = 'video/*'>
+                    </input>
+                    <label htmlFor = 'upload-audio' className = 'input-audio' />
+                    <input id = 'upload-audio'
+                        type = 'file'
+                        style={{ display: 'none' }}
+                        accept = 'audio/*'>
+                    </input>
+
+                    <input className="input-message" 
+                            id = "input-message" 
+                            type="text" 
+                            placeholder="Type something"
+                    >
+                    </input>
+                    <div className="input-send"/>
                     </div>
                     
             </div>
