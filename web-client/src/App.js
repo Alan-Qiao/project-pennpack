@@ -30,7 +30,7 @@ function App() {
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/joinclass" element={<JoinClass />} />
         <Route path="/createclass" element={<CreateClass />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:username" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

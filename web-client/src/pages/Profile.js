@@ -1,28 +1,46 @@
-import { React, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { React, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/Profile.css';
 import Navbar from '../components/Navbar';
 import ClassGrid from '../components/ClassGrid';
 import { disconnectUser } from '../api/services';
+import {
+  getClassDataById,
+  getUserClassesByUsername
+} from '../components/Class';
+import {
+  getUserInfoByUsername,
+} from '../components/user';
 
 function Profile() {
   const navigate = useNavigate();
-  const user = 'Amy';
-  const handle = 'amyshennn';
-  const [course, setCourse] = useState('');
-  const [prof, setProf] = useState('');
-  const [incomplete, setIncomplete] = useState(false);
+  const { username } = useParams();
 
+  const [user, setUser] = useState('');
+  const [userClasses, setUserClasses] = useState([]);
+  
+
+  const fetchUserClasses = async () => {
+    setUserClasses([]);
+		const allClasses = await getUserClassesByUsername(username);
+    if (allClasses.err) {
+      alert(`An error occured: ${allClasses.err}`)
+    }
+
+    for (let i = 0; i < allClasses.length; i++) {
+      const currClass = await getClassDataById(allClasses[i])
+      setUserClasses(oldArray => [...oldArray, currClass]);
+    }
+  }
+
+  const fetchUserInfo = async () => {
+    const { name } = await getUserInfoByUsername(username);
+    setUser(name);
+  }
 
   function logout() {
     disconnectUser();
     navigate('/');
-  }
-
-  function handleSubmit() {
-    if (!course || !prof) {
-      setIncomplete(true);
-    }
   }
 
   const clickedChatWithMe = () => {
@@ -30,12 +48,18 @@ function Profile() {
     navigate('/chat');
   }
 
+  useEffect(() => {
+    fetchUserInfo();
+		fetchUserClasses()
+	}, [username]);
+
+
   return (
     <>
       <Navbar />
       <div className="Profile">
         <div className="header">
-          <h3>{user}{'@'}{handle}</h3>
+          <h3>{user}{', @'}{username}</h3>
           <div
             className="chatButton"
             onClick={clickedChatWithMe}
@@ -48,12 +72,15 @@ function Profile() {
         </div>
         <h5>Analytics</h5>
         <h6>Enrolled classes</h6>
-        {/* ENROLLED CLASSES HERE*/}
+        <ClassGrid classes={userClasses}/>
         <h6>Contributions</h6>
         <div className="notesUploaded">
           Notes uploaded: 4
         </div>
-        <button className="button" type="button" onClick={() => logout()}>
+        <button className="button" 
+                style={{marginBottom: 50}}
+                type="button" 
+                onClick={() => logout()}>
           Logout
         </button>
       </div>

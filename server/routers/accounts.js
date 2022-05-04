@@ -6,6 +6,39 @@ const User = require('../models/userModel');
 
 const router = express.Router();
 
+router.get('/getuser/:username', authenticate, async (req, res, next) => {
+  try {
+    const { params: { username } } = req;
+    const result = await User.findOne({ username });
+
+    if (!result) {
+      res.status(404).json({ error: 'User not found' });
+    } else {
+      res.status(200).json({ message: 'Read User', user: result });
+    }
+  } catch (err) {
+    next(err);
+  }
+  
+});
+
+router.get('/getuser', authenticate, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      res.status(404).json({ error: 'user not found' });
+      return;
+    }
+    console.log(user)
+    res.status(200).json({
+      user,
+      message: 'Retrieved user information',
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post('/login', async (req, res, next) => {
   try {
     const { body: { username, password } } = req;

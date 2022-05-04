@@ -1,6 +1,40 @@
 import { serverPath } from '../consts';
 
 /****** CLASSES ******/
+export const getAllUserClasses = async () => {
+  const resp = await fetch(`${serverPath}/class/getuserclasses`, {
+    method: 'GET',
+    credentials: 'include',
+  })
+  const body = await resp.json();
+
+  if (resp.status === 400) {
+    throw new Error('No classes');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+
+  return body;
+}
+
+export const getAllUserClassesByUsername = async (username) => {
+  const resp = await fetch(`${serverPath}/class/getuserclasses/${username}`, {
+    method: 'GET',
+    credentials: 'include',
+  })
+  const body = await resp.json();
+
+  if (resp.status === 400) {
+    throw new Error('No classes');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+
+  return body;
+}
+
 export const createClass = async (className, professor) => {
   const resp = await fetch(`${serverPath}/class/create`, {
     method: 'POST',
@@ -23,7 +57,6 @@ export const createClass = async (className, professor) => {
 }
 
 export const getClasses = async () => {
-  console.log('in getClasses in services');
   const resp = await fetch(`${serverPath}/class/getclasses`, {
     method: 'GET',
     credentials: 'include',
@@ -38,6 +71,22 @@ export const getClasses = async () => {
   }
 
   return body;
+}
+
+export const readClassById = async (classId) => {
+  const resp = await fetch(`/class/readbyid/${classId}`, {
+    method: 'GET',
+    credentials: 'include'
+  });
+  const body = await resp.json();
+
+  if (resp.status === 404) {
+    throw new Error('Class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body.class
 }
 
 export const readClass = async (name) => {
@@ -83,6 +132,38 @@ export const joinClass = async (classId) => {
 
 
 /****** ACCOUNTS ******/
+export const getUserByUsername = async (name) => {
+  const resp = await fetch(`/getuser/${name}`, {
+    method: 'GET',
+    credentials: 'include'
+  });
+  const body = await resp.json();
+
+  if (resp.status === 404) {
+    throw new Error('User not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body
+}
+
+export const getUser = async () => {
+  const resp = await fetch(`/getuser`, {
+    method: 'GET',
+    credentials: 'include'
+  });
+  const body = await resp.json();
+
+  if (resp.status === 404) {
+    throw new Error('User not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body
+}
+
 export const createUser = async (name, username, password) => {
   const resp = await fetch(`${serverPath}/signup`, {
     method: 'POST',

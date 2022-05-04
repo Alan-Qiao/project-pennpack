@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
+import {
+  getUserInfoByUsername,
+  getUserInfo
+} from './user';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -8,9 +12,16 @@ function Navbar() {
   const [searchInput, setSearchInput] = useState('');
   const [error, setError] = useState(false);
 
-  const submitSearch = () => {
-    // TODO: Check if searchInput was found in database, if not, setError(true)
-    console.log(searchInput);
+  async function submitSearch() {
+    const userInfo = await getUserInfoByUsername(searchInput);
+
+    if (userInfo === 'User not found') {
+      setError(true);
+    } else {
+      const username = userInfo.username;
+      navigate(`/profile/${username}`)
+    }
+
   };
 
   const clickedBackpack = () => {
@@ -21,8 +32,10 @@ function Navbar() {
     navigate('/chat');
   };
 
-  const clickedProfile = () => {
-    navigate('/profile');
+  async function clickedProfile() {
+    const { username } = await getUserInfo();
+    console.log(username);
+    navigate(`/profile/${username}`);
   };
 
 

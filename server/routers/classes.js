@@ -5,8 +5,52 @@ const authenticate = require('../middlewares/authenticator');
 
 const router = express.Router();
 
+router.get('/getuserclasses', authenticate, async (req, res, next) => {
+  try {
+    console.log('in /getuserclasses');
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      res.status(404).json({ error: 'user not found' });
+      return;
+    }
+    let userClasses = user.classesEnrolled;
+    res.status(200).json({
+      userClasses,
+      message: 'Retrieved all of users classes',
+    });
+
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/getuserclasses/:username', async (req, res, next) => {
+  try {
+    const { params: { username } } = req;
+    console.log(username);
+    const user = await User.find({username});
+    console.log(user);
+
+    if (!user) {
+      res.status(404).json({ error: 'user not found' });
+      return;
+    }
+    let userClasses = user[0].classesEnrolled;
+    if (typeof userClasses === 'undefined') {
+      userClasses = [];
+    }
+    res.status(200).json({
+      userClasses,
+      message: 'Retrieved all of users classes',
+    });
+
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/getclasses', async (req, res, next) => {
-  console.log('in router /class/getclasses');
   try {
     const classes = await Class.find();
     // console.log(classes);
@@ -79,6 +123,21 @@ router.get('/read/:className', authenticate, async (req, res, next) => {
   try {
     const { params: { className } } = req;
     const result = await Class.findOne({ className });
+
+    if (!result) {
+      res.status(404).json({ error: 'class not found' });
+    } else {
+      res.status(200).json({ message: 'Read Class Data', class: result });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/readbyid/:classId', authenticate, async (req, res, next) => {
+  try {
+    const { params: { classId } } = req;
+    const result = await Class.findOne({ _id: classId });
 
     if (!result) {
       res.status(404).json({ error: 'class not found' });

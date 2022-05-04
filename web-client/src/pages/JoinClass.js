@@ -29,7 +29,6 @@ function JoinClass() {
         Classes On PennPack
       </div>
       <ClassGrid classes={classes} mode="join"/>
-      {/* REPLACE ABOVE WITH A MAPPING OF ALL CLASSES FROM DB */}
       </div>
     </>
   );
