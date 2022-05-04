@@ -17,6 +17,7 @@ function CreateClass() {
       return;
     }
 
+    console.log(course)
     const res = await createNewClass(course.replaceAll(/\s/,''), prof);
 
     if (res.err) {

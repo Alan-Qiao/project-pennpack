@@ -1,21 +1,28 @@
 import { React, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/Profile.css';
 import Navbar from '../components/Navbar';
 import ClassGrid from '../components/ClassGrid';
 import { disconnectUser } from '../api/services';
-import { getClassDataById, getUserClasses } from '../components/Class';
-import { getUserInfo } from '../components/user';
+import {
+  getClassDataById,
+  getUserClassesByUsername
+} from '../components/Class';
+import {
+  getUserInfoByUsername,
+} from '../components/user';
 
 function Profile() {
   const navigate = useNavigate();
+  const { username } = useParams();
+
   const [user, setUser] = useState('');
-  const [userHandle, setUserHandle] = useState('');
   const [userClasses, setUserClasses] = useState([]);
   
 
   const fetchUserClasses = async () => {
-		const allClasses = await getUserClasses();
+    setUserClasses([]);
+		const allClasses = await getUserClassesByUsername(username);
     if (allClasses.err) {
       alert(`An error occured: ${allClasses.err}`)
     }
@@ -27,9 +34,8 @@ function Profile() {
   }
 
   const fetchUserInfo = async () => {
-    const { name, username } = await getUserInfo();
+    const { name } = await getUserInfoByUsername(username);
     setUser(name);
-    setUserHandle(username);
   }
 
   function logout() {
@@ -45,7 +51,7 @@ function Profile() {
   useEffect(() => {
     fetchUserInfo();
 		fetchUserClasses()
-	}, []);
+	}, [username]);
 
 
   return (
@@ -53,7 +59,7 @@ function Profile() {
       <Navbar />
       <div className="Profile">
         <div className="header">
-          <h3>{user}{', @'}{userHandle}</h3>
+          <h3>{user}{', @'}{username}</h3>
           <div
             className="chatButton"
             onClick={clickedChatWithMe}

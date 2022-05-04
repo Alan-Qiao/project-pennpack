@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Class.css';
-import { createClass, getClasses, getAllUserClasses, joinClass, readClass, readClassById } from '../api/services';
+import { createClass, getClasses, getAllUserClasses, getAllUserClassesByUsername, joinClass, readClass, readClassById } from '../api/services';
 
 export const getUserClasses = async() => {
   try {
@@ -11,6 +11,16 @@ export const getUserClasses = async() => {
     return e.message;
   }
 }
+
+export const getUserClassesByUsername = async(username) => {
+  try {
+    const { userClasses } = await getAllUserClassesByUsername(username);
+    return userClasses;
+  } catch (e) {
+    return e.message;
+  }
+}
+
 export const getAllClasses = async () => {
   try {
     const { classes } = await getClasses();

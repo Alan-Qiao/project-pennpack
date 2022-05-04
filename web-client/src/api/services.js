@@ -1,9 +1,25 @@
 import { serverPath } from '../consts';
 
 /****** CLASSES ******/
-
 export const getAllUserClasses = async () => {
   const resp = await fetch(`${serverPath}/class/getuserclasses`, {
+    method: 'GET',
+    credentials: 'include',
+  })
+  const body = await resp.json();
+
+  if (resp.status === 400) {
+    throw new Error('No classes');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+
+  return body;
+}
+
+export const getAllUserClassesByUsername = async (username) => {
+  const resp = await fetch(`${serverPath}/class/getuserclasses/${username}`, {
     method: 'GET',
     credentials: 'include',
   })
@@ -116,6 +132,22 @@ export const joinClass = async (classId) => {
 
 
 /****** ACCOUNTS ******/
+export const getUserByUsername = async (name) => {
+  const resp = await fetch(`/getuser/${name}`, {
+    method: 'GET',
+    credentials: 'include'
+  });
+  const body = await resp.json();
+
+  if (resp.status === 404) {
+    throw new Error('User not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body
+}
+
 export const getUser = async () => {
   const resp = await fetch(`/getuser`, {
     method: 'GET',
@@ -124,7 +156,7 @@ export const getUser = async () => {
   const body = await resp.json();
 
   if (resp.status === 404) {
-    throw new Error('Class not found');
+    throw new Error('User not found');
   }
   if (!resp.ok) {
     throw new Error(body.error);
