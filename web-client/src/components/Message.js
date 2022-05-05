@@ -5,13 +5,25 @@ import {
     createNewChat,
     getUserChats,
     getMessagesByChatId,
-    sendNewMessage,
+    sendNewTextMessage,
+    sendNewImageMessage,
 } from '../api/services'
 
-export const sendMessage = async (message) => {
+export const sendImageMessage = async (message) => {
     try {
-        console.log('in sendMessage in Message')
-        const messages = await sendNewMessage(message);
+        console.log('in sendImageMessage in Message')
+        console.log(message);
+        const messages = await sendNewImageMessage(message);
+        return messages;
+    } catch (e) {
+        return e.message;
+    }
+}
+
+export const sendTextMessage = async (message) => {
+    try {
+        console.log('in sendTextMessage in Message')
+        const messages = await sendNewTextMessage(message);
         return messages;
     } catch (e) {
         return e.message;

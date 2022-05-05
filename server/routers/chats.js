@@ -3,13 +3,49 @@ const Chat = require('../models/chatModel');
 const User = require('../models/userModel');
 const Message = require('../models/messageModel');
 const authenticate = require('../middlewares/authenticator');
+const { uploadImage, generateNewName } = require('../helpers/uploadImage')
+
+const {format} = require('util')
+const gc = require('../config/mediaConfig')
+const bucket = gc.bucket('pennpack')
+const Multer = require('multer');
 
 const router = express.Router();
 
-router.post('/send', authenticate, async (req, res, next) => {
+// Multer is required to process file uploads and make them available via
+// req.files.
+const multer = Multer({
+  storage: Multer.memoryStorage(),
+  limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
+});
+
+
+router.post('/sendimage', async (req, res, next) => {
+  console.log('in /chat/sendimage')
+  const { body: { data } } = req;
+  const file = req.file;
+
+
+  // console.log(file);
+  // console.log(JSON.parse(message));
+  console.log(data);
+  console.log(file)
+
+  if (file) {
+    console.log('file actually exists');
+  }
+
+  // uploadImageafljannf
+
+
+});
+
+router.post('/sendtext', authenticate, async (req, res, next) => {
   try {
-    console.log('in /chat/send')
-    const { body: { message} } = req;
+    console.log('in /chat/sendtext')
+    const { body: { message } } = req;
     console.log(message);
 
     const newlyCreatedMessage = await Message.create({ 
@@ -35,7 +71,6 @@ router.post('/send', authenticate, async (req, res, next) => {
 
 router.get('/messages/:chatId', authenticate, async (req, res, next) => {
   try {
-    console.log('in /messages/:chatId')
     const { params: { chatId } } = req;
     const chat = await Chat.findById(chatId);
 
@@ -72,7 +107,6 @@ router.get('/messages/:chatId', authenticate, async (req, res, next) => {
 
 router.get('/getchats', authenticate, async (req, res, next) => {
   try {
-    console.log('in /chat/getchats')
     const user = await User.findById(req.userId);
 
     if (!user) {
@@ -83,7 +117,6 @@ router.get('/getchats', authenticate, async (req, res, next) => {
     let userChats = [];
     for (let i = 0; i < user.chats.length; i++) {
       const { userIdA, userIdB } = await Chat.findById(user.chats[i]);
-      console.log(userIdA, userIdB);
       
       let userInfo;
       if (userIdA !== req.userId) {

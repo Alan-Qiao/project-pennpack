@@ -1,10 +1,32 @@
 import { serverPath } from '../consts';
 
 /****** MESSAGES ******/
-export const sendNewMessage = async (message) => {
-  console.log('in sendNewMessage in services');
+export const sendNewImageMessage = async (message) => {
+  console.log('in sendNewImageMessage in services', message);
 
-  const resp = await fetch(`${serverPath}/chat/send`, {
+  const data = new FormData();
+  data.append('file', message.content);
+  data.append('message', JSON.stringify(message));
+  console.log(data.values())
+  //console.log(data.get('file'));
+
+  const resp = await fetch(`${serverPath}/chat/sendimage`, {
+    method: 'POST',
+    // headers: {
+    //   'Content-Type': 'multipart/form-data',
+    //   'Accept': 'multipart/form-data',
+    // },
+    body: data
+  })
+  const body = resp.json();
+  return body;
+}
+
+
+export const sendNewTextMessage = async (message) => {
+  console.log('in sendNewTextMessage in services');
+
+  const resp = await fetch(`${serverPath}/chat/sendtext`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
