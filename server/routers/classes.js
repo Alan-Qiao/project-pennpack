@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.get('/getuserclasses', authenticate, async (req, res, next) => {
   try {
-    console.log('in /getuserclasses');
     const user = await User.findById(req.userId);
 
     if (!user) {
@@ -28,9 +27,7 @@ router.get('/getuserclasses', authenticate, async (req, res, next) => {
 router.get('/getuserclasses/:username', async (req, res, next) => {
   try {
     const { params: { username } } = req;
-    console.log(username);
     const user = await User.find({username});
-    console.log(user);
 
     if (!user) {
       res.status(404).json({ error: 'user not found' });
@@ -53,7 +50,6 @@ router.get('/getuserclasses/:username', async (req, res, next) => {
 router.get('/getclasses', async (req, res, next) => {
   try {
     const classes = await Class.find();
-    // console.log(classes);
     if (!classes) {
       res.status(400).json({ error: 'No classes' });
       return;
@@ -84,7 +80,6 @@ router.post('/create', async (req, res, next) => {
     }
 
     const newlyCreatedClass = await Class.create({ className, professor });
-    // console.log(newlyCreatedClass);
     res.status(201).json({
       className,
       newlyCreatedClass: newlyCreatedClass._id,

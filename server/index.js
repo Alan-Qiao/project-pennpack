@@ -5,8 +5,7 @@ const cors = require('cors');
 const db = require('./config').get(process.env.NODE_ENV);
 const AccountRouter = require('./routers/accounts');
 const ClassRouter = require('./routers/classes');
-// const DeactivateRouter = require('./routers/deactivate')
-// const SignupRouter = require('./routers/follow')
+const ChatsRouter = require('./routers/chats');
 const app = express();
 
 const multer = require('multer')
@@ -29,8 +28,9 @@ app.use(cookieParser());
 app.use(cors({ credentials: true, origin: 'http://localhost:3000', allowedHeaders: ['Content-Type', 'Authorization', 'Accept'] }));
 
 // Endpoints
-app.use('/class', ClassRouter);
 app.use('/', AccountRouter);
+app.use('/class', ClassRouter);
+app.use('/chat', ChatsRouter);
 
 // error handler
 app.use((err, req, res, next) => {

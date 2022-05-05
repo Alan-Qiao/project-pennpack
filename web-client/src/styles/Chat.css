@@ -68,6 +68,54 @@
 	height: 5vh;
 }
 
+.input-picture {
+  min-height: 20px;
+  min-width: 20px;
+  margin-right: 2vw;
+  background-image: url('../images/image-square.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.input-picture:hover {
+  border-radius: 50% ;
+  box-shadow: 0 0 0 0.3vh rgba(82, 151, 166, 0.2);
+	transition: 0.3s;
+  cursor: grab;
+}
+
+.input-video {
+  min-height: 20px;
+  min-width: 20px;
+  margin-right: 2vw;
+  background: url('../images/video-camera.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.input-video:hover {
+  border-radius: 50% ;
+  box-shadow: 0 0 0 0.3vh rgba(82, 151, 166, 0.2);
+	transition: 0.3s;
+  cursor: grab;
+}
+
+.input-audio {
+  min-height: 20px;
+  min-width: 20px;
+  margin-right: 2vw;
+  background: url('../images/music-note.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.input-audio:hover {
+  border-radius: 50% ;
+  box-shadow: 0 0 0 0.3vh rgba(82, 151, 166, 0.2);
+	transition: 0.3s;
+  cursor: grab;
+}
+
 .input-message {
   position: relative;
   text-align:left;
