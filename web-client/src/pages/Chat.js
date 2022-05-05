@@ -5,18 +5,64 @@ import Message from '../components/Message';
 import Navbar from '../components/Navbar';
 import {
     getChats,
+    sendMessage,
 } from '../components/Message';
+import {
+    getUserInfo,
+} from '../components/user';
 
 function Chat() {
     const [chats, setChats] = useState([]);
+    const [currChatId, setCurrChatId] = useState(0);
+    const [userId, setUserId] = useState(0);
+    const [userIdB, setUserIdB] = useState(0);
+    const [messages, setMessages] = useState([]);
+    const [inputMessage, setInputMessage] = useState('');
+    
+
+    const handleKeypressSendMessage = (e) => {
+		const input = document.getElementById('input-message');
+		if (e.key === 'Enter' && input.value != '') {
+			sendText();
+		}
+	}
+
+    const sendText = async () => {		
+        console.log('in sendText');
+		setInputMessage('');
+		const input = document.getElementById('input-message');
+		input.value = '';
+
+		const newMessage = {
+            chatId: currChatId,
+            id: 0,
+			type: 'text',
+			content: inputMessage,
+			sender: userId,
+            userIdB: userIdB
+		};
+
+		setMessages([...messages, newMessage]);
+        
+        // TODO: ADD THE MESSAGE TO THE CHAT'S MESSAGES ARRAY
+        await sendMessage(newMessage);
+	
+	}
 
     async function fetchUserChats() {
+        console.log('in fetchUserChats in Chat')
         setChats([]);
 		const userChats = await getChats();
         setChats(userChats.userChats)
 	}
 
+    async function fetchUserId() {
+		const user = await getUserInfo();
+        setUserId(user._id);
+	}
+
     useEffect(() => {
+        fetchUserId();
 		fetchUserChats();
 	}, ([]));
 
@@ -24,28 +70,29 @@ function Chat() {
 
     <div className='Chat-Page'>
         <Navbar />
-        <div class="main-content">
-            <div class="chats-container">
+        <div className="main-content">
+            <div className="chats-container">
                 <div className="chats-container-title">Chats</div>
-                    {chats.map(c => (
-                        <Contact key = {c}
-                            id = {c.id}
+                    {chats ? chats.map((c, index) => (
+                        <Contact key = {index}
+                            chatId = {c.chatId}
+                            userIdB = {c.userIdB}
                             username = {c.username}
                             name = {c.name}
-                        />))
+                            setMessages = {setMessages}
+                            setCurrChatId = {setCurrChatId}
+                            setUserIdB = {setUserIdB}
+                        /> )) : <></>
                     }
             </div>
-            <div class="conversation-container">
-                <div class="conversation-content">
-                <Message id={0}
-						 text ={'wow, amazing!'}					
-                />
-                <Message id={1}
-						 text ={'today i woke up and skipped class and ate udon and then went to recitation and then ate some more food at han dynasty then laid in bed for 2 hours'}					
-                />    
-                <Message id={0}
-						 text ={'hello! what is up?'}					
-                />
+            <div className="conversation-container">
+                <div className="conversation-content">
+                {messages ? messages.map((message, index) => (
+                        <Message key = {index}
+                            id = {message.id}
+                            type = {message.type}
+                            content = {message.content}
+                            />)).reverse() : <></>}
                 </div>
                 <div className='input-bar'>
                     <label htmlFor = 'upload-picture' className = 'input-picture' />
@@ -66,11 +113,12 @@ function Chat() {
                         style={{ display: 'none' }}
                         accept = 'audio/*'>
                     </input>
-
                     <input className="input-message" 
                             id = "input-message" 
                             type="text" 
                             placeholder="Type something"
+                            onChange={e => setInputMessage(e.target.value)}
+							onKeyDown={handleKeypressSendMessage}
                     >
                     </input>
                     <div className="input-send"/>

@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const chatSchema = new Schema({
-  userIdA: { type: mongoose.Types.ObjectId },
+  userIdA: { type: String },
   userIdB: { type: String },
-  messages: { type: [mongoose.Types.ObjectId] },
+  messages: { type: [String] },
 });
 
 const Chat = mongoose.model('Chat', chatSchema);
