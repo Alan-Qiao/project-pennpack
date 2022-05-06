@@ -22,31 +22,39 @@ const multer = Multer({
 });
 
 
-router.post('/sendimage', async (req, res, next) => {
-  console.log('in /chat/sendimage')
-  const { body: { data } } = req;
+router.post('/uploadfile', multer.single('file'), async (req, res, next) => {
   const file = req.file;
 
-
-  // console.log(file);
-  // console.log(JSON.parse(message));
-  console.log(data);
-  console.log(file)
-
-  if (file) {
-    console.log('file actually exists');
+  if (!file) {
+    res.status(400).send('No file uploaded.');
+    return;
   }
 
-  // uploadImageafljannf
+  // Create a new blob in the bucket and upload the file data.
+  const blob = bucket.file(file.originalname);
+  const blobStream = blob.createWriteStream();
 
+  blobStream.on('error', err => {
+      next(err);
+  });
 
+  blobStream.on('finish', () => {
+      // The public URL can be used to directly access the file via HTTP.
+      const publicUrl = format(
+          `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+      );
+
+      res.status(200).json({ 
+          message: 'mediaUrl sent here',
+          result: publicUrl
+      });
+  });
+  blobStream.end(file.buffer);
 });
 
-router.post('/sendtext', authenticate, async (req, res, next) => {
+router.post('/sendmessage', authenticate, async (req, res, next) => {
   try {
-    console.log('in /chat/sendtext')
     const { body: { message } } = req;
-    console.log(message);
 
     const newlyCreatedMessage = await Message.create({ 
       type: message.type,
@@ -56,6 +64,7 @@ router.post('/sendtext', authenticate, async (req, res, next) => {
 
     // Add the message to the Chat
     const chat = await Chat.findById(message.chatId);
+
     chat.messages.push(newlyCreatedMessage._id);
     chat.save();
 
@@ -146,7 +155,6 @@ router.get('/getchats', authenticate, async (req, res, next) => {
 
 router.post('/create', authenticate, async (req, res, next) => {
   try {
-    console.log('in /chat/create')
     const { body: { userBId } } = req;
 
     // Checking if this class already exists

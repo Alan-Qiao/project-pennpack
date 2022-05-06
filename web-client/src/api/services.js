@@ -1,32 +1,26 @@
 import { serverPath } from '../consts';
 
 /****** MESSAGES ******/
-export const sendNewImageMessage = async (message) => {
-  console.log('in sendNewImageMessage in services', message);
-
+export const sendNewFileMessage = async (message) => {
+  // Upload the file to Google Cloud Storage
   const data = new FormData();
   data.append('file', message.content);
-  data.append('message', JSON.stringify(message));
-  console.log(data.values())
-  //console.log(data.get('file'));
 
-  const resp = await fetch(`${serverPath}/chat/sendimage`, {
+  const resp = await fetch(`${serverPath}/chat/uploadfile`, {
     method: 'POST',
-    // headers: {
-    //   'Content-Type': 'multipart/form-data',
-    //   'Accept': 'multipart/form-data',
-    // },
     body: data
   })
-  const body = resp.json();
+  let body = await resp.json();
+
+  // Create a new message
+  message.content = body.result;
+  body = await sendNewMessage(message);
   return body;
 }
 
 
-export const sendNewTextMessage = async (message) => {
-  console.log('in sendNewTextMessage in services');
-
-  const resp = await fetch(`${serverPath}/chat/sendtext`, {
+export const sendNewMessage = async (message) => {
+  const resp = await fetch(`${serverPath}/chat/sendmessage`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -40,8 +34,6 @@ export const sendNewTextMessage = async (message) => {
 }
 
 export const getMessagesByChatId = async (chatId) => {
-  console.log('in getMessagesByChatId in services');
-
   const resp = await fetch(`${serverPath}/chat/messages/${chatId}`, {
     method: 'GET',
     credentials: 'include',
@@ -51,8 +43,6 @@ export const getMessagesByChatId = async (chatId) => {
 }
 
 export const getUserChats = async () => {
-  console.log('in getUserChats in services');
-
   const resp = await fetch(`${serverPath}/chat/getchats`, {
     method: 'GET',
     credentials: 'include',
@@ -63,8 +53,6 @@ export const getUserChats = async () => {
 
 
 export const createNewChat = async (id) => {
-  console.log('in createNewChat in services');
-
   const resp = await fetch(`${serverPath}/chat/create`, {
     method: 'POST',
     headers: {

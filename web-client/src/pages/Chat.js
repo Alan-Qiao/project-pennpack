@@ -1,12 +1,13 @@
 import { React, useEffect, useState } from 'react';
+import { serverPath } from '../consts';
 import '../styles/Chat.css';
 import Contact from '../components/Contact';
 import Message from '../components/Message';
 import Navbar from '../components/Navbar';
 import {
     getChats,
-    sendTextMessage,
-    sendImageMessage,
+    sendMessage,
+    sendFileMessage,
 } from '../components/Message';
 import {
     getUserInfo,
@@ -29,7 +30,6 @@ function Chat() {
 	}
 
     const sendText = async () => {		
-        console.log('in sendText');
 		setInputMessage('');
 		const input = document.getElementById('input-message');
 		input.value = '';
@@ -44,43 +44,35 @@ function Chat() {
 		};
 
 		setMessages([...messages, newMessage]);
-        await sendTextMessage(newMessage);
+        await sendMessage(newMessage);
 	}
 
-    const sendImage = async (e) => {
-        e.preventDefault();
-        const myForm = document.getElementById("my-form");
-        console.log("form: ", myForm)
-        const formData = new FormData(myForm);
-        console.log(formData)
-        // console.log(e)
-        // console.log(e.target.image.value)
-        // console.log('send image called')
-        // //const file = e.target.files[0];
-        // const file = e.target.image.value;
-        // console.log(file);
+    const sendFile = async (e, fileType) => {
+        const file = e.target.files[0];
+        const fileSize = file.size / 1000 / 1000; // change from bytes to MB
+        e.target.value = '';
 
-        // const fileSize = file.size / 1000 / 1000; // change from bytes to MB
-        // e.target.value = '';
+        if (fileSize > 10) {
+            alert('Your media file exceeds the limit of 10MB!');
+        }
 
-        // if (fileSize > 10) {
-        //     alert('Your media file exceeds the limit of 10MB!');
-        // }
+        const newMessage = {
+            chatId: currChatId,
+            id: 0,
+			type: fileType,
+			content: file,
+			sender: userId,
+            userIdB: userIdB
+        }
 
-        // const newMessage = {
-        //     chatId: currChatId,
-        //     id: 0,
-		// 	type: 'image',
-		// 	content: file,
-		// 	sender: userId,
-        //     userIdB: userIdB
-        // }
+        const { newlyCreatedMessage } = await sendFileMessage(newMessage);
+        newMessage.content = newlyCreatedMessage.content;
 
-        // await sendImageMessage(newMessage);
+        console.log(newMessage);
+        setMessages([...messages, newMessage]);
     }
 
     async function fetchUserChats() {
-        console.log('in fetchUserChats in Chat')
         setChats([]);
 		const userChats = await getChats();
         setChats(userChats.userChats)
@@ -126,22 +118,23 @@ function Chat() {
                 </div>
                 <div className='input-bar'>
                     <label htmlFor = 'upload-picture' className = 'input-picture' />
-                    <form>
+                    <form className='upload-picture'>
                         <input id = 'upload-picture'
-                            onChange={e => sendImage(e)}
+                            onChange={e => sendFile(e, 'image')}
                             type = 'file' 
                             style={{ display: 'none' }} 
-                            name="image"/>
-                        <input type="submit"/>
+                            accept = 'image/*'/>
                     </form>
                     <label htmlFor = 'upload-video' className = 'input-video' />
                     <input id = 'upload-video'
+                        onChange={e => sendFile(e, 'video')}
                         type = 'file' 
                         style={{ display: 'none' }} 
                         accept = 'video/*'>
                     </input>
                     <label htmlFor = 'upload-audio' className = 'input-audio' />
                     <input id = 'upload-audio'
+                        onChange={e => sendFile(e, 'audio')}
                         type = 'file'
                         style={{ display: 'none' }}
                         accept = 'audio/*'>
