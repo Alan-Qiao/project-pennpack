@@ -50,9 +50,10 @@ export const createNewClass = async (className, professor) => {
 export const joinNewClass = async (classId) => {
   try {
     console.log(classId);
-    await joinClass(classId);
+    const data = await joinClass(classId);
+    return data;
   } catch (e) {
-    return e.message;
+    return { err: e.message };
   }
 }
 

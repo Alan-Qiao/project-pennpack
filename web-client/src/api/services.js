@@ -194,6 +194,7 @@ export const joinClass = async (classId) => {
   if (!resp.ok) {
     throw new Error(body.error);
   }
+  return body;
 }
 
 

@@ -17,24 +17,23 @@ function CreateClass() {
       return;
     }
 
-    console.log(course)
-    const res = await createNewClass(course.replaceAll(/\s/,''), prof);
+    const res = await createNewClass(course.replaceAll(/\s/g,''), prof);
 
     if (res.err) {
       alert(`Could not create class`);
     }
 
     // The newly created class's id in the db
-    const newlyCreatedClassId = res.newlyCreatedClass;
+    const { className, newlyCreatedClass} = res;
 
     // Add the class to the user's list of classes
-    const resp = await joinNewClass(newlyCreatedClassId);
+    const resp = await joinNewClass(newlyCreatedClass);
     if (resp.err) {
       alert(`Could not join the class created`);
     }
 
     // TODO: navigate to the class's page
-    navigate(`/classdashboard/${newlyCreatedClassId}`)
+    navigate(`/classdashboard/${className}`)
   }
 
   return (
