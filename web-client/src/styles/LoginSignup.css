@@ -7,9 +7,24 @@
     /* border: 1px solid rgb(180, 13, 13); */
 }
 
+.reset-button {
+  border: none;
+  background-color: inherit;
+  color: blue;
+  padding-top: 10px;
+  font-size: 16x;
+  cursor: pointer;
+  position: relative;
+  left: -210px;
+}
+
+.reset-button:hover {
+  text-decoration: underline;
+}
+
 .left-align-login {
     position: relative;
-    left: -230px;
+    left: -210px;
     margin-bottom: 10px;
     font-size: 18px;
     color: #898888;

@@ -12,6 +12,7 @@ import JoinClass from './pages/JoinClass';
 import CreateClass from './pages/CreateClass';
 import Chat from './pages/Chat';
 import Profile from './pages/Profile';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/classdashboard/:name" element={<ClassDashboard />} />
         <Route path="/classdashboard/:name/addclassnote" element={<AddClassNote />} />
         <Route path="/chat" element={<Chat />} />

@@ -6,10 +6,8 @@ const db = require('./config').get(process.env.NODE_ENV);
 const AccountRouter = require('./routers/accounts');
 const ClassRouter = require('./routers/classes');
 const ChatsRouter = require('./routers/chats');
-const app = express();
 
-const multer = require('multer')
-const bodyParser = require('body-parser');
+const app = express();
 
 // Database connection
 mongoose.Promise = global.Promise;

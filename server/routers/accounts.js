@@ -19,7 +19,6 @@ router.get('/getuser/:username', authenticate, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-  
 });
 
 router.get('/getuser', authenticate, async (req, res, next) => {
@@ -50,6 +49,15 @@ router.post('/login', async (req, res, next) => {
       res.status(200).json({ message: 'Already logged in', user });
       return;
     }
+    if (user.attempts >= 3) {
+      if ((Date.now() - user.updatedAt) > 3 * 60 * 1000) {
+        user.attempts = 0;
+        await user.save();
+      } else {
+        res.status(403).json({ error: 'account is locked' });
+        return;
+      }
+    }
     user.checkPassword(password, (err, isRight) => {
       if (isRight) {
         const token = jwt.sign({ userId: user._id }, SECRET);
@@ -59,7 +67,8 @@ router.post('/login', async (req, res, next) => {
           .json({ message: `Logged in ${username}`, user });
         return;
       }
-      res.status(401).json({ error: 'incorrect password' });
+      user.attempts += 1;
+      user.save().then(() => res.status(401).json({ error: 'incorrect password' }));
     });
   } catch (err) {
     next(err);
@@ -94,6 +103,25 @@ router.post('/signup', async (req, res, next) => {
     }
     await User.create({ name, username, password });
     res.status(201).json({ message: 'User created' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/resetPassword', async (req, res, next) => {
+  try {
+    const { body: { username, password } } = req;
+    if (!username || !password) {
+      res.status(400).json({ error: 'Missing Required Information' });
+      return;
+    }
+    const user = await User.findOne({ username });
+    if (!user) {
+      res.status(404).json({ error: 'User does not exist' });
+    }
+    user.password = password;
+    await user.save();
+    res.status(200).json({ message: 'Password Updated' });
   } catch (err) {
     next(err);
   }

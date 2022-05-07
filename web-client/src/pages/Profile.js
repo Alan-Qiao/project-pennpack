@@ -11,7 +11,7 @@ import {
 import {
   getUserInfoByUsername,
   getUserInfo,
-} from '../components/user';
+} from '../components/User';
 import { createChat } from '../components/Message';
 
 function Profile() {

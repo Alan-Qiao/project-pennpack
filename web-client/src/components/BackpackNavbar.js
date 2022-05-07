@@ -14,7 +14,8 @@ function BackpackNavbar() {
     if (auth) {
       navigate('/userdashboard');
     } else {
-      navigate('/');
+      console.log('wrry')
+      navigate('/login');
     }
   };
 
@@ -22,7 +23,7 @@ function BackpackNavbar() {
     <div className="Navbar">
       <div
         className="backpack"
-        onClick={() => handleRedirect}
+        onClick={() => handleRedirect()}
       />
     </div>
   );

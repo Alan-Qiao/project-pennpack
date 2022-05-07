@@ -43,7 +43,7 @@ export const createNewClass = async (className, professor) => {
     const res = await createClass(className, professor);
     return res;
   } catch (e) {
-    return e.message
+    return { err: e.message }
   }
 }
 
