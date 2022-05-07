@@ -4,7 +4,7 @@ import '../styles/Navbar.css';
 import {
   getUserInfoByUsername,
   getUserInfo
-} from './user';
+} from './User';
 
 function Navbar() {
   const navigate = useNavigate();

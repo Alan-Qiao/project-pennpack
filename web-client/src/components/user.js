@@ -2,10 +2,10 @@ import {
   createUser,
   authenticateUser,
   disconnectUser,
+  resetUserPassword,
   getUser,
   getUserByUsername,
 } from '../api/services';
-import { setClassList } from '../redux/classListSlice';
 
 const validUsername = /^[0-9a-z\-_]+$/i;
 const validName = /^([0-9a-z.'-] ?)+$/i;
@@ -46,17 +46,22 @@ export const signupUser = (name, username, password) => {
   return '';
 };
 
-export const loginUser = async (dispatch, username, password) => {
+export const loginUser = async (username, password) => {
   try {
-    const { user } = await authenticateUser(username, password);
-    console.log(user.classesEnrolled);
-    dispatch(setClassList(['CIS 350']));
+    await authenticateUser(username, password);
   } catch (e) {
     return e.message;
   }
-  return '';
 };
 
 export const logoutUser = async () => {
   await disconnectUser();
 };
+
+export const resetPassword = async (username, password) => {
+  try {
+    await resetUserPassword(username, password);
+  } catch (e) {
+    return e.message;
+  }
+}

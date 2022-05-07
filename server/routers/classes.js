@@ -13,12 +13,11 @@ router.get('/getuserclasses', authenticate, async (req, res, next) => {
       res.status(404).json({ error: 'user not found' });
       return;
     }
-    let userClasses = user.classesEnrolled;
+    const userClasses = user.classesEnrolled;
     res.status(200).json({
       userClasses,
       message: 'Retrieved all of users classes',
     });
-
   } catch (err) {
     next(err);
   }
@@ -27,7 +26,7 @@ router.get('/getuserclasses', authenticate, async (req, res, next) => {
 router.get('/getuserclasses/:username', async (req, res, next) => {
   try {
     const { params: { username } } = req;
-    const user = await User.find({username});
+    const user = await User.find({ username });
 
     if (!user) {
       res.status(404).json({ error: 'user not found' });
@@ -41,7 +40,6 @@ router.get('/getuserclasses/:username', async (req, res, next) => {
       userClasses,
       message: 'Retrieved all of users classes',
     });
-
   } catch (err) {
     next(err);
   }

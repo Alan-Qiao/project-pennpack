@@ -13,6 +13,7 @@ const userSchema = new Schema({
   passwordResetToken: { type: String },
   passwordResetExpires: { type: Date },
   classesEnrolled: { type: [mongoose.Types.ObjectId] },
+  attempts: { type: Number, default: 0 },
   chats: { type: [mongoose.Types.ObjectId] },
 }, { timestamps: true, collection: 'Users' });
 
@@ -35,7 +36,6 @@ userSchema.methods.checkPassword = function unhashPass(password, cb) {
   });
 };
 
-// // https://www.youtube.com/watch?v=B0LI7Oc7C4A
 // userSchema.methods.createPasswordResetToken = function() {
 //   const resetToken = crypto.randomBytes(32).toString('hex')
 

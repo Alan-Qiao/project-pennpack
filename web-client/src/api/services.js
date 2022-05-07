@@ -189,7 +189,7 @@ export const joinClass = async (classId) => {
     throw new Error('class not found');
   }
   if (resp.status === 409) {
-    throw new Error('user in class');
+    throw new Error('user in class'); 
   }
   if (!resp.ok) {
     throw new Error(body.error);
@@ -265,6 +265,25 @@ export const authenticateUser = async (username, password) => {
   }
   if (resp.status === 401) {
     throw new Error('Incorrect Password');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body;
+}
+
+export const resetUserPassword = async (username, password) => {
+  const resp = await fetch('/resetPassword', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ username, password })
+  });
+  const body = await resp.json();
+  if (resp.status === 404) {
+    throw new Error('User does not exist!');
   }
   if (!resp.ok) {
     throw new Error(body.error);
