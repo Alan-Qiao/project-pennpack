@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react';
+import { serverPath } from '../consts';
 import '../styles/Chat.css';
 import Contact from '../components/Contact';
 import Message from '../components/Message';
@@ -6,6 +7,7 @@ import Navbar from '../components/Navbar';
 import {
     getChats,
     sendMessage,
+    sendFileMessage,
 } from '../components/Message';
 import {
     getUserInfo,
@@ -28,7 +30,6 @@ function Chat() {
 	}
 
     const sendText = async () => {		
-        console.log('in sendText');
 		setInputMessage('');
 		const input = document.getElementById('input-message');
 		input.value = '';
@@ -43,14 +44,35 @@ function Chat() {
 		};
 
 		setMessages([...messages, newMessage]);
-        
-        // TODO: ADD THE MESSAGE TO THE CHAT'S MESSAGES ARRAY
         await sendMessage(newMessage);
-	
 	}
 
+    const sendFile = async (e, fileType) => {
+        const file = e.target.files[0];
+        const fileSize = file.size / 1000 / 1000; // change from bytes to MB
+        e.target.value = '';
+
+        if (fileSize > 10) {
+            alert('Your media file exceeds the limit of 10MB!');
+        }
+
+        const newMessage = {
+            chatId: currChatId,
+            id: 0,
+			type: fileType,
+			content: file,
+			sender: userId,
+            userIdB: userIdB
+        }
+
+        const { newlyCreatedMessage } = await sendFileMessage(newMessage);
+        newMessage.content = newlyCreatedMessage.content;
+
+        console.log(newMessage);
+        setMessages([...messages, newMessage]);
+    }
+
     async function fetchUserChats() {
-        console.log('in fetchUserChats in Chat')
         setChats([]);
 		const userChats = await getChats();
         setChats(userChats.userChats)
@@ -96,19 +118,23 @@ function Chat() {
                 </div>
                 <div className='input-bar'>
                     <label htmlFor = 'upload-picture' className = 'input-picture' />
-                    <input id = 'upload-picture'
-                        type = 'file' 
-                        style={{ display: 'none' }} 
-                        accept = 'image/*'>
-                    </input>
+                    <form className='upload-picture'>
+                        <input id = 'upload-picture'
+                            onChange={e => sendFile(e, 'image')}
+                            type = 'file' 
+                            style={{ display: 'none' }} 
+                            accept = 'image/*'/>
+                    </form>
                     <label htmlFor = 'upload-video' className = 'input-video' />
                     <input id = 'upload-video'
+                        onChange={e => sendFile(e, 'video')}
                         type = 'file' 
                         style={{ display: 'none' }} 
                         accept = 'video/*'>
                     </input>
                     <label htmlFor = 'upload-audio' className = 'input-audio' />
                     <input id = 'upload-audio'
+                        onChange={e => sendFile(e, 'audio')}
                         type = 'file'
                         style={{ display: 'none' }}
                         accept = 'audio/*'>

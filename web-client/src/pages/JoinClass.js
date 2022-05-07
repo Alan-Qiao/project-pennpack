@@ -8,7 +8,6 @@ function JoinClass() {
   const [classes, setClasses] = useState([]);
 
   const fetchClasses = async () => {
-    console.log('in fetchClasses in JoinClass');
 		const allClasses = await getAllClasses();
     if (allClasses.err) {
       alert(`An error occured: ${allClasses.err}`)

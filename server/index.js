@@ -9,6 +9,7 @@ const ChatsRouter = require('./routers/chats');
 const app = express();
 
 const multer = require('multer')
+const bodyParser = require('body-parser');
 
 // Database connection
 mongoose.Promise = global.Promise;
@@ -25,7 +26,7 @@ mongoose.connect(db.DATABASE, {
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: 'http://localhost:3000', allowedHeaders: ['Content-Type', 'Authorization', 'Accept'] }));
+app.use(cors({ credentials: true, origin: 'http://localhost:3000', allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Access-Control-Allow-Origin'] }));
 
 // Endpoints
 app.use('/', AccountRouter);

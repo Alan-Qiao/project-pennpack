@@ -8,13 +8,10 @@ function UserDashboard() {
   const [userClasses, setUserClasses] = useState([]);
 
   const fetchUserClasses = async () => {
-    console.log('in fetchUserClasses in UserDashboard');
 		const allClasses = await getUserClasses();
     if (allClasses.err) {
       alert(`An error occured: ${allClasses.err}`)
     }
-    console.log('allClasses in fetchUserClasses is');
-    console.log(allClasses);
 
     // Need to get each individual class (need id, classname)
     for (let i = 0; i < allClasses.length; i++) {
