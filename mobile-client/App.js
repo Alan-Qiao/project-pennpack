@@ -11,6 +11,8 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import UserDashboard from './components/UserDashboard';
 import ClassIcon from './components/Class';
+import Contacts from './components/Contacts';
+import Chat from './components/Chat';
 // import ClassDashboard from './components/ClassDashboard';
 
 // const Tab = createBottomTabNavigator();
@@ -40,15 +42,12 @@ function App() {
     <NavigationContainer
       theme={navTheme}
     >
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {/* <Stack.Screen
-          name="Navbar"
-          component={Navbar}
-          options={{ headerShown: false }}
-        /> */}
+      <Stack.Navigator>
+        <Stack.Screen name="Contacts" component={Contacts} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Home" component={Homescreen} />
         <Stack.Screen name="UserDashboard" component={UserDashboard} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={Homescreen} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="ClassIcon" component={ClassIcon} />
       </Stack.Navigator>

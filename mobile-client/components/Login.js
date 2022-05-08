@@ -11,7 +11,8 @@ function Login({ navigation }) {
     const err = await loginUser(username, password);
     setError(err);
     if (!err) {
-      navigation.navigate('UserDashboard');
+      // navigation.navigate('UserDashboard');
+      navigation.navigate('Contacts');
     }
   };
 
