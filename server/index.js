@@ -24,7 +24,7 @@ mongoose.connect(db.DATABASE, {
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: 'http://localhost:3000', allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Access-Control-Allow-Origin'] }));
+app.use(cors({ credentials: true, origin: ['http://localhost:3000', 'http://localhost:19006'], allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Access-Control-Allow-Origin'] }));
 
 // Endpoints
 app.use('/', AccountRouter);

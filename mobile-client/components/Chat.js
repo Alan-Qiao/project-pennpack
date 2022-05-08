@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, TouchableOpacity, Text, StyleSheet, TextInput, Image } from 'react-native';
 import Message, {
   sendMessage,
+  getMessages,
 } from './Message';
 import {
   getUserInfo,
 } from '../helpers/user';
 
 function Chat({ route, navigation }) {
-  const { chatId, userIdB, username, messages, setMessages } = route.params;
+  const { chatId, userIdB, username, chatMessages } = route.params;
+  const [messages, setMessages] = useState([chatMessages]);
   const [userId, setUserId] = useState(0);
   const [inputMessage, setInputMessage] = useState('');
 
@@ -34,6 +36,15 @@ function Chat({ route, navigation }) {
   useEffect(() => {
     fetchUserId();
   }, ([]));
+
+  // Fetches from the database every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const messagesFetched = await getMessages(chatId);
+      setMessages(messagesFetched.messages);
+    }, 3000);
+    return () => clearInterval(interval);
+  });
 
   return (
       <View style={styles.viewStyles}>

@@ -6,6 +6,7 @@ import Message from '../components/Message';
 import Navbar from '../components/Navbar';
 import {
     getChats,
+    getMessages,
     sendMessage,
     sendFileMessage,
 } from '../components/Message';
@@ -87,6 +88,15 @@ function Chat() {
         fetchUserId();
 		fetchUserChats();
 	}, ([]));
+
+    // Fetches from the database every 5 seconds 
+	useEffect(() => {
+		const interval = setInterval(async () => {
+			const messages = await getMessages(currChatId);
+            setMessages(messages.messages);
+		}, 5000);
+		return () => clearInterval(interval);
+	})
 
   return (
 

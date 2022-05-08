@@ -12,7 +12,6 @@ import {
 
 function Contacts({ navigation }) {
   const [chats, setChats] = useState([]);
-  const [messages, setMessages] = useState([]);
   const [userId, setUserId] = useState(0);
 
   async function fetchUserChats() {
@@ -29,14 +28,11 @@ function Contacts({ navigation }) {
 
   async function showChat(chatId, userIdB, username) {
     const messagesRes = await getMessages(chatId);
-    setMessages(messagesRes.messages);
-    console.log(username);
     navigation.navigate('Chat', {
       chatId,
       userIdB,
       username,
-      messages: messagesRes.messages,
-      setMessages,
+      chatMessages: messagesRes.messages,
       navigation,
     });
   }
@@ -49,8 +45,9 @@ function Contacts({ navigation }) {
   return (
       <View style={styles.viewStyles}>
           <Text style={styles.titleText}>Your Chats</Text>
-          {chats ? chats.map(c => (
+          {chats ? chats.map((c,i) => (
             <Pressable
+              key={i}
               style={styles.button}
               onPress={() => showChat(c.chatId, c.userIdB, c.username)}
             >

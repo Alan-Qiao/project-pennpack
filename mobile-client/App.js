@@ -43,9 +43,9 @@ function App() {
       theme={navTheme}
     >
       <Stack.Navigator>
+        <Stack.Screen name="Home" component={Homescreen} />
         <Stack.Screen name="Contacts" component={Contacts} />
         <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="Home" component={Homescreen} />
         <Stack.Screen name="UserDashboard" component={UserDashboard} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
