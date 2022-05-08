@@ -230,3 +230,57 @@ test('/signup existing user 409', async () => {
   expect(resp.status).toBe(409);
   expect(resp.body.error).toMatch('Username already exists');
 });
+
+test('/resetPassword sets new password 200', async () => {
+  const resp = await request(app).post('/resetPassword').send({
+    username: 'franSb',
+    password: 'pass123?',
+  });
+  expect(resp.status).toBe(200);
+  expect(resp.body.message).toMatch('Password Updated');
+  const loginResp = await request(app).post('/login').send({
+    username: 'franSb',
+    password: 'pass123?',
+  });
+  expect(loginResp.status).toBe(200);
+});
+
+test('/resetPassword missing info 400', async () => {
+  let resp = await request(app).post('/resetPassword').send({
+    username: 'franSb',
+  });
+  expect(resp.status).toBe(400);
+  expect(resp.body.error).toMatch('Missing Required Information');
+  resp = await request(app).post('/resetPassword').send({
+    password: 'pass123?',
+  });
+  expect(resp.status).toBe(400);
+  expect(resp.body.error).toMatch('Missing Required Information');
+});
+
+test('/resetPassword user does not exist 404', async () => {
+  const resp = await request(app).post('/resetPassword').send({
+    username: 'frankle',
+    password: 'pass123?',
+  });
+  expect(resp.status).toBe(404);
+  expect(resp.body.error).toMatch('User does not exist');
+});
+
+test('/authenticate user is logged in 200', async () => {
+  const { header } = await request(app).post('/login').send({
+    username: 'franSb',
+    password: '123pass?',
+  });
+  const token = header['set-cookie'];
+
+  const resp = await request(app).get('/authenticate').set('Cookie', token);
+  expect(resp.status).toBe(200);
+  expect(resp.body.message).toMatch('authenticated');
+});
+
+test('/authenticate user is not logged in 401', async () => {
+  const resp = await request(app).get('/authenticate');
+  expect(resp.status).toBe(401);
+  expect(resp.body.message).toMatch('unauthenticated');
+});
