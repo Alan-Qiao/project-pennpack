@@ -11,8 +11,8 @@ function Login({ navigation }) {
     const err = await loginUser(username, password);
     setError(err);
     if (!err) {
-      // navigation.navigate('UserDashboard');
-      navigation.navigate('Contacts');
+      navigation.navigate('Navbar', { screen: 'UserDashboard' });
+      // navigation.navigate('Contacts');
     }
   };
 
@@ -37,7 +37,7 @@ function Login({ navigation }) {
         >
             <Text>Continue</Text>
         </Pressable>
-        { error && <Text style={styles.errorText}>{error}</Text> }
+        { error ? <Text style={styles.errorText}>{error}</Text> : null }
       </View>
   );
 }
@@ -45,65 +45,68 @@ function Login({ navigation }) {
 export default Login;
 
 const styles = StyleSheet.create({
-  viewStyles: {
-    flex: 1,
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#7EBAC7',
+    borderColor: '#3A405A',
+    borderRadius: 10,
+    color: '#3A405A',
+    elevation: 3,
+    fontFamily: 'arial',
     justifyContent: 'center',
-    padding: 30,
-    color: '#FFFFFF',
-  },
-  titleText: {
-    fontSize: 50,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#7EBAC7',
-    paddingBottom: 20,
-    fontFamily: 'Lato',
-  },
-  subtitleText: {
-    fontSize: 20,
-    textAlign: 'left',
-    color: '#898888',
-    marginBottom: 10,
-  },
-  nameText: {
-    fontSize: 20,
-    textAlign: 'left',
-    float: 'left',
-    paddingLeft: 50,
+    marginTop: 20,
+    paddingVertical: 10,
+    width: 315,
   },
   errorText: {
+    color: '#D94A4A',
     fontSize: 12,
-    textAlign: 'left',
-    float: 'left',
+    // float: 'left',
     fontWeight: 'bold',
     marginTop: 30,
-    color: '#D94A4A',
+    textAlign: 'left',
+  },
+  subtitleText: {
+    color: '#898888',
+    fontSize: 20,
+    marginBottom: 10,
+    textAlign: 'left',
   },
   textInput: {
     alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'arial',
-    paddingVertical: 12,
-    color: '#9A8F97',
-    fontWeight: 'bold',
-    width: 315,
-    paddingLeft: 20,
-    marginBottom: 20,
-    elevation: 3,
-    borderRadius: 10,
     backgroundColor: '#F1F7EE',
-  },
-  button: {
-    fontFamily: 'arial',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 10,
-    color: '#3A405A',
-    width: 315,
-    marginTop: 20,
-    elevation: 3,
     borderRadius: 10,
-    borderColor: '#3A405A',
-    backgroundColor: '#7EBAC7',
+    color: '#9A8F97',
+    elevation: 3,
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    marginBottom: 20,
+    paddingLeft: 20,
+    paddingVertical: 12,
+    width: 315,
+  },
+  titleText: {
+    color: '#7EBAC7',
+    fontFamily: 'Lato',
+    fontSize: 50,
+    fontWeight: 'bold',
+    paddingBottom: 20,
+    textAlign: 'center',
+  },
+  viewStyles: {
+    color: '#FFFFFF',
+    flex: 1,
+    justifyContent: 'center',
+    padding: 30,
   },
 });
+
+/*
+nameText: {
+    fontSize: 20,
+    textAlign: 'left',
+    // float: 'left',
+    paddingLeft: 50,
+  },
+*/

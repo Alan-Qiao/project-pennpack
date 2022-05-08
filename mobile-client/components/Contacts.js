@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import {
-  getUserInfo,
-} from '../helpers/user';
-import {
   getChats,
   getMessages,
   // sendMessage,
@@ -12,7 +9,6 @@ import {
 
 function Contacts({ navigation }) {
   const [chats, setChats] = useState([]);
-  const [userId, setUserId] = useState(0);
 
   async function fetchUserChats() {
     setChats([]);
@@ -21,31 +17,26 @@ function Contacts({ navigation }) {
     setChats(userChats.userChats);
   }
 
-  async function fetchUserId() {
-    const user = await getUserInfo();
-    setUserId(user._id);
-  }
-
   async function showChat(chatId, userIdB, username) {
+    console.log(navigation);
     const messagesRes = await getMessages(chatId);
     navigation.navigate('Chat', {
       chatId,
       userIdB,
       username,
       chatMessages: messagesRes.messages,
-      navigation,
     });
   }
 
   useEffect(() => {
-    fetchUserId();
+    console.log('fugue');
     fetchUserChats();
   }, ([]));
 
   return (
       <View style={styles.viewStyles}>
           <Text style={styles.titleText}>Your Chats</Text>
-          {chats ? chats.map((c,i) => (
+          {chats ? chats.map((c, i) => (
             <Pressable
               key={i}
               style={styles.button}
@@ -57,7 +48,7 @@ function Contacts({ navigation }) {
               {c.username}
               </Text>
             </Pressable>
-          )) : <></>}
+          )) : null}
       </View>
   );
 }
@@ -65,36 +56,36 @@ function Contacts({ navigation }) {
 export default Contacts;
 
 const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(126, 186, 199, .24)',
+    borderRadius: 10,
+    color: '#92AA83',
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    height: 40,
+    justifyContent: 'center',
+    marginBottom: 10,
+    width: 335,
+  },
+  titleText: {
+    alignItems: 'center',
+    color: '#7EBAC7',
+    flexWrap: 'wrap',
+    fontFamily: 'arial',
+    fontSize: 40,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    marginBottom: 30,
+    marginTop: 30,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    textAlign: 'center',
+  },
   viewStyles: {
     justifyContent: 'center',
     margin: 20,
     textAlign: 'center',
-  },
-  titleText: {
-    marginTop: 30,
-    fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#7EBAC7',
-    paddingBottom: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    paddingRight: 20,
-    paddingLeft: 20,
-    fontFamily: 'arial',
-    marginBottom: 30,
-  },
-  button: {
-    fontFamily: 'arial',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#92AA83',
-    fontWeight: 'bold',
-    width: 335,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: 'rgba(126, 186, 199, .24)',
-    marginBottom: 10,
   },
 });

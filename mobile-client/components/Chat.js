@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, TouchableOpacity, Text, StyleSheet, TextInput, Image } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Text, StyleSheet, TextInput, Image, Dimensions } from 'react-native';
 import Message, {
   sendMessage,
   getMessages,
@@ -8,7 +8,15 @@ import {
   getUserInfo,
 } from '../helpers/user';
 
-function Chat({ route, navigation }) {
+const imageSquare = require('../assets/image-square.png');
+const videoCam = require('../assets/video-camera.png');
+const musicNote = require('../assets/music-note.png');
+const sendPlane = require('../assets/send-paper-plane.png');
+
+const windowHeight = Dimensions.get('window').height;
+console.log(windowHeight);
+
+function Chat({ route }) {
   const { chatId, userIdB, username, chatMessages } = route.params;
   const [messages, setMessages] = useState([chatMessages]);
   const [userId, setUserId] = useState(0);
@@ -35,7 +43,7 @@ function Chat({ route, navigation }) {
 
   useEffect(() => {
     fetchUserId();
-  }, ([]));
+  }, []);
 
   // Fetches from the database every 3 seconds
   useEffect(() => {
@@ -57,15 +65,15 @@ function Chat({ route, navigation }) {
                           type={message.type}
                           content={message.content}
                         />
-          )) : <></>}
+          )) : null}
           </ScrollView>
           <View style={styles.bottomBar}>
             <Image
-              source={require('../assets/image-square.png')}
+              source={imageSquare}
               style={{ width: 20, height: 20, margin: 3 }}
             />
             <Image
-              source={require('../assets/video-camera.png')}
+              source={videoCam}
               style={{ width: 20, height: 20, margin: 3 }}
             >
                 {/* <Pressable
@@ -74,7 +82,7 @@ function Chat({ route, navigation }) {
                 /> */}
             </Image>
             <Image
-              source={require('../assets/music-note.png')}
+              source={musicNote}
               style={{ width: 20, height: 20, margin: 3 }}
             />
             <TextInput
@@ -85,7 +93,7 @@ function Chat({ route, navigation }) {
               onPress={() => sendText()}
             >
             <Image
-              source={require('../assets/send-paper-plane.png')}
+              source={sendPlane}
               style={{ width: 20, height: 20, margin: 3 }}
             />
             </TouchableOpacity>
@@ -97,62 +105,70 @@ function Chat({ route, navigation }) {
 export default Chat;
 
 const styles = StyleSheet.create({
-  viewStyles: {
-    justifyContent: 'center',
-    flex: 1,
-    margin: 20,
-    textAlign: 'center',
-  },
-  chatBox: {
-    display: 'flex',
-    height: 350,
-    flexDirection: 'column-reverse',
-  },
   bottomBar: {
-    flex: 1,
     display: 'flex',
+    flex: 1,
     flexDirection: 'row',
     marginTop: 20,
   },
+  chatBox: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column-reverse',
+    minHeight: (windowHeight * 0.72),
+  },
 
-  titleText: {
-    marginTop: 20,
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'left',
-    color: '#7EBAC7',
-    paddingBottom: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    paddingRight: 20,
-    paddingLeft: 20,
-    fontFamily: 'arial',
-    marginBottom: 30,
-  },
-  button: {
-    fontFamily: 'arial',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#92AA83',
-    fontWeight: 'bold',
-    width: 335,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#F1F7EE',
-    marginBottom: 10,
-  },
   textInput: {
     alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'arial',
-    paddingVertical: 3,
-    color: '#9A8F97',
-    fontWeight: 'bold',
-    padding: 30,
-    marginBottom: 20,
-    elevation: 3,
-    borderRadius: 10,
     backgroundColor: 'rgba(126, 186, 199, .24)',
+    borderRadius: 10,
+    color: '#9A8F97',
+    elevation: 3,
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    height: (windowHeight * 0.03),
+    justifyContent: 'center',
+    marginBottom: 20,
+    paddingVertical: 3,
+    padding: 30,
+  },
+  titleText: {
+    alignItems: 'center',
+    color: '#7EBAC7',
+    flexWrap: 'wrap',
+    fontFamily: 'arial',
+    fontSize: 30,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    marginBottom: 30,
+    marginTop: 20,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    textAlign: 'left',
+  },
+  viewStyles: {
+    height: '100%',
+    justifyContent: 'between',
+    margin: 20,
+    overflow: 'visible',
+    textAlign: 'center',
   },
 });
+
+/*
+
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#F1F7EE',
+    borderRadius: 20,
+    color: '#92AA83',
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    height: 40,
+    justifyContent: 'center',
+    marginBottom: 10,
+    width: 335,
+  },
+
+*/

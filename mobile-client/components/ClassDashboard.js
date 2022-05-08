@@ -26,8 +26,8 @@
 //           style={styles.button2}
 //           onClick={() => navigate(`/classNoteMobile/${day.id}`)}
 //         />
-//           </View>  
-        
+//           </View>
+
 //     )) (
 //     <View style = {{flex: 1, backgroundColor: '#FFFFFF'}}>
 //       <View><Text style={styles.titleText}>{id.toUpperCase()}</Text></View>
@@ -39,15 +39,7 @@
 //       />
 //       {/* <Navbar /> */}
 //       </View>
-      
-       
-       
 
-      
-    
-     
-      
-        
 //   );
 // }
 

@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Pressable, View, Text, StyleSheet, TextInput } from 'react-native';
 import { signupUser } from '../helpers/user';
 
-function SignUp ({navigation}) {
+function SignUp({ navigation }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
 
   const handleSubmit = () => {
     console.log('in handleSubmit');
@@ -23,95 +22,100 @@ function SignUp ({navigation}) {
       <View style={styles.viewStyles}>
         <Text style={styles.titleText}>Create Account</Text>
         <Text style={styles.subtitleText}>Name:</Text>
-        <TextInput style={styles.textInput}
+        <TextInput
+          style={styles.textInput}
           onChange={e => setName(e.target.value)}
-          placeholder="Enter your name...">
-        </TextInput>
+          placeholder="Enter your name..."
+        />
         <Text style={styles.subtitleText}>Username:</Text>
-        <TextInput style={styles.textInput}
+        <TextInput
+          style={styles.textInput}
           onChange={e => setUsername(e.target.value)}
-          placeholder="Enter your username...">
-        </TextInput>
+          placeholder="Enter your username..."
+        />
         <Text style={styles.subtitleText}>Password:</Text>
-        <TextInput style={styles.textInput}
+        <TextInput
+          style={styles.textInput}
           onChange={e => setPassword(e.target.value)}
-          placeholder="Enter your password...">
-        </TextInput>
+          placeholder="Enter your password..."
+        />
         <Pressable
           style={styles.button}
-          onPress={() => handleSubmit()}>
+          onPress={() => handleSubmit()}
+        >
             <Text>Continue</Text>
         </Pressable>
-        { error && <Text style={styles.errorText}>{error}</Text> }
+        { error ? <Text style={styles.errorText}>{error}</Text> : null }
       </View>
-    )
-  
+  );
 }
 
 export default SignUp;
 
 const styles = StyleSheet.create({
-  viewStyles: {
-    flex: 1,
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#7EBAC7',
+    borderColor: '#3A405A',
+    borderRadius: 10,
+    color: '#3A405A',
+    elevation: 3,
+    fontFamily: 'arial',
     justifyContent: 'center',
-    padding: 30,
-    color: "#FFFFFF"
-  },
-  titleText: {
-    fontSize: 50,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "#7EBAC7",
-    paddingBottom: 20,
-    flexWrap: 'wrap',
-    paddingRight: 20,
-    paddingLeft: 20,
-    fontFamily: 'Lato',
-  },
-  subtitleText: {
-    fontSize: 20,
-    textAlign: "left",
-    color: "#898888",
-    marginBottom: 10,
-    textAlign: "left"
-  },
-  nameText: {
-      fontSize: 20,
-      textAlign: "left",
-      paddingLeft: 50
+    marginTop: 20,
+    paddingVertical: 10,
+    width: 315,
   },
   errorText: {
+    color: '#D94A4A',
     fontSize: 12,
-    textAlign: "center",
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginTop: 30,
-    color: "#D94A4A"
+    textAlign: 'center',
+  },
+  subtitleText: {
+    color: '#898888',
+    fontSize: 20,
+    marginBottom: 10,
+    textAlign: 'left',
   },
   textInput: {
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#F1F7EE',
+    borderRadius: 10,
+    color: '#9A8F97',
+    elevation: 3,
     fontFamily: 'arial',
-    paddingVertical: 12,
-    color: "#9A8F97",
-    fontWeight: "bold",
-    width: 315,
-    paddingLeft: 20,
+    fontWeight: 'bold',
+    justifyContent: 'center',
     marginBottom: 20,
-    elevation: 3,
-    borderRadius: 10,
-    backgroundColor: "#F1F7EE",
-  },
-  button: {
-    fontFamily: 'arial',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 10,
-    color: "#3A405A",
+    paddingLeft: 20,
+    paddingVertical: 12,
     width: 315,
-    marginTop: 20,
-    elevation: 3,
-    borderRadius: 10,
-    borderColor: "#3A405A",
-    backgroundColor: "#7EBAC7"
-  }
-  });
+  },
+  titleText: {
+    color: '#7EBAC7',
+    flexWrap: 'wrap',
+    fontFamily: 'Lato',
+    fontSize: 50,
+    fontWeight: 'bold',
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    textAlign: 'center',
+  },
+  viewStyles: {
+    color: '#FFFFFF',
+    flex: 1,
+    justifyContent: 'center',
+    padding: 30,
+  },
+});
+
+/*
+nameText: {
+    fontSize: 20,
+    paddingLeft: 50,
+    textAlign: 'left',
+  },
+*/
