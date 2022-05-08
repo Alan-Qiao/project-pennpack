@@ -44,7 +44,7 @@ function Chat({ route, navigation }) {
       setMessages(messagesFetched.messages);
     }, 3000);
     return () => clearInterval(interval);
-  });
+  });z
 
   return (
       <View style={styles.viewStyles}>

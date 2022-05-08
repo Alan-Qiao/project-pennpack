@@ -7,9 +7,12 @@ const User = require('../models/userModel');
 const router = express.Router();
 
 router.get('/getuser/:username', authenticate, async (req, res, next) => {
+  console.log('in /getuser/username');
   try {
     const { params: { username } } = req;
     const result = await User.findOne({ username });
+
+    console.log(result);
 
     if (!result) {
       res.status(404).json({ error: 'User not found' });

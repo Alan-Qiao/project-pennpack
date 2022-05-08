@@ -12,7 +12,10 @@ function Login({ navigation }) {
     setError(err);
     if (!err) {
       // navigation.navigate('UserDashboard');
-      navigation.navigate('Contacts');
+      // navigation.navigate('Contacts');
+      navigation.navigate('Profile', {
+        username,
+      });
     }
   };
 

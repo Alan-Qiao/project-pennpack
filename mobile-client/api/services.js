@@ -197,11 +197,13 @@ export const joinClass = async classId => {
 
 /****** ACCOUNTS ******/
 export const getUserByUsername = async name => {
-  const resp = await fetch(`/getuser/${name}`, {
+  console.log('in getUserByUsername');
+  const resp = await fetch(`${serverPath}/getuser/${name}`, {
     method: 'GET',
     credentials: 'include',
   });
   const body = await resp.json();
+  console.log(body);
 
   if (resp.status === 404) {
     throw new Error('User not found');

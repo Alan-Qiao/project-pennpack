@@ -32,5 +32,9 @@ module.exports = {
     'no-param-reassign': ['error', { props: false }],
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
+    'no-await-in-loop': 'off',
+    'no-plusplus': 'off',
+    'no-use-before-define': 'off',
+    'spaced=comment': 'off',
   },
 };

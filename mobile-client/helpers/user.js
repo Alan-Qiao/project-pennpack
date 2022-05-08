@@ -21,6 +21,7 @@ export const getUserInfo = async () => {
 }
 
 export const getUserInfoByUsername = async (name) => {
+  console.log('in getUserInfoByUsername');
   try {
     const { user } = await getUserByUsername(name);
     return user;
