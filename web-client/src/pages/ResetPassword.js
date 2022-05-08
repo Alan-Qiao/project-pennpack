@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import '../styles/LoginSignup.css';
 import { useNavigate } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
-import { resetPassword } from '../components/User';
+import { resetPassword } from '../components/user';
 
 function ResetPassword() {
   const [username, setUsername] = useState('');

@@ -11,7 +11,7 @@ import {
 } from '../components/Message';
 import {
     getUserInfo,
-} from '../components/User';
+} from '../components/user';
 
 function Chat() {
     const [chats, setChats] = useState([]);
