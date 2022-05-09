@@ -224,6 +224,7 @@ router.get('/readDayById/:classId', authenticate, async (req, res, next) => {
 
 router.post('/addNote', authenticate, async (req, res, next) => {
   try {
+    console.log('in /addNote');
     const { body: { classDayId, description, link } } = req;
     if (!classDayId || !description || !link) {
       res.status(400).json({ error: 'Missing required information' });
@@ -233,15 +234,19 @@ router.post('/addNote', authenticate, async (req, res, next) => {
     if (!classDay) {
       res.status(404).json({ error: 'Associated class day not found' });
     }
-    const { username, notesUploaded } = await User.findById(req.userId);
+    const user = await User.findById(req.userId);
+    let notesUploaded = 1;
+    const { username } = user;
 
-    console.log(notesUploaded);
-    const newUser = await User.updateOne(
+    if (user.notesUploaded) {
+      notesUploaded = user.notesUploaded;
+    }
+
+    await User.updateOne(
       { _id: req.userId },
       { $set: { notesUploaded: notesUploaded + 1 },
       },
     );
-    console.log(newUser);
     const result = await Note.create({
       classDayId, ownerHandle: username, description, link, likes: 0,
     });
