@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Homescreen from './components/Homescreen';
+import Profile from './components/Profile';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import UserDashboard from './components/UserDashboard';
@@ -44,19 +45,13 @@ function App() {
     >
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Homescreen} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Navbar" component={Navbar} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Contacts" component={Contacts} />
         <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="ClassIcon" component={ClassIcon} />
+        <Stack.Screen name="UserDashboard" component={UserDashboard} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default App;
-
-/*
-
-<Stack.Screen name="UserDashboard" component={UserDashboard} />
-*/
