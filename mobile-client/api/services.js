@@ -195,6 +195,139 @@ export const joinClass = async classId => {
   return body;
 };
 
+export const addClassDay = async (className, date, type, topic) => {
+  console.log(JSON.stringify({ className, date, type, topic }));
+  const resp = await fetch(`${serverPath}/class/addDay`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ className, date, type, topic }),
+  });
+  const body = await resp.json();
+
+  if (resp.status === 400) {
+    throw new Error('missing required input');
+  }
+  if (resp.status === 404) {
+    throw new Error('class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body;
+};
+
+export const readClassDays = async classId => {
+  const resp = await fetch(`${serverPath}/class/readDays/${classId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  });
+  const body = await resp.json();
+
+  if (resp.status === 404) {
+    throw new Error('class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body.days;
+};
+
+export const readClassDay = async classDayId => {
+  const resp = await fetch(`${serverPath}/class/readClassDay/${classDayId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  });
+  const body = await resp.json();
+
+  if (resp.status === 404) {
+    throw new Error('class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body;
+};
+
+export const addNote = async (classDayId, description, link) => {
+  const resp = await fetch(`${serverPath}/class/addNote`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ classDayId, description, link }),
+  });
+  const body = await resp.json();
+
+  if (resp.status === 400) {
+    throw new Error('missing required input');
+  }
+  if (resp.status === 404) {
+    throw new Error('class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body.note;
+};
+
+export const updateNote = async ({ classDayId, description, link, likes }) => {
+  const resp = await fetch(`${serverPath}/class/updateNote`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ classDayId, description, link, likes }),
+  });
+  const body = await resp.json();
+
+  if (resp.status === 400) {
+    throw new Error('missing required input');
+  }
+  if (resp.status === 404) {
+    throw new Error('class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body.note;
+};
+
+export const readNotes = async classDayId => {
+  const resp = await fetch(`${serverPath}/class/readNotes/${classDayId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    credentials: 'include',
+  });
+  const body = await resp.json();
+
+  if (resp.status === 404) {
+    throw new Error('class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body.notes;
+};
+
 /** **** ACCOUNTS ***** */
 export const getUserByUsername = async name => {
   console.log('in getUserByUsername');

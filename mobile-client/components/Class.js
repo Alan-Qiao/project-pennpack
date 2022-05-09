@@ -66,6 +66,7 @@ export const getClassDataById = async id => {
 };
 
 export const getClassData = async name => {
+  console.log('in getClassData');
   try {
     const data = await readClass(name);
     return data;

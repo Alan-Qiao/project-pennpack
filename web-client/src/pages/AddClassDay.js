@@ -26,11 +26,6 @@ function AddClassDay() {
     navigate(`/classDashboard/${className}`);
   }
 
-  useEffect(() => {
-    
-  }, []);
-
-
   const [lectureClicked, setLectureClicked] = useState(0);
   const [recitationClicked, setRecitationClicked] = useState(0);
   const [seminarClicked, setSeminarClicked] = useState(0);

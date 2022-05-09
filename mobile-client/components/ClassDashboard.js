@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Pressable, View, Text, StyleSheet, TextInput } from 'react-native';
 import { getClassData, dayTitle } from './Class';
+import { readClassDays } from '../api/services';
 
 function ClassDashboard({ route, navigation }) {
   const { className } = route.params;
   const [prof, setProf] = useState('');
+  const [classId, setClassId] = useState('');
   const [days, setDays] = useState([]);
 
   async function fetchClassData() {
     const data = await getClassData(className);
+    setClassId(data._id);
     if (data.err) {
       alert(`An Error Occured: ${data.err}`);
     } else {
@@ -23,15 +26,25 @@ function ClassDashboard({ route, navigation }) {
     });
   };
 
-  const clickedClassDate = () => {
+  const clickedClassDay = dayId => {
     navigation.navigate('ClassDay', {
+      id: dayId,
       className,
     });
-  }
+  };
 
   useEffect(() => {
     fetchClassData();
   }, []);
+
+  // Fetches from the database every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const classDays = await readClassDays(classId);
+      setDays(classDays);
+    }, 2000);
+    return () => clearInterval(interval);
+  });
 
   return (
       <View style={styles.viewStyles}>
@@ -45,14 +58,20 @@ function ClassDashboard({ route, navigation }) {
             + Add Class Date
           </Text>
         </Pressable>
-        <Pressable
-          onPress={() => clickedClassDate()}
-          style={styles.button}
-        >
+        {
+          days.map((day, i) => (
+            <Pressable
+              key={i}
+              onPress={() => clickedClassDay(day._id)}
+              style={styles.button}
+            >
           <Text>
-            Fake class date
+            {day.topic}
           </Text>
-        </Pressable>
+            </Pressable>
+          ))
+        }
+
       </View>
   );
 }

@@ -1,20 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Pressable, View, Text, StyleSheet, TextInput } from 'react-native';
-import { getClassData, dayTitle } from './Class';
+import { addClassDay } from '../api/services';
 
 function AddClassDay({ route, navigation }) {
   const { className } = route.params;
   const [type, setType] = useState('');
   const [date, setDate] = useState(new Date(Date.now()).toISOString().substring(0, 10));
   const [topic, setTopic] = useState('');
-  const [incomplete, setIncomplete] = useState(false);
-
   const [lectureClicked, setLectureClicked] = useState(0);
   const [recitationClicked, setRecitationClicked] = useState(0);
   const [seminarClicked, setSeminarClicked] = useState(0);
+  const [incomplete, setIncomplete] = useState(false);
 
-  function handleSubmit() {
-    console.log('clicked submit');
+  async function handleSubmit() {
+    if (!type || !topic) {
+      setIncomplete(true);
+      return;
+    }
+
+    await addClassDay(className, date, type, topic);
+    navigation.navigate('ClassDashboard', {
+      className,
+    });
   }
 
   function clickedLecture() {
@@ -84,6 +91,13 @@ function AddClassDay({ route, navigation }) {
         >
             <Text>Continue</Text>
         </Pressable>
+        { !incomplete
+          ? null
+          : (
+            <Text style={styles.warning}>
+              All fields need to be completed
+            </Text>
+          )}
       </View>
   );
 }
@@ -128,17 +142,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     width: 315,
   },
-  datePickerStyle: {
-    width: 230,
-  },
-  errorText: {
-    color: '#D94A4A',
-    fontSize: 12,
-    // float: 'left',
-    fontWeight: 'bold',
-    marginTop: 30,
-    textAlign: 'left',
-  },
   subtitleText: {
     color: '#898888',
     fontSize: 20,
@@ -171,6 +174,10 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     flex: 1,
     padding: 30,
+  },
+  warning: {
+    color: '#E95C5C',
+    fontSize: 10,
   },
 });
 

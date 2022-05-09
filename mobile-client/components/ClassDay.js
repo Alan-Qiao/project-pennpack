@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Pressable, View, Text, StyleSheet, TextInput } from 'react-native';
-// import { getClassData, dayTitle } from './Class';
+import { addNote, readNotes, readClassDay } from '../api/services';
 
 function ClassDay({ route, navigation }) {
-  const { className } = route.params;
-  const [noteName, setNoteName] = useState('');
+  const { id, className } = route.params;
+  const [classDay, setClassDay] = useState({});
+  const [notes, setNotes] = useState([]);
   const [addNoteClicked, setAddNoteClicked] = useState(false);
   const [description, setDescription] = useState('');
   const [link, setLink] = useState('');
@@ -15,29 +16,65 @@ function ClassDay({ route, navigation }) {
     console.log('CLICKED IT');
   }
 
-  function continueClicked() {
-    setAddNoteClicked(false);
-
+  async function handleSubmit() {
     if (!description || !link) {
       setIncomplete(true);
+      return;
+    }
+
+    try {
+      await addNote(id, description, link);
+      setAddNoteClicked(false);
+      getNotes();
+    } catch (e) {
+      alert(`An error occured: ${e.message}`);
     }
   }
 
-  async function fetchClassNotes() {
-    // TODO: BACKEND INTEGRATION, GET DAY INFO
-    setNoteName('Lecture: React Applications');
+  async function getClassDayData() {
+    try {
+      const result = await readClassDay(id);
+      setClassDay(result);
+    } catch (e) {
+      alert(`An error has occured: ${e.message}`);
+    }
+  }
+
+  async function getNotes() {
+    try {
+      const result = await readNotes(id);
+      console.log(result);
+      setNotes(result);
+    } catch (e) {
+      alert(`An error has occured: ${e.message}`);
+    }
   }
 
   useEffect(() => {
-    fetchClassNotes();
+    getClassDayData();
+    getNotes();
   }, []);
+
+  // Fetches from the database every 2 seconds
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const result = await readNotes(id);
+      setNotes(result);
+    }, 2000);
+    return () => clearInterval(interval);
+  });
 
   return (
       <View style={styles.viewStyles}>
-        <Text style={styles.titleText}>{noteName}</Text>
+        <Text style={styles.titleText}>
+        {classDay.type}
+        {': '}
+        {classDay.topic}
+        </Text>
         {
           addNoteClicked
-            ? <View>
+            ? (
+            <View>
               <Text style={styles.subtitleText}>
                 Description
               </Text>
@@ -56,22 +93,49 @@ function ClassDay({ route, navigation }) {
               />
               <Pressable
                 style={styles.continueButton}
-                onPress={() => continueClicked()}
+                onPress={() => handleSubmit()}
               >
               <Text>
                 Continue
               </Text>
+              { !incomplete
+                ? null
+                : (
+                  <Text style={styles.warning}>
+                    All fields need to be completed
+                  </Text>
+                )}
               </Pressable>
-              </View>
-            : <Pressable
-                onPress={() => clickedAddNote()}
-                style={styles.button}
-            >
+            </View>
+            )
+            : (
+          <Pressable
+            onPress={() => clickedAddNote()}
+            style={styles.button}
+          >
                 <Text>
                   + Add your notes
                 </Text>
-              </Pressable>
+          </Pressable>
+            )
         }
+        { notes.map((note, i) => (
+          <View
+            style={styles.note}
+            id={i}
+          >
+            <Text id={i}>
+              @
+              {note.ownerHandle}
+              {'\n'}
+              {'\n'}
+              {note.description}
+              {'\n'}
+              {'Link: '}
+              {note.link}
+            </Text>
+          </View>
+        ))}
       </View>
   );
 }
@@ -87,18 +151,7 @@ const styles = StyleSheet.create({
     color: '#F1F7EE',
     elevation: 3,
     fontFamily: 'arial',
-    marginTop: 10,
-    paddingVertical: 10,
-    width: 315,
-  },
-  buttonPressed: {
-    alignItems: 'center',
-    backgroundColor: '#E0EDC5',
-    borderColor: '#3A405A',
-    borderRadius: 10,
-    color: '#E0EDC5',
-    elevation: 3,
-    fontFamily: 'arial',
+    marginBottom: 10,
     marginTop: 10,
     paddingVertical: 10,
     width: 315,
@@ -112,20 +165,19 @@ const styles = StyleSheet.create({
     elevation: 3,
     fontFamily: 'arial',
     justifyContent: 'center',
+    marginBottom: 20,
     marginTop: 20,
     paddingVertical: 10,
     width: 315,
   },
-  datePickerStyle: {
-    width: 230,
-  },
-  errorText: {
-    color: '#D94A4A',
-    fontSize: 12,
-    // float: 'left',
-    fontWeight: 'bold',
-    marginTop: 30,
-    textAlign: 'left',
+  note: {
+    backgroundColor: 'rgba(126, 186, 199, .24)',
+    borderColor: '#3A405A',
+    borderRadius: 10,
+    fontFamily: 'arial',
+    marginBottom: 10,
+    padding: 10,
+    width: 315,
   },
   subtitleText: {
     color: '#898888',
@@ -160,13 +212,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 30,
   },
-});
-
-/*
-nameText: {
-    fontSize: 20,
-    textAlign: 'left',
-    // float: 'left',
-    paddingLeft: 50,
+  warning: {
+    color: '#E95C5C',
+    fontSize: 10,
   },
-*/
+});
