@@ -21,7 +21,7 @@ function AddClassNote() {
     }
     console.log('this ran');
     addClassDay(classId, date.replaceAll('-', ''), { type, date, topic });
-    navigate(`/ClassDashboard/${classId}`);
+    navigate(`/AddClassDay/${classId}`);
   }
 
   const [lectureClicked, setLectureClicked] = useState(0);
