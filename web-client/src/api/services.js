@@ -242,6 +242,26 @@ export const readClassDays = async (classId) => {
   return body.days;
 }
 
+export const readClassDay = async (classDayId) => {
+  const resp = await fetch(`${serverPath}/class/readClassDay/${classDayId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    credentials: 'include',
+  });
+  const body = await resp.json();
+
+  if (resp.status === 404) {
+    throw new Error('class not found');
+  }
+  if (!resp.ok) {
+    throw new Error(body.error);
+  }
+  return body;
+}
+
 export const addNote = async (classDayId, description, link) => {
   const resp = await fetch(`${serverPath}/class/addNote`, {
     method: 'POST',

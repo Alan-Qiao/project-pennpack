@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import '../styles/AddClassNote.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
@@ -14,19 +14,26 @@ function AddClassDay() {
   const [topic, setTopic] = useState('');
   const [incomplete, setIncomplete] = useState(false);
 
-  async function handleSubmit () {
+  function handleSubmit() {
     if (!type || !topic) {
       setIncomplete(true);
       return;
     }
-    try {
-      console.log(className);
-      await addClassDay(className, new Date(date), type, topic);
-      navigate(`/classdashboard/${className}`);
-    } catch (e) {
-      alert(`An error occured: ${e.message}`);
-    }
+
+    // TODO: 
+    // Retrieve class id from className
+    // Add new Class Day object (addClassDay from services) to database
+    // Route to /classDashboard/${className}
+
+
+    // addClassDay(classId, date.replaceAll('-', ''), { type, date, topic });
+    // navigate(`/AddClassDay/${classId}`);
   }
+
+  useEffect(() => {
+    
+  }, []);
+
 
   const [lectureClicked, setLectureClicked] = useState(0);
   const [recitationClicked, setRecitationClicked] = useState(0);
@@ -65,21 +72,21 @@ function AddClassDay() {
         <button
           className={lectureClicked ? 'button_1_checked' : 'button_1'}
           type="button"
-          onClick={() => clickedLecture()}
+          onClick={clickedLecture}
         >
           Lecture
         </button>
         <button
           className={recitationClicked ? 'button_1_checked' : 'button_1'}
           type="button"
-          onClick={() => clickedRecitation()}
+          onClick={clickedRecitation}
         >
           Recitation
         </button>
         <button
           className={seminarClicked ? 'button_1_checked' : 'button_1'}
           type="button"
-          onClick={() => clickedSeminar()}
+          onClick={clickedSeminar}
         >
           Seminar
         </button>
@@ -102,7 +109,7 @@ function AddClassDay() {
         { incomplete && <div className="spacer" />}
         { !incomplete ? <div className="spacer" /> : <p className="warning">All fields need to be completed</p>}
         <div className="spacer" />
-        <button className="button_3" type="button" onClick={() => handleSubmit()}>
+        <button className="button_3" type="button" onClick={handleSubmit}>
           Continue
         </button>
       </div>

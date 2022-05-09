@@ -156,7 +156,13 @@ router.post('/addDay', authenticate, async (req, res, next) => {
     if (!classObj) {
       res.status(404).json({ error: 'Cannot find associated class' });
     }
-    const result = await ClassDay.create({ classId: classObj._id, date: new Date(date), type, topic, notes: [] });
+    const result = await ClassDay.create({
+      classId: classObj._id,
+      date: new Date(date),
+      type,
+      topic,
+      notes: [],
+    });
     classObj.classDays.push(result._id);
     classObj.save();
     res.status(201).json({ message: 'Class Day successfully created', day: result });
@@ -166,6 +172,41 @@ router.post('/addDay', authenticate, async (req, res, next) => {
 });
 
 router.get('/readDays/:classId', authenticate, async (req, res, next) => {
+  try {
+    const { params: { classId } } = req;
+    const classObj = await Class.findById(classId);
+    if (!classObj) {
+      res.status(404).json({ error: 'Class not found' });
+      return;
+    }
+    const days = await ClassDay.find({ _id: { $in: classObj.classDays } });
+    res.status(200).json({ message: 'Retrieved class days successfully', days });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// For ClassDay.js, getting data about the class day
+router.get('/readClassDay/:classId', authenticate, async (req, res, next) => {
+  try {
+    const { params: { classId } } = req;
+    const classDayObj = await ClassDay.findById(classId);
+    if (!classDayObj) {
+      res.status(404).json({ error: 'ClassDay not found' });
+      return;
+    }
+    res.status(200).json({
+      message: 'Retrieved class days successfully',
+      type: classDayObj.type,
+      topic: classDayObj.topic,
+      date: classDayObj.date,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/readDayById/:classId', authenticate, async (req, res, next) => {
   try {
     const { params: { classId } } = req;
     const classObj = await Class.findById(classId);
