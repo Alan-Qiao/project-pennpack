@@ -146,16 +146,17 @@ router.get('/readbyid/:classId', authenticate, async (req, res, next) => {
 
 router.post('/addDay', authenticate, async (req, res, next) => {
   try {
-    const { body: { classId, date, type, topic } } = req;
-    if (!classId || !date || !type || !topic) {
+    const { body: { className, date, type, topic } } = req;
+    console.log(req.body);
+    if (!className || !date || !type || !topic) {
       res.status(400).json({ error: 'Missing required information' });
       return;
     }
-    const classObj = await Class.findById(classId);
+    const classObj = await Class.findOne({ className });
     if (!classObj) {
       res.status(404).json({ error: 'Cannot find associated class' });
     }
-    const result = await ClassDay.create({ classId, date, type, topic, notes: [] });
+    const result = await ClassDay.create({ classId: classObj._id, date: new Date(date), type, topic, notes: [] });
     classObj.classDays.push(result._id);
     classObj.save();
     res.status(201).json({ message: 'Class Day successfully created', day: result });
@@ -169,7 +170,7 @@ router.get('/readDays/:classId', authenticate, async (req, res, next) => {
     const { params: { classId } } = req;
     const classObj = await Class.findById(classId);
     if (!classObj) {
-      res.status(400).json({ error: 'Class not found' });
+      res.status(404).json({ error: 'Class not found' });
       return;
     }
     const days = await ClassDay.find({ _id: { $in: classObj.classDays } });

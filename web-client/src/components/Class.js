@@ -77,8 +77,11 @@ export const getClassData = async (name) => {
   }
 };
 
-export const dayTitle = ({ type, date, topic }) => {
-  const datePieces = date.split('-');
+export const dayTitle = (type, date, topic) => {
+  console.log(type)
+  console.log(date)
+  console.log(topic)
+  const datePieces = date.substring(0,10).split('-');
   const month = Number(datePieces[1]);
   const day = Number(datePieces[2]);
   const shortDate = `${month}/${day}`;
