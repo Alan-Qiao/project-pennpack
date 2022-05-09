@@ -49,11 +49,11 @@ function ClassDay() {
       setIncomplete(true);
       return;
     }
-    const descriptionInput = document.getElementById('description-input');
-		descriptionInput.value = '';
+    // const descriptionInput = document.getElementById('description-input');
+		// descriptionInput.value = '';
 
-    const linkInput = document.getElementById('link-input');
-		linkInput.value = '';
+    // const linkInput = document.getElementById('link-input');
+		// linkInput.value = '';
     
     try {
       await addNote(classDayId, description, link);
