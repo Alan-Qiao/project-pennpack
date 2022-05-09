@@ -3,6 +3,7 @@ import '../styles/ClassDashboard.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { getClassData, dayTitle } from '../components/Class';
+import { readClassDays } from '../api/services';
 
 function ClassDashboard() {
   const navigate = useNavigate();
@@ -12,13 +13,16 @@ function ClassDashboard() {
 
   useEffect(() => {
     const readClassAsync = async () => {
-      const data = await getClassData(name);
-      if (data.err) {
-        alert(`An Error Occured: ${data.err}`);
-        navigate(-1);
-      } else {
+      try {
+        const data = await getClassData(name);
         setProf(data.professor);
-        setDays(data.classDays);
+        console.log(data._id)
+        const days = await readClassDays(data._id);
+        console.log(days);
+        setDays(days);
+      } catch (e) {
+        alert(`An Error Occured: ${e.message}`);
+        navigate(-1);
       }
     }
     readClassAsync();
@@ -33,7 +37,7 @@ function ClassDashboard() {
         <button
           className="button1"
           type="button"
-          onClick={() => navigate(`/classDashboard/${name}/addclassnote`)}
+          onClick={() => navigate(`/classDashboard/${name}/addclassday`)}
         >
           + Add Class Date
         </button>
@@ -42,9 +46,9 @@ function ClassDashboard() {
               key={day._id}
               className="button2"
               type="button"
-              onClick={() => navigate(`/classNote/${day._id}`)}
+              onClick={() => navigate(`/classday/${day._id}`)}
             >
-              {dayTitle(day)}
+              {dayTitle(day.type, day.date, day.topic)}
             </button>
         ))}
       </div>

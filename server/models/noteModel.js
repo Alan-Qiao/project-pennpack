@@ -3,12 +3,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const noteSchema = new Schema({
-  classDayId: { type: String },
+  classDayId: { type: mongoose.Types.ObjectId },
   ownerHandle: { type: String },
   description: { type: String },
-  notelink: { type: String },
+  link: { type: String },
   likes: { type: Number },
-  comments: { type: [mongoose.Types.ObjectId] },
 });
 
 const Note = mongoose.model('Note', noteSchema);

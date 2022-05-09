@@ -1,14 +1,14 @@
 const express = require('express');
+const Multer = require('multer');
+const { format } = require('util');
 const Chat = require('../models/chatModel');
 const User = require('../models/userModel');
 const Message = require('../models/messageModel');
 const authenticate = require('../middlewares/authenticator');
-const { uploadImage, generateNewName } = require('../helpers/uploadImage')
+const { uploadImage, generateNewName } = require('../helpers/uploadImage');
+const gc = require('../config/mediaConfig');
 
-const {format} = require('util')
-const gc = require('../config/mediaConfig')
-const bucket = gc.bucket('pennpack')
-const Multer = require('multer');
+const bucket = gc.bucket('pennpack');
 
 const router = express.Router();
 
@@ -21,9 +21,8 @@ const multer = Multer({
   },
 });
 
-
 router.post('/uploadfile', multer.single('file'), async (req, res, next) => {
-  const file = req.file;
+  const { file } = req;
 
   if (!file) {
     res.status(400).send('No file uploaded.');
@@ -35,19 +34,17 @@ router.post('/uploadfile', multer.single('file'), async (req, res, next) => {
   const blobStream = blob.createWriteStream();
 
   blobStream.on('error', err => {
-      next(err);
+    next(err);
   });
 
   blobStream.on('finish', () => {
-      // The public URL can be used to directly access the file via HTTP.
-      const publicUrl = format(
-          `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-      );
+    // The public URL can be used to directly access the file via HTTP.
+    const publicUrl = format(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
 
-      res.status(200).json({ 
-          message: 'mediaUrl sent here',
-          result: publicUrl
-      });
+    res.status(200).json({
+      message: 'mediaUrl sent here',
+      result: publicUrl,
+    });
   });
   blobStream.end(file.buffer);
 });
@@ -56,10 +53,10 @@ router.post('/sendmessage', authenticate, async (req, res, next) => {
   try {
     const { body: { message } } = req;
 
-    const newlyCreatedMessage = await Message.create({ 
+    const newlyCreatedMessage = await Message.create({
       type: message.type,
       content: message.content,
-      sender: message.sender
+      sender: message.sender,
     });
 
     // Add the message to the Chat
@@ -72,7 +69,6 @@ router.post('/sendmessage', authenticate, async (req, res, next) => {
       newlyCreatedMessage,
       message: 'Message is created',
     });
-
   } catch (err) {
     next(err);
   }
@@ -88,7 +84,7 @@ router.get('/messages/:chatId', authenticate, async (req, res, next) => {
       return;
     }
 
-    let messages = [];
+    const messages = [];
     for (let i = 0; i < chat.messages.length; i++) {
       const currMessageId = chat.messages[i];
       const messageObj = await Message.findById(currMessageId);
@@ -98,8 +94,8 @@ router.get('/messages/:chatId', authenticate, async (req, res, next) => {
       const messageToPush = {
         id: messageId,
         type: messageObj.type,
-        content: messageObj.content
-      }
+        content: messageObj.content,
+      };
       messages.push(messageToPush);
     }
 
@@ -107,12 +103,10 @@ router.get('/messages/:chatId', authenticate, async (req, res, next) => {
       messages,
       message: 'Retrieved all of users classes',
     });
-
   } catch (err) {
     next(err);
   }
 });
-
 
 router.get('/getchats', authenticate, async (req, res, next) => {
   try {
@@ -123,10 +117,10 @@ router.get('/getchats', authenticate, async (req, res, next) => {
       return;
     }
 
-    let userChats = [];
+    const userChats = [];
     for (let i = 0; i < user.chats.length; i++) {
       const { userIdA, userIdB } = await Chat.findById(user.chats[i]);
-      
+
       let userInfo;
       if (userIdA !== req.userId) {
         userInfo = await User.findById(userIdA);
@@ -138,8 +132,8 @@ router.get('/getchats', authenticate, async (req, res, next) => {
         chatId: user.chats[i],
         userIdB: userInfo._id,
         name: userInfo.name,
-        username: userInfo.username
-      }
+        username: userInfo.username,
+      };
       userChats.push(userInfoCondensed);
     }
 
@@ -147,7 +141,6 @@ router.get('/getchats', authenticate, async (req, res, next) => {
       userChats,
       message: 'Retrieved all of users classes',
     });
-
   } catch (err) {
     next(err);
   }
@@ -157,27 +150,27 @@ router.post('/create', authenticate, async (req, res, next) => {
   try {
     const { body: { userBId } } = req;
 
-    // Checking if this class already exists
+    // Checking if this chat already exists
     let existingChat = await Chat.findOne({ userIdA: req.userId, userIdB: userBId });
     if (existingChat) {
       res.status(409).json({ error: 'Chat already exists' });
       return;
     }
 
-    existingChat = await Chat.findOne({ userIdA: userBId, userIdB: req.userId, }); 
+    existingChat = await Chat.findOne({ userIdA: userBId, userIdB: req.userId });
     if (existingChat) {
       res.status(409).json({ error: 'Chat already exists' });
       return;
-    }   
+    }
 
     const newlyCreatedChat = await Chat.create({ userIdA: req.userId, userIdB: userBId });
 
     // Add the chat id to both users' chat arrays
-    let userA = await User.findOne({ _id: req.userId });
+    const userA = await User.findOne({ _id: req.userId });
     userA.chats.push(newlyCreatedChat._id);
     userA.save();
 
-    let userB = await User.findOne({ _id: userBId });
+    const userB = await User.findOne({ _id: userBId });
     userB.chats.push(newlyCreatedChat._id);
     userB.save();
 
@@ -185,7 +178,6 @@ router.post('/create', authenticate, async (req, res, next) => {
       newlyCreatedChat: newlyCreatedChat._id,
       message: 'Chat is created',
     });
-
   } catch (err) {
     next(err);
   }

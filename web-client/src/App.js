@@ -6,7 +6,7 @@ import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ClassDashboard from './pages/ClassDashboard';
-import AddClassNote from './pages/AddClassNote';
+import ClassDay from './pages/ClassDay';
 import UserDashboard from './pages/UserDashboard';
 import JoinClass from './pages/JoinClass';
 import CreateClass from './pages/CreateClass';
@@ -29,13 +29,13 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/classdashboard/:name" element={<ClassDashboard />} />
-        <Route path="/classdashboard/:name/addclassnote" element={<AddClassNote />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
         <Route path="/joinclass" element={<JoinClass />} />
         <Route path="/createclass" element={<CreateClass />} />
         <Route path="/profile/:username" element={<Profile />} />
-        <Route path="/addClassDay" element={<AddClassDay />} />
+        <Route path="/classdashboard/:name/addClassDay" element={<AddClassDay />} />
+        <Route path="/classday/:id" element={<ClassDay />} />
       </Routes>
     </BrowserRouter>
   );
