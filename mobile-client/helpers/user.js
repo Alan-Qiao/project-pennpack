@@ -1,4 +1,4 @@
-import { 
+import {
   createUser,
   authenticateUser,
   disconnectUser,
@@ -18,17 +18,16 @@ export const getUserInfo = async () => {
   } catch (e) {
     return e.message;
   }
-}
+};
 
-export const getUserInfoByUsername = async (name) => {
-  console.log('in getUserInfoByUsername');
+export const getUserInfoByUsername = async name => {
   try {
     const { user } = await getUserByUsername(name);
     return user;
   } catch (e) {
     return e.message;
   }
-}
+};
 
 export const signupUser = (name, username, password) => {
   if (!validateString(name, validName)) {
@@ -48,7 +47,7 @@ export const signupUser = (name, username, password) => {
 
 export const loginUser = async (username, password) => {
   try {
-    const { user } = await authenticateUser(username, password);
+    await authenticateUser(username, password);
   } catch (e) {
     return e.message;
   }

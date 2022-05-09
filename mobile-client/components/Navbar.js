@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 
-function Navbar({ navigation }) {
+function Navbar() {
   return (
     <View styles={styles.viewStyles}>
       <View style={{ flex: 1 }}>
@@ -10,13 +10,19 @@ function Navbar({ navigation }) {
         </Pressable>
       </View>
       <View style={{ flex: 1 }}>
-        <Pressable>Chat</Pressable>
+        <Pressable>
+          <Text>Chat</Text>
+        </Pressable>
       </View>
       <View style={{ flex: 1 }}>
-        <Pressable>Classes</Pressable>
+        <Pressable>
+          <Text>Classes</Text>
+        </Pressable>
       </View>
       <View style={{ flex: 1 }}>
-        <Pressable>Profile</Pressable>
+        <Pressable>
+          <Text>Profile</Text>
+        </Pressable>
       </View>
     </View>
   );

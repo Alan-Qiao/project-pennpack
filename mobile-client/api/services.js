@@ -1,6 +1,6 @@
 import { serverPath } from '../consts';
 
-/****** MESSAGES ******/
+/** **** MESSAGES ***** */
 export const sendNewFileMessage = async message => {
   // Upload the file to Google Cloud Storage
   const data = new FormData();
@@ -64,7 +64,7 @@ export const createNewChat = async id => {
   return body;
 };
 
-/****** CLASSES ******/
+/** **** CLASSES ***** */
 export const getAllUserClasses = async () => {
   const resp = await fetch(`${serverPath}/class/getuserclasses`, {
     method: 'GET',
@@ -195,7 +195,7 @@ export const joinClass = async classId => {
   return body;
 };
 
-/****** ACCOUNTS ******/
+/** **** ACCOUNTS ***** */
 export const getUserByUsername = async name => {
   console.log('in getUserByUsername');
   const resp = await fetch(`${serverPath}/getuser/${name}`, {

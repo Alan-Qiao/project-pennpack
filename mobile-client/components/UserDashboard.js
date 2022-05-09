@@ -15,10 +15,11 @@ function UserDashboard({ navigation }) {
     }
 
     // Need to get each individual class (need id, classname)
+    const curClasses = [];
     for (let i = 0; i < allClasses.length; i++) {
-      const currClass = await getClassDataById(allClasses[i]);
-      setUserClasses(oldArray => [...oldArray, currClass]);
+      curClasses.push(getClassDataById(allClasses[i]));
     }
+    setUserClasses(await Promise.all(curClasses));
   };
 
   useEffect(() => {
@@ -40,67 +41,70 @@ function UserDashboard({ navigation }) {
 export default UserDashboard;
 
 const styles = StyleSheet.create({
+  titleText: {
+    alignItems: 'center',
+    color: '#7EBAC7',
+    flex: 1,
+    flexWrap: 'wrap',
+    fontFamily: 'Lato',
+    fontSize: 40,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    marginTop: 30,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    textAlign: 'center',
+  },
   viewStyles: {
     flex: 1,
     justifyContent: 'center',
     margin: 20,
   },
-  titleText: {
-    marginTop: 30,
-    fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#7EBAC7',
-    paddingBottom: 10,
-    flex: 1,
-    justifyContent: 'center',
+});
+
+/*
+button: {
     alignItems: 'center',
-    flexWrap: 'wrap',
-    paddingRight: 20,
-    paddingLeft: 20,
-    fontFamily: 'Lato',
-  },
-  nameText: {
-    fontSize: 20,
-    textAlign: 'left',
-    float: 'left',
-    paddingLeft: 50,
+    backgroundColor: '#F1F7EE',
+    borderRadius: 20,
+    color: '#92AA83',
+    elevation: 3,
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    height: 153,
+    justifyContent: 'center',
+    marginLeft: 10,
+    marginRight: 10,
+    paddingVertical: 10,
+    width: 153,
   },
   errorText: {
     fontSize: 12,
     textAlign: 'left',
-    float: 'left',
+    // float: 'left',
     fontWeight: 'bold',
     marginTop: 30,
     color: '#D94A4A',
   },
+  nameText: {
+    fontSize: 20,
+    textAlign: 'left',
+    // float: 'left',
+    paddingLeft: 50,
+  },
   textInput: {
     alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'arial',
-    paddingVertical: 12,
+    backgroundColor: '#E9E3E6',
+    borderRadius: 20,
     color: '#9A8F97',
+    elevation: 3,
+    fontFamily: 'arial',
     fontWeight: 'bold',
-    width: 200,
+    justifyContent: 'center',
     marginTop: 20,
     paddingLeft: 20,
-    elevation: 3,
-    borderRadius: 20,
-    backgroundColor: '#E9E3E6',
+    paddingVertical: 12,
+    width: 200,
   },
-  button: {
-    fontFamily: 'arial',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 10,
-    marginRight: 10,
-    marginLeft: 10,
-    color: '#92AA83',
-    fontWeight: 'bold',
-    width: 153,
-    height: 153,
-    elevation: 3,
-    borderRadius: 20,
-    backgroundColor: '#F1F7EE',
-  },
-});
+*/

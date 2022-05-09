@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const path = require('path');
 const db = require('./config').get(process.env.NODE_ENV);
 const AccountRouter = require('./routers/accounts');
 const ClassRouter = require('./routers/classes');
@@ -9,6 +10,7 @@ const ChatsRouter = require('./routers/chats');
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, '../client/build')));
 // Database connection
 mongoose.Promise = global.Promise;
 

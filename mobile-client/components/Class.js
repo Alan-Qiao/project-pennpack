@@ -112,20 +112,20 @@ function ClassIcon({ navigation, classId, className, mode }) {
 
 const styles = StyleSheet.create({
   button: {
-    fontFamily: 'arial',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 10,
-    marginRight: 10,
-    marginLeft: 10,
-    color: '#92AA83',
-    fontWeight: 'bold',
-    width: 140,
-    height: 140,
-    elevation: 3,
-    borderRadius: 20,
     backgroundColor: '#F1F7EE',
+    borderRadius: 20,
+    color: '#92AA83',
+    elevation: 3,
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    height: 140,
+    justifyContent: 'center',
+    marginLeft: 10,
+    marginRight: 10,
     margin: 5,
+    paddingVertical: 10,
+    width: 140,
   },
 });
 

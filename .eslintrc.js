@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
+    'plugin:react-native/all',
     'airbnb',
   ],
   parser: '@typescript-eslint/parser',
@@ -18,6 +19,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'react-native',
     '@typescript-eslint',
     'jest',
   ],
@@ -32,9 +34,12 @@ module.exports = {
     'no-param-reassign': ['error', { props: false }],
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
-    'no-await-in-loop': 'off',
     'no-plusplus': 'off',
     'no-use-before-define': 'off',
-    'spaced=comment': 'off',
+    'react/no-array-index-key': 'off',
+    'react-native/no-color-literals': 'off',
+    'react-native/no-inline-styles': 'off',
+    'no-await-in-loop': 'off',
+    'no-use-before-define': 'off',
   },
 };
