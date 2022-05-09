@@ -1,8 +1,7 @@
-const { createReadStream } = require('fs');
-const { format } = require('util');
-const gc = require('../config/mediaConfig');
-
-const bucket = gc.bucket('pennpack');
+const { createReadStream } = require('fs')
+const {format} = require('util')
+const gc = require('../config/mediaConfig')
+const bucket = gc.bucket('pennpack')
 const Multer = require('multer');
 
 /**
@@ -15,44 +14,45 @@ const Multer = require('multer');
  */
 
 const generateNewName = (originalName, userId) => {
-  // Do this to avoid overwriting files with same name
+	// Do this to avoid overwriting files with same name
 
-  const components = originalName.split('.');
-  const filenameNoExtension = components[0];
-  const dateStr = (new Date()).toLocaleString().replace(/\//g, '_').replace(/, /g, '_')
-    .replace(/:/g, '_');
-  let newFileName = `${userId}_${filenameNoExtension}_${dateStr}`;
-  for (let i = 1; i < components.length; i++) {
-    newFileName += `.${components[i]}`;
-  }
-  return newFileName;
-};
+	const components = originalName.split('.')
+	const filenameNoExtension = components[0]
+	let dateStr = (new Date()).toLocaleString().replace(/\//g, '_').replace(/, /g, '_').replace(/:/g, '_')
+	let newFileName = `${userId}_${filenameNoExtension}_${dateStr}`
+	for (let i = 1; i < components.length; i++) {
+		newFileName += '.' + components[i]	
+	}
+	return newFileName
+}
 
-const uploadImage = (file, newFileName) => new Promise((resolve, reject) => {
-  const { originalname, buffer } = file;
+ const uploadImage = (file, newFileName) => new Promise((resolve, reject) => {
+  const { originalname, buffer } = file
 
-  let blob = null;
-  if (newFileName) {
-    blob = bucket.file(newFileName.replace(/ /g, '_'));
-  } else {
-    blob = bucket.file(originalname.replace(/ /g, '_'));
+	let blob = null
+	if (newFileName) {
+		blob = bucket.file(newFileName.replace(/ /g, "_"))
+	} else {
+		blob = bucket.file(originalname.replace(/ /g, "_"))
   }
   const blobStream = blob.createWriteStream({
-    resumable: false,
-  });
+    resumable: false
+  })
   blobStream.on('finish', () => {
     const publicUrl = format(
-      `https://storage.googleapis.com/${bucket.name}/${blob.name}`,
-    );
-    resolve(publicUrl);
+      `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+    )
+    resolve(publicUrl)
   })
-    .on('error', () => {
-      reject('Unable to upload image, something went wrong');
-    })
-    .end(buffer);
-});
+  .on('error', () => {
+    reject(`Unable to upload image, something went wrong`)
+  })
+  .end(buffer)
+})
 
-module.exports = {
-  generateNewName,
-  uploadImage,
+
+
+module.exports={
+	generateNewName,
+	uploadImage
 };

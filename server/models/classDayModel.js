@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const classDaySchema = new Schema({
-  classId: { type: mongoose.Types.ObjectId },
+  classId: { type: String },
   date: { type: Date },
-  type: { type: String, enum: ['Lecture', 'Recitation', 'Seminar'] },
+  typeOfClass: { type: String },
   topic: { type: String },
   notes: { type: [mongoose.Types.ObjectId] },
 });
