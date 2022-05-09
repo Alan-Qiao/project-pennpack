@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: '#7EBAC7',
-    fontFamily: 'Lato',
+    fontFamily: 'arial',
     fontSize: 50,
     fontWeight: 'bold',
     textAlign: 'center',

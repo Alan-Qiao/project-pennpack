@@ -47,7 +47,7 @@ export default Login;
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#7EBAC7',
+    backgroundColor: 'rgba(126, 186, 199, .24)',
     borderColor: '#3A405A',
     borderRadius: 10,
     color: '#3A405A',
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: '#7EBAC7',
-    fontFamily: 'Lato',
+    fontFamily: 'arial',
     fontSize: 50,
     fontWeight: 'bold',
     paddingBottom: 20,
@@ -101,12 +101,3 @@ const styles = StyleSheet.create({
     padding: 30,
   },
 });
-
-/*
-nameText: {
-    fontSize: 20,
-    textAlign: 'left',
-    // float: 'left',
-    paddingLeft: 50,
-  },
-*/

@@ -48,7 +48,6 @@ export const createNewClass = async (className, professor) => {
 
 export const joinNewClass = async classId => {
   try {
-    console.log(classId);
     const data = await joinClass(classId);
     return data;
   } catch (e) {
@@ -95,7 +94,9 @@ function ClassIcon({ navigation, classId, className, mode }) {
         alert(`An error occured: ${err}`);
       }
     }
-    navigation.navigate('Login');
+    navigation.navigate('ClassDashboard', {
+      className,
+    });
   };
 
   return (

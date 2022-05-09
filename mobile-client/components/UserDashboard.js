@@ -33,7 +33,6 @@ function UserDashboard({ navigation }) {
               <ClassGrid navigation={navigation} classes={userClasses} />
             </View>
           </ScrollView>
-          {/* <Navbar /> */}
       </View>
   );
 }
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
     color: '#7EBAC7',
     flex: 1,
     flexWrap: 'wrap',
-    fontFamily: 'Lato',
+    fontFamily: 'arial',
     fontSize: 40,
     fontWeight: 'bold',
     justifyContent: 'center',

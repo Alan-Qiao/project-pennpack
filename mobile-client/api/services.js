@@ -155,7 +155,7 @@ export const readClassById = async classId => {
 
 export const readClass = async name => {
   console.log(name);
-  const resp = await fetch(`/class/read/${name}`, {
+  const resp = await fetch(`${serverPath}/class/read/${name}`, {
     method: 'GET',
     credentials: 'include',
   });

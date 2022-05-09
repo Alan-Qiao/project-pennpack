@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: '#7EBAC7',
     flexWrap: 'wrap',
-    fontFamily: 'Lato',
+    fontFamily: 'arial',
     fontSize: 50,
     fontWeight: 'bold',
     paddingBottom: 20,
