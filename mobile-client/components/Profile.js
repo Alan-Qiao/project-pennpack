@@ -74,7 +74,6 @@ function Profile({ route, navigation }) {
               Chat with me!
             </Text>
           </TouchableOpacity>
-          
             <Text style={styles.subtitleText}>
               Analytics
             </Text>
