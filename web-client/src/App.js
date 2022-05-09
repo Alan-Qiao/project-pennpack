@@ -13,6 +13,7 @@ import CreateClass from './pages/CreateClass';
 import Chat from './pages/Chat';
 import Profile from './pages/Profile';
 import ResetPassword from './pages/ResetPassword';
+import AddClassDay from './pages/AddClassDay';
 
 function App() {
   useEffect(() => {
@@ -22,6 +23,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -33,6 +35,7 @@ function App() {
         <Route path="/joinclass" element={<JoinClass />} />
         <Route path="/createclass" element={<CreateClass />} />
         <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/addClassDay" element={<AddClassDay />} />
       </Routes>
     </BrowserRouter>
   );

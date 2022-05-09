@@ -122,7 +122,7 @@ export const addNote = (
   classId,
   dayId,
   noteId,
-  { username, date, body, attachment, likes, comments },
+  { username, date, body, attachment},
 ) => {
   const classes = JSON.parse(localStorage.getItem('classes'));
   const classInd = findById(classId, classes);
@@ -143,9 +143,7 @@ export const addNote = (
     username,
     date,
     body,
-    attachment,
-    likes,
-    comments: comments || [] });
+    attachment});
   days[dayInd] = { ...dayAttr, notes };
   classes[classInd] = { ...classAttr, days };
   localStorage.setItem('classes', JSON.stringify(classes));
