@@ -19,6 +19,7 @@ function Profile() {
   const { username } = useParams();
 
   const [user, setUser] = useState('');
+  const [userNotesUploaded, setNotesUploaded] = useState(0);
   const [userClasses, setUserClasses] = useState([]);
   
 
@@ -36,8 +37,11 @@ function Profile() {
   }
 
   const fetchUserInfo = async () => {
-    const { name } = await getUserInfoByUsername(username);
+    const { name, notesUploaded } = await getUserInfoByUsername(username);
     setUser(name);
+    if (notesUploaded) {
+      setNotesUploaded(notesUploaded);
+    }
   }
 
   function logout() {
@@ -87,7 +91,7 @@ function Profile() {
         <ClassGrid classes={userClasses}/>
         <h6>Contributions</h6>
         <div className="notesUploaded">
-          Notes uploaded: 4
+          Notes uploaded: {userNotesUploaded}
         </div>
         <button className="button" 
                 style={{marginBottom: 50}}

@@ -15,6 +15,7 @@ const userSchema = new Schema({
   classesEnrolled: { type: [mongoose.Types.ObjectId] },
   attempts: { type: Number, default: 0 },
   chats: { type: [mongoose.Types.ObjectId] },
+  notesUploaded: { type: Number },
 }, { timestamps: true, collection: 'Users' });
 
 // hash password before saving

@@ -233,7 +233,15 @@ router.post('/addNote', authenticate, async (req, res, next) => {
     if (!classDay) {
       res.status(404).json({ error: 'Associated class day not found' });
     }
-    const { username } = await User.findById(req.userId);
+    const { username, notesUploaded } = await User.findById(req.userId);
+
+    console.log(notesUploaded);
+    const newUser = await User.updateOne(
+      { _id: req.userId },
+      { $set: { notesUploaded: notesUploaded + 1 },
+      },
+    );
+    console.log(newUser);
     const result = await Note.create({
       classDayId, ownerHandle: username, description, link, likes: 0,
     });
