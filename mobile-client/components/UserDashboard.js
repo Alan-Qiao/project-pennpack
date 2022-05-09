@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import ClassGrid from './ClassGrid';
-import Navbar from './Navbar';
 import { getClassDataById, getUserClasses } from './Class';
 
 function UserDashboard({ navigation }) {
@@ -28,11 +27,12 @@ function UserDashboard({ navigation }) {
 
   return (
       <View style={styles.viewStyles}>
-          <Navbar />
-          <Text style={styles.titleText}>User Dashboard</Text>
-          <View style={{ flex: 7, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-            <ClassGrid navigation={navigation} classes={userClasses} />
-          </View>
+          <Text style={styles.titleText}>Dashboard</Text>
+          <ScrollView>
+            <View style={{ flex: 7, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+              <ClassGrid navigation={navigation} classes={userClasses} />
+            </View>
+          </ScrollView>
           {/* <Navbar /> */}
       </View>
   );

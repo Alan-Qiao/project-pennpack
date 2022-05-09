@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, View, ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import {
   getClassDataById,
   getUserClassesByUsername,
@@ -12,7 +12,7 @@ import ClassGrid from './ClassGrid';
 import { createChat } from './Message';
 
 function Profile({ route, navigation }) {
-  const { username } = route.params;
+  const [username, setUsername] = useState('');
   const [user, setUser] = useState('');
   const [userClasses, setUserClasses] = useState([]);
 
@@ -44,8 +44,9 @@ function Profile({ route, navigation }) {
   }
 
   const fetchUserInfo = async () => {
-    const { name } = await getUserInfoByUsername(username);
-    setUser(name);
+    const signedInUser = await getUserInfo();
+    setUser(signedInUser.name);
+    setUsername(signedInUser.username);
   };
 
   useEffect(() => {
@@ -60,6 +61,7 @@ function Profile({ route, navigation }) {
           , @
           {username}
         </Text>
+        <ScrollView>
         <View style={styles.main}>
           <TouchableOpacity
             onPress={() => clickedChatWithMe()}
@@ -72,23 +74,24 @@ function Profile({ route, navigation }) {
               Chat with me!
             </Text>
           </TouchableOpacity>
-          <Text style={styles.subtitleText}>
-            Analytics
-          </Text>
-          <Text style={styles.lightGreenText}>
-            Enrolled classes
-          </Text>
-          <View style={{ flex: 7, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-            <ClassGrid navigation={navigation} classes={userClasses} />
-          </View>
-          <Text style={styles.lightGreenText}>
-            Contributions
-          </Text>
-          <Text style={styles.chatText}>
-            Notes uploaded: 4
-          </Text>
+          
+            <Text style={styles.subtitleText}>
+              Analytics
+            </Text>
+            <Text style={styles.lightGreenText}>
+              Enrolled classes
+            </Text>
+            <View style={{ flex: 7, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
+              <ClassGrid navigation={navigation} classes={userClasses} />
+            </View>
+            <Text style={styles.lightGreenText}>
+              Contributions
+            </Text>
+            <Text style={styles.chatText}>
+              Notes uploaded: 4
+            </Text>
         </View>
-
+        </ScrollView>
       </View>
   );
 }
@@ -96,54 +99,54 @@ function Profile({ route, navigation }) {
 export default Profile;
 
 const styles = StyleSheet.create({
-  viewStyles: {
-    flex: 1,
-    padding: 20,
-    color: '#FFFFFF',
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#7EBAC7',
+    borderColor: '#3A405A',
+    borderRadius: 10,
+    color: '#3A405A',
+    elevation: 3,
+    fontFamily: 'arial',
+    justifyContent: 'center',
+    marginTop: 20,
+    paddingVertical: 10,
+    width: 315,
+  },
+  chatText: {
+    color: '#898888',
+    fontSize: 15,
+    paddingBottom: 20,
+  },
+  lightGreenText: {
+    color: 'rgba(176, 190, 169, .5)',
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'left',
   },
   main: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'left',
   },
-  titleText: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#7EBAC7',
-    paddingBottom: 20,
-    fontFamily: 'arial',
-  },
-  chatText: {
-    fontSize: 15,
-    color: '#898888',
-    paddingBottom: 20,
-  },
   subtitleText: {
+    color: '#B0BEA9',
+    fontFamily: 'arial',
     fontSize: 30,
     fontWeight: 'bold',
-    textAlign: 'left',
-    color: '#B0BEA9',
     paddingBottom: 10,
-    fontFamily: 'arial',
-  },
-  lightGreenText: {
-    fontSize: 25,
-    fontWeight: 'bold',
     textAlign: 'left',
-    color: 'rgba(176, 190, 169, .5)',
   },
-  button: {
+  titleText: {
+    color: '#7EBAC7',
     fontFamily: 'arial',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 10,
-    color: '#3A405A',
-    width: 315,
-    marginTop: 20,
-    elevation: 3,
-    borderRadius: 10,
-    borderColor: '#3A405A',
-    backgroundColor: '#7EBAC7',
+    fontSize: 40,
+    fontWeight: 'bold',
+    paddingBottom: 20,
+    textAlign: 'center',
+  },
+  viewStyles: {
+    color: '#FFFFFF',
+    flex: 1,
+    padding: 20,
   },
 });

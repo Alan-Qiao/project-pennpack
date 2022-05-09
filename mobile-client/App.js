@@ -49,7 +49,7 @@ function Navbar() {
       />
       <Tab.Screen
         name="Profile"
-        component={UserDashboard}
+        component={Profile}
         options={{
           tabBarIcon: () => (
             <Image
@@ -62,6 +62,7 @@ function Navbar() {
         name="UserDashboard"
         component={UserDashboard}
         options={{
+          tabBarLabel: 'Dashboard',
           tabBarIcon: () => (
             <Image
               source={dashboard}
