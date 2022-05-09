@@ -2,6 +2,8 @@ const express = require('express');
 const Class = require('../models/classModel');
 const User = require('../models/userModel');
 const authenticate = require('../middlewares/authenticator');
+const Note = require('../models/noteModel');
+const ClassDay = require('../models/classDayModel');
 
 const router = express.Router();
 
@@ -137,6 +139,102 @@ router.get('/readbyid/:classId', authenticate, async (req, res, next) => {
     } else {
       res.status(200).json({ message: 'Read Class Data', class: result });
     }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/addDay', authenticate, async (req, res, next) => {
+  try {
+    const { body: { classId, date, type, topic } } = req;
+    if (!classId || !date || !type || !topic) {
+      res.status(400).json({ error: 'Missing required information' });
+      return;
+    }
+    const classObj = await Class.findById(classId);
+    if (!classObj) {
+      res.status(404).json({ error: 'Cannot find associated class' });
+    }
+    const result = await ClassDay.create({ classId, date, type, topic, notes: [] });
+    classObj.classDays.push(result._id);
+    classObj.save();
+    res.status(201).json({ message: 'Class Day successfully created', day: result });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/readDays/:classId', authenticate, async (req, res, next) => {
+  try {
+    const { params: { classId } } = req;
+    const classObj = await Class.findById(classId);
+    if (!classObj) {
+      res.status(400).json({ error: 'Class not found' });
+      return;
+    }
+    const days = await ClassDay.find({ _id: { $in: classObj.classDays } });
+    res.status(200).json({ message: 'Retrieved class days successfully', days });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/addNote', authenticate, async (req, res, next) => {
+  try {
+    const { body: { classDayId, description, link } } = req;
+    if (!classDayId || !description || !link) {
+      res.status(400).json({ error: 'Missing required information' });
+      return;
+    }
+    const classDay = await ClassDay.findById(classDayId);
+    if (!classDay) {
+      res.status(404).json({ error: 'Associated class day not found' });
+    }
+    const { username } = await User.findById(req.userId);
+    const result = await Note.create({
+      classDayId, ownerHandle: username, description, link, likes: 0,
+    });
+    classDay.notes.push(result._id);
+    classDay.save();
+    res.status(201).json({ message: 'Class note successfully created', note: result });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/updateNote', authenticate, async (req, res, next) => {
+  try {
+    const { body: { noteId, classDayId, description, link, likes } } = req;
+    if (!noteId) {
+      res.status(400).json({ error: 'Missing note identifier' });
+      return;
+    }
+    const note = await Note.findById(noteId);
+    if (!note) {
+      res.status(404).json({ error: 'Class note not found' });
+      return;
+    }
+    if (classDayId) note.classDayId = classDayId;
+    if (description) note.description = description;
+    if (link) note.link = link;
+    if (likes) note.likes = likes;
+    note.save();
+    res.status(200).json({ message: 'Class note successfully updated', note });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/readNotes/:classDayId', authenticate, async (req, res, next) => {
+  try {
+    const { params: { classDayId } } = req;
+    const day = await ClassDay.findById(classDayId);
+    if (!day) {
+      res.status(404).json({ error: 'Class Day not found' });
+      return;
+    }
+    const notes = await Note.find({ _id: { $in: day.notes } });
+    res.status(200).json({ message: 'Retrieved Notes Successfully', notes });
   } catch (err) {
     next(err);
   }
