@@ -1,76 +1,107 @@
 import { React, useState } from 'react';
-import '../styles/AddClassDay.css';
+import '../styles/AddClassNote.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
-import { createNewNote } from '../components/Class';
+import { addClassDay } from '../api/storage';
 
 function AddClassDay() {
   const navigate = useNavigate();
+
   const { id: classId } = useParams();
 
-  const [addNoteClicked, setaddNoteClicked] = useState(0);
-  const [description, setDescription] = useState("");
-  const [link, setLink] = useState("");
-
-  function clickedAddNote(){
-      setaddNoteClicked(1);
-      console.log("CLICKED IT")
-  }
-
-   const [incomplete, setIncomplete] = useState(false);
+  const [type, setType] = useState('');
+  const [date, setDate] = useState(new Date(Date.now()).toISOString().substring(0, 10));
+  const [topic, setTopic] = useState('');
+  const [incomplete, setIncomplete] = useState(false);
 
   function handleSubmit() {
-    if (!description || !link) {
+    if (!type || !topic) {
       setIncomplete(true);
       return;
     }
     console.log('this ran');
-    //function to add it to backend
-    setaddNoteClicked(0);
-    navigate(`/addClassDay`);
+    addClassDay(classId, date.replaceAll('-', ''), { type, date, topic });
+    navigate(`/AddClassDay/${classId}`);
   }
 
+  const [lectureClicked, setLectureClicked] = useState(0);
+  const [recitationClicked, setRecitationClicked] = useState(0);
+  const [seminarClicked, setSeminarClicked] = useState(0);
 
+  function clickedLecture() {
+    console.log('clicked lecture');
+    setLectureClicked(1);
+    setRecitationClicked(0);
+    setSeminarClicked(0);
+    setType('Lecture');
+  }
+
+  function clickedRecitation() {
+    console.log('clicked recitation');
+    setLectureClicked(0);
+    setRecitationClicked(1);
+    setSeminarClicked(0);
+    setType('Recitation');
+  }
+
+  function clickedSeminar() {
+    console.log('clicked seminar');
+    setLectureClicked(0);
+    setRecitationClicked(0);
+    setSeminarClicked(1);
+    setType('Seminar');
+  }
 
   return (
     <>
       <BackpackNavbar />
-      <div className="AddClassDay">
-          <h5 className = "title"> cis350</h5>
-          {
-              addNoteClicked ? 
-              <div className = 'container-1'>
-                  <h6 className='subtitle1'>Description:</h6>
-                  <input type="text"
-                    className="description-input"
-                    placeholder="Enter a description.."
-                    value = {description}
-                    onChange = {e => setDescription(e.target.value)}> 
-                  </input>
-                  <h6 className='subtitle1'>Google Drive Link:</h6>
-                  <input type="text"
-                    className="link-input"
-                    placeholder="Enter a google drive link.."
-                    value = {link}
-                    onChange = {e => setLink(e.target.value)}></input>
-                    <button className="button6" onClick = {handleSubmit}>
-                        Enter
-                    </button>
-                    { !incomplete ? <div className="spacer" /> : <p className="warning">All fields need to be completed</p>}
-              </div> 
-                :
-                <button className = 'button1'
-                type = "button"
-                onClick = {clickedAddNote}>
-                    + Add Class Day
-                </button>
-          }
-        
-        <button className = 'button2'> Anisha</button>
-       
-      </div>
+      <div className="ClassNote">
+        <h3>Adding a New Class Day...</h3>
+        <div className="left-align-classnote">Type</div>
+        <button
+          className={lectureClicked ? 'button_1_checked' : 'button_1'}
+          type="button"
+          onClick={clickedLecture}
+        >
+          Lecture
+        </button>
+        <button
+          className={recitationClicked ? 'button_1_checked' : 'button_1'}
+          type="button"
+          onClick={clickedRecitation}
+        >
+          Recitation
+        </button>
+        <button
+          className={seminarClicked ? 'button_1_checked' : 'button_1'}
+          type="button"
+          onClick={clickedSeminar}
+        >
+          Seminar
+        </button>
 
-        
+        <div className="left-align-classnote">Date</div>
+        <input
+          type="date"
+          className="center-rectangle2 enter"
+          onChange={e => setDate(e.target.value)}
+          value={date}
+        />
+        <div className="left-align-classnote">Topic</div>
+        <input
+          type="text"
+          className="center-rectangle2 enter"
+          placeholder="Enter the class topic..."
+          onChange={e => setTopic(e.target.value)}
+          value={topic}
+        />
+        { incomplete && <div className="spacer" />}
+        { !incomplete ? <div className="spacer" /> : <p className="warning">All fields need to be completed</p>}
+        <div className="spacer" />
+        <button className="button_3" type="button" onClick={handleSubmit}>
+          Continue
+        </button>
+      </div>
 
     </>
   );
