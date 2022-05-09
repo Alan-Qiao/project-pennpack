@@ -13,6 +13,9 @@ import Profile from './components/Profile';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import UserDashboard from './components/UserDashboard';
+import ClassDashboard from './components/ClassDashboard';
+import AddClassDay from './components/AddClassDay';
+import ClassDay from './components/ClassDay';
 import Contacts from './components/Contacts';
 import Chat from './components/Chat';
 // import ClassDashboard from './components/ClassDashboard';
@@ -82,6 +85,9 @@ function App() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Homescreen} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="ClassDashboard" component={ClassDashboard} />
+        <Stack.Screen name="AddClassDay" component={AddClassDay} />
+        <Stack.Screen name="ClassDay" component={ClassDay} />
         <Stack.Screen name="Navbar" component={Navbar} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Profile" component={Profile} />
