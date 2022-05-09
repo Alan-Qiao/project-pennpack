@@ -13,6 +13,7 @@ function ClassDay() {
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
   const [notes, setNotes] = useState([]);
+  const [incomplete, setIncomplete] = useState(false);
 
   async function getClassDayData() {
     try {
@@ -42,18 +43,11 @@ function ClassDay() {
       setaddNoteClicked(1);
   }
 
-  const [incomplete, setIncomplete] = useState(false);
-
   async function handleSubmit() {
     if (!description || !link) {
       setIncomplete(true);
       return;
     }
-    const descriptionInput = document.getElementById('description-input');
-		descriptionInput.value = '';
-
-    const linkInput = document.getElementById('link-input');
-		linkInput.value = '';
     
     try {
       await addNote(classDayId, description, link);
