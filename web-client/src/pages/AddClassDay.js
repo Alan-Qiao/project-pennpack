@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import '../styles/AddClassNote.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
-import { addClassDay } from '../api/services';
+import { addClassDay, readClass } from '../api/services';
 
 function AddClassDay() {
   const navigate = useNavigate();
@@ -13,21 +13,17 @@ function AddClassDay() {
   const [date, setDate] = useState(new Date(Date.now()).toISOString().substring(0, 10));
   const [topic, setTopic] = useState('');
   const [incomplete, setIncomplete] = useState(false);
+  const [classID, setClassID] = useState('');
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!type || !topic) {
       setIncomplete(true);
       return;
     }
 
-    // TODO: 
-    // Retrieve class id from className
-    // Add new Class Day object (addClassDay from services) to database
-    // Route to /classDashboard/${className}
-
-
-    // addClassDay(classId, date.replaceAll('-', ''), { type, date, topic });
-    // navigate(`/AddClassDay/${classId}`);
+    setClassID(readClass(className).classId);
+    await addClassDay(className, date, type, topic);
+    navigate(`/classDashboard/${className}`);
   }
 
   useEffect(() => {
