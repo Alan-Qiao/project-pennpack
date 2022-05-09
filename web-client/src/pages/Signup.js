@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import '../styles/LoginSignup.css';
 import { useNavigate } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
-import { signupUser } from '../components/user';
+import { signupUser } from '../components/User';
 
 function Signup() {
   const [error, setError] = useState('');

@@ -52,7 +52,7 @@ function Chat({ route }) {
       setMessages(messagesFetched.messages);
     }, 3000);
     return () => clearInterval(interval);
-  });z
+  });
 
   return (
       <View style={styles.viewStyles}>
