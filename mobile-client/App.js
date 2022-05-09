@@ -31,9 +31,9 @@ const Stack = createNativeStackNavigator();
 function Navbar() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName="UserDashboard">
-        <Tab.Screen name="Contacts" component={Contacts} />
-        <Tab.Screen name="Profile" component={UserDashboard} />
-        <Tab.Screen name="UserDashboard" component={UserDashboard} />
+      <Tab.Screen name="Contacts" component={Contacts} />
+      <Tab.Screen name="Profile" component={UserDashboard} />
+      <Tab.Screen name="UserDashboard" component={UserDashboard} />
     </Tab.Navigator>
   );
 }
@@ -45,6 +45,8 @@ function App() {
     >
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Homescreen} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Contacts" component={Contacts} />
         <Stack.Screen name="Chat" component={Chat} />
