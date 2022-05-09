@@ -157,7 +157,8 @@ function Chat() {
 							onKeyDown={handleKeypressSendMessage}
                     >
                     </input>
-                    <div className="input-send"/>
+                    <div className="input-send"
+                        onClick={() => sendText()}/>
                     </div>
                     
             </div>

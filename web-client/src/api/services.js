@@ -128,7 +128,6 @@ export const getClasses = async () => {
     credentials: 'include',
   })
   const body = await resp.json();
-
   if (resp.status === 400) {
     throw new Error('No classes');
   }
@@ -156,7 +155,6 @@ export const readClassById = async (classId) => {
 }
 
 export const readClass = async (name) => {
-  console.log(name);
   const resp = await fetch(`/class/read/${name}`, {
     method: 'GET',
     credentials: 'include'
@@ -173,7 +171,6 @@ export const readClass = async (name) => {
 }
 
 export const joinClass = async (classId) => {
-  console.log( classId );
   const resp = await fetch(`${serverPath}/class/join`, {
     method: 'POST',
     headers: {
@@ -184,6 +181,7 @@ export const joinClass = async (classId) => {
     body: JSON.stringify({ classId })
   })
   const body = await resp.json();
+  console.log(body);
 
   if (resp.status === 404) {
     throw new Error('class not found');

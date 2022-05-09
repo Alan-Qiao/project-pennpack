@@ -9,6 +9,7 @@ function JoinClass() {
 
   const fetchClasses = async () => {
 		const allClasses = await getAllClasses();
+
     if (allClasses.err) {
       alert(`An error occured: ${allClasses.err}`)
     }

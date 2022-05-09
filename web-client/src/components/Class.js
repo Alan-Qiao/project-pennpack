@@ -49,7 +49,6 @@ export const createNewClass = async (className, professor) => {
 
 export const joinNewClass = async (classId) => {
   try {
-    console.log(classId);
     const data = await joinClass(classId);
     return data;
   } catch (e) {
@@ -78,9 +77,6 @@ export const getClassData = async (name) => {
 };
 
 export const dayTitle = (type, date, topic) => {
-  console.log(type)
-  console.log(date)
-  console.log(topic)
   const datePieces = date.substring(0,10).split('-');
   const month = Number(datePieces[1]);
   const day = Number(datePieces[2]);
@@ -93,13 +89,12 @@ function ClassIcon({ classId, className, mode }) {
 
   const handleClick = async () => {
     if (mode === 'join') {
-      console.log(classId);
-      const err = await joinNewClass(classId);
-      if (err) {
-        if (err === 'user in class') {
+      const body = await joinNewClass(classId);
+      if (body.err) {
+        if (body.err === 'user already in class') {
           alert('You have already enrolled in this class');
         }
-        alert(`An error occured: ${err}`);
+        alert(`An error occured: ${body.err}`);
       }
     }
     navigate(`/classdashboard/${className}`);

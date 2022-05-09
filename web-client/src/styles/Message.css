@@ -6,6 +6,7 @@
   margin-bottom: 10px;
   align-self: flex-end;
   max-width: 500px;
+  overflow-wrap: break-word;
 }
 
 .Message-left {
@@ -16,6 +17,7 @@
   margin-bottom: 10px;
   align-self: flex-start;
   max-width: 500px;
+  overflow-wrap: break-word;
 }
 
 .Message > .text-right {

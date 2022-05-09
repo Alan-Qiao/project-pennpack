@@ -16,9 +16,7 @@ function ClassDashboard() {
       try {
         const data = await getClassData(name);
         setProf(data.professor);
-        console.log(data._id)
         const days = await readClassDays(data._id);
-        console.log(days);
         setDays(days);
       } catch (e) {
         alert(`An Error Occured: ${e.message}`);

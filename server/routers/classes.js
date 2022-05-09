@@ -106,7 +106,8 @@ router.post('/join', authenticate, async (req, res, next) => {
       user.save();
       res.status(201).json({ message: 'user joined class' });
     } else {
-      res.status(409).json({ error: 'user Already in class' });
+      console.log('user already in class err');
+      res.status(409).json({ error: 'user already in class' });
       return;
     }
   } catch (err) {
