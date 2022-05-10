@@ -1,11 +1,10 @@
 import { React, useEffect, useState } from 'react';
-import '../styles/AddClassDay.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import '../styles/ClassDay.css';
+import { useParams } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
-import { addNote, readNotes, readClassDay } from '../api/services';
+import { addNote, readNotes, readClassDay, updateNote } from '../api/services';
 
 function ClassDay() {
-  const navigate = useNavigate();
   const { id: classDayId } = useParams();
 
   const [addNoteClicked, setaddNoteClicked] = useState(0);
@@ -18,7 +17,7 @@ function ClassDay() {
   async function getClassDayData() {
     try {
       const result = await readClassDay(classDayId);
-      setClassDay(result);
+      setClassDay(() => result);
     } catch (e) {
       alert(`An error has occured: ${e.message}`)
     }
@@ -27,8 +26,7 @@ function ClassDay() {
   async function getNotes() {
     try {
       const result = await readNotes(classDayId);
-      console.log(result);
-      setNotes(result);
+      setNotes(() => result);
     } catch (e) {
       alert(`An error has occured: ${e.message}`)
     }
@@ -37,6 +35,7 @@ function ClassDay() {
   useEffect(() => {
     getClassDayData();
     getNotes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function clickedAddNote() {
@@ -54,7 +53,16 @@ function ClassDay() {
       setaddNoteClicked(0);
       getNotes();
     } catch (e) {
-      alert(`An error occured: ${e.message}`)
+      alert(`An error occured: ${e.message}`);
+    }
+  }
+
+  async function incLike(noteId, likes) {
+    try {
+      await updateNote({ noteId, classDayId, likes });
+      getNotes();
+    } catch (e) {
+      alert(`An error occured: ${e.message}`);
     }
   }
 
@@ -101,6 +109,12 @@ function ClassDay() {
               {note.description}
               <br/>
               {'Link: '}{note.link}
+              <div className="justifyRight">
+                <button className="likeButtonArea" onClick={() => incLike(note._id, note.likes+1)}>
+                  <div className="likeButton" />
+                  {note.likes}
+                </button>
+              </div>
             </div>
         ))}
        
