@@ -106,7 +106,6 @@ router.post('/join', authenticate, async (req, res, next) => {
       user.save();
       res.status(201).json({ message: 'user joined class' });
     } else {
-      console.log('user already in class err');
       res.status(409).json({ error: 'user already in class' });
       return;
     }
@@ -148,7 +147,7 @@ router.get('/readbyid/:classId', authenticate, async (req, res, next) => {
 router.post('/addDay', authenticate, async (req, res, next) => {
   try {
     const { body: { className, date, type, topic } } = req;
-    console.log(req.body);
+
     if (!className || !date || !type || !topic) {
       res.status(400).json({ error: 'Missing required information' });
       return;
@@ -224,7 +223,6 @@ router.get('/readDayById/:classId', authenticate, async (req, res, next) => {
 
 router.post('/addNote', authenticate, async (req, res, next) => {
   try {
-    console.log('in /addNote');
     const { body: { classDayId, description, link } } = req;
     if (!classDayId || !description || !link) {
       res.status(400).json({ error: 'Missing required information' });

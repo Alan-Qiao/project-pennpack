@@ -5,7 +5,6 @@ const Chat = require('../models/chatModel');
 const User = require('../models/userModel');
 const Message = require('../models/messageModel');
 const authenticate = require('../middlewares/authenticator');
-const { uploadImage, generateNewName } = require('../helpers/uploadImage');
 const gc = require('../config/mediaConfig');
 
 const bucket = gc.bucket('pennpack');

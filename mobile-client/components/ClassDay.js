@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Pressable, View, Text, StyleSheet, TextInput } from 'react-native';
 import { addNote, readNotes, readClassDay } from '../api/services';
 
-function ClassDay({ route, navigation }) {
-  const { id, className } = route.params;
+function ClassDay({ route }) {
+  const { id } = route.params;
   const [classDay, setClassDay] = useState({});
   const [notes, setNotes] = useState([]);
   const [addNoteClicked, setAddNoteClicked] = useState(false);
@@ -13,7 +13,6 @@ function ClassDay({ route, navigation }) {
 
   function clickedAddNote() {
     setAddNoteClicked(true);
-    console.log('CLICKED IT');
   }
 
   async function handleSubmit() {
@@ -43,7 +42,6 @@ function ClassDay({ route, navigation }) {
   async function getNotes() {
     try {
       const result = await readNotes(id);
-      console.log(result);
       setNotes(result);
     } catch (e) {
       alert(`An error has occured: ${e.message}`);

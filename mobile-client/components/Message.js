@@ -11,7 +11,6 @@ import {
 
 export const sendFileMessage = async message => {
   try {
-    console.log(message);
     const messages = await sendNewFileMessage(message);
     return messages;
   } catch (e) {

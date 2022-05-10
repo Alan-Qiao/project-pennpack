@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from 'react';
-import { serverPath } from '../consts';
 import '../styles/Chat.css';
 import Contact from '../components/Contact';
 import Message from '../components/Message';
@@ -25,7 +24,7 @@ function Chat() {
 
     const handleKeypressSendMessage = (e) => {
 		const input = document.getElementById('input-message');
-		if (e.key === 'Enter' && input.value != '') {
+		if (e.key === 'Enter' && input.value !== '') {
 			sendText();
 		}
 	}

@@ -39,13 +39,14 @@ h6 {
   margin-top: 50px;
   margin-left: 200px;
   text-align: left;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .notesUploaded {
   text-align: left;
   margin-left: 200px;
   color: rgba(133, 133, 133); 
+  margin-bottom: 20px;
 }
 
 .chatButton {

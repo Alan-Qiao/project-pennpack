@@ -30,10 +30,13 @@ function Profile() {
       alert(`An error occured: ${allClasses.err}`)
     }
 
+    const tempArr = []
     for (let i = 0; i < allClasses.length; i++) {
-      const currClass = await getClassDataById(allClasses[i])
-      setUserClasses(oldArray => [...oldArray, currClass]);
+      const currClass = getClassDataById(allClasses[i])
+      tempArr.push(currClass)
     }
+    const newClasses = await Promise.all(tempArr)
+    setUserClasses(() => newClasses);
   }
 
   const fetchUserInfo = async () => {
@@ -67,6 +70,7 @@ function Profile() {
   useEffect(() => {
     fetchUserInfo();
 		fetchUserClasses()
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [username]);
 
 

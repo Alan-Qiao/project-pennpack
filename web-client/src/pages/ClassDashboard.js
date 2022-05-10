@@ -15,6 +15,9 @@ function ClassDashboard() {
     const readClassAsync = async () => {
       try {
         const data = await getClassData(name);
+        if (data.err) {
+          throw new Error(data.err);
+        }
         setProf(data.professor);
         const days = await readClassDays(data._id);
         setDays(days);
@@ -24,6 +27,7 @@ function ClassDashboard() {
       }
     }
     readClassAsync();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

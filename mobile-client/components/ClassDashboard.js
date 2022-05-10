@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Pressable, View, Text, StyleSheet, TextInput } from 'react-native';
+import { Pressable, View, Text, StyleSheet } from 'react-native';
 import { getClassData, dayTitle } from './Class';
 import { readClassDays } from '../api/services';
 
@@ -59,15 +59,15 @@ function ClassDashboard({ route, navigation }) {
           </Text>
         </Pressable>
         {
-          days.map((day, i) => (
+          days.map(day => (
             <Pressable
-              key={i}
+              key={day._id}
               onPress={() => clickedClassDay(day._id)}
               style={styles.button}
             >
-          <Text>
-            {day.topic}
-          </Text>
+              <Text>
+                {dayTitle(day.type, day.date, day.topic)}
+              </Text>
             </Pressable>
           ))
         }
@@ -103,33 +103,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     width: 315,
   },
-  errorText: {
-    color: '#D94A4A',
-    fontSize: 12,
-    // float: 'left',
-    fontWeight: 'bold',
-    marginTop: 30,
-    textAlign: 'left',
-  },
   subtitleText: {
     color: '#898888',
     fontSize: 20,
     marginBottom: 10,
     textAlign: 'left',
-  },
-  textInput: {
-    alignItems: 'center',
-    backgroundColor: '#F1F7EE',
-    borderRadius: 10,
-    color: '#9A8F97',
-    elevation: 3,
-    fontFamily: 'arial',
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    marginBottom: 20,
-    paddingLeft: 20,
-    paddingVertical: 12,
-    width: 315,
   },
   titleText: {
     color: '#7EBAC7',
@@ -152,5 +130,27 @@ nameText: {
     textAlign: 'left',
     // float: 'left',
     paddingLeft: 50,
+  },
+    errorText: {
+    color: '#D94A4A',
+    fontSize: 12,
+    // float: 'left',
+    fontWeight: 'bold',
+    marginTop: 30,
+    textAlign: 'left',
+  },
+    textInput: {
+    alignItems: 'center',
+    backgroundColor: '#F1F7EE',
+    borderRadius: 10,
+    color: '#9A8F97',
+    elevation: 3,
+    fontFamily: 'arial',
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    marginBottom: 20,
+    paddingLeft: 20,
+    paddingVertical: 12,
+    width: 315,
   },
 */

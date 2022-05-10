@@ -13,12 +13,10 @@ function Contacts({ navigation }) {
   async function fetchUserChats() {
     setChats([]);
     const userChats = await getChats();
-    console.log(userChats);
     setChats(userChats.userChats);
   }
 
   async function showChat(chatId, userIdB, username) {
-    console.log(navigation);
     const messagesRes = await getMessages(chatId);
     navigation.navigate('Chat', {
       chatId,
@@ -29,7 +27,6 @@ function Contacts({ navigation }) {
   }
 
   useEffect(() => {
-    console.log('fugue');
     fetchUserChats();
   }, ([]));
 

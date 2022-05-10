@@ -1,8 +1,8 @@
-import { React, useState, useEffect } from 'react';
-import '../styles/AddClassNote.css';
+import { React, useState } from 'react';
+import '../styles/AddClassDay.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackpackNavbar from '../components/BackpackNavbar';
-import { addClassDay, readClass } from '../api/services';
+import { addClassDay } from '../api/services';
 
 function AddClassDay() {
   const navigate = useNavigate();
@@ -13,7 +13,6 @@ function AddClassDay() {
   const [date, setDate] = useState(new Date(Date.now()).toISOString().substring(0, 10));
   const [topic, setTopic] = useState('');
   const [incomplete, setIncomplete] = useState(false);
-  const [classID, setClassID] = useState('');
 
   async function handleSubmit() {
     if (!type || !topic) {
@@ -21,7 +20,6 @@ function AddClassDay() {
       return;
     }
 
-    setClassID(readClass(className).classId);
     await addClassDay(className, date, type, topic);
     navigate(`/classDashboard/${className}`);
   }
@@ -31,7 +29,6 @@ function AddClassDay() {
   const [seminarClicked, setSeminarClicked] = useState(0);
 
   function clickedLecture() {
-    console.log('clicked lecture');
     setLectureClicked(1);
     setRecitationClicked(0);
     setSeminarClicked(0);
@@ -39,7 +36,6 @@ function AddClassDay() {
   }
 
   function clickedRecitation() {
-    console.log('clicked recitation');
     setLectureClicked(0);
     setRecitationClicked(1);
     setSeminarClicked(0);
@@ -47,7 +43,6 @@ function AddClassDay() {
   }
 
   function clickedSeminar() {
-    console.log('clicked seminar');
     setLectureClicked(0);
     setRecitationClicked(0);
     setSeminarClicked(1);
