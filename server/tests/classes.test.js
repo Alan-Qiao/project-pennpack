@@ -9,7 +9,6 @@ const ClassRouter = require('../routers/classes');
 const User = require('../models/userModel');
 const Class = require('../models/classModel');
 const ClassDay = require('../models/classDayModel');
-const { deleteOne } = require('../models/userModel');
 
 const port = 6666;
 let app = null;
@@ -304,13 +303,6 @@ test('/class/readNotes/:classId class not found 404', async () => {
 });
 
 test('/class/readClassDay class not found 404', async () => {
-  // log in to pass authenticator
-  const { header } = await request(app).post('/login').send({
-    username: 'franSb',
-    password: '123pass?',
-  });
-  const token = header['set-cookie'];
-
-  const resp = await request(app).post('/class/readClassDay/55598af1657fd6b735c615eb').set('Cookie', token);
+  const resp = await request(app).get('/class/readClassDay/11198af1657fd6b735c615eb');
   expect(resp.status).toBe(404);
 });

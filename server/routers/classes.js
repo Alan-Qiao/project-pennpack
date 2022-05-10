@@ -187,7 +187,7 @@ router.get('/readDays/:classId', async (req, res, next) => {
 });
 
 // For ClassDay.js, getting data about the class day
-router.get('/readClassDay/:classId', authenticate, async (req, res, next) => {
+router.get('/readClassDay/:classId', async (req, res, next) => {
   try {
     const { params: { classId } } = req;
     const classDayObj = await ClassDay.findById(classId);
