@@ -14,8 +14,7 @@ function BackpackNavbar() {
     if (auth) {
       navigate('/userdashboard');
     } else {
-      console.log('wrry')
-      navigate('/login');
+      navigate('/');
     }
   };
 

@@ -12,8 +12,8 @@ function Signup() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    const err = signupUser(name, username, password);
+  const handleSubmit = async () => {
+    const err = await signupUser(name, username, password);
     setError(err);
     if (!err) {
       navigate('/login');

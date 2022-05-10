@@ -34,7 +34,6 @@ function Navbar() {
 
   async function clickedProfile() {
     const { username } = await getUserInfo();
-    console.log(username);
     navigate(`/profile/${username}`);
   };
 

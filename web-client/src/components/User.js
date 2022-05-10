@@ -30,7 +30,7 @@ export const getUserInfoByUsername = async (name) => {
   }
 }
 
-export const signupUser = (name, username, password) => {
+export const signupUser = async (name, username, password) => {
   if (!validateString(name, validName)) {
     return 'Invalid Name, please try again';
   }
@@ -39,7 +39,7 @@ export const signupUser = (name, username, password) => {
   }
 
   try {
-    createUser(name, username, password);
+    await createUser(name, username, password);
   } catch (e) {
     return e.message;
   }
