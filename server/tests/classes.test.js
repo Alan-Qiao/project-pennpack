@@ -8,6 +8,8 @@ const AccountRouter = require('../routers/accounts');
 const ClassRouter = require('../routers/classes');
 const User = require('../models/userModel');
 const Class = require('../models/classModel');
+const ClassDay = require('../models/classDayModel');
+const { deleteOne } = require('../models/userModel');
 
 const port = 6666;
 let app = null;
@@ -184,26 +186,131 @@ test('/class/join user already in class 409', async () => {
   expect(resp.body.error).toMatch('user already in class');
 });
 
-// test('/class/read/classname read class 200', async () => {
-//   const resp = await request(app).get('/class/read/CIS240');
-//   expect(resp.status).toBe(200);
-//   expect(resp.body.message).toMatch('Read Class Data');
-// });
+test('/class/read/classname read class 200', async () => {
+  const resp = await request(app).get('/class/read/CIS240');
+  expect(resp.status).toBe(200);
+  expect(resp.body.message).toMatch('Read Class Data');
+});
 
-// test('/class/read/classname class not found 404', async () => {
-//   const resp = await request(app).get('/class/read/CIS471');
-//   expect(resp.status).toBe(404);
-//   expect(resp.body.error).toMatch('class not found');
-// });
+test('/class/read/classname class not found 404', async () => {
+  const resp = await request(app).get('/class/read/CIS471');
+  expect(resp.status).toBe(404);
+  expect(resp.body.error).toMatch('class not found');
+});
 
-// test('/class/readbyid/classId read class 200', async () => {
-//   const resp = await request(app).get('/class/readbyid/62698af1657fd6b735c615eb');
-//   expect(resp.status).toBe(200);
-//   expect(resp.body.message).toMatch('Read Class Data');
-// });
+test('/class/readbyid/classId read class 200', async () => {
+  const resp = await request(app).get('/class/readbyid/62698af1657fd6b735c615eb');
+  expect(resp.status).toBe(200);
+  expect(resp.body.message).toMatch('Read Class Data');
+});
 
 // test('/class/readbyid/classId class not found 404', async () => {
 //   const resp = await request(app).get('/class/readbyid/55598af1657fd6b735c615eb');
 //   expect(resp.status).toBe(404);
 //   expect(resp.body.error).toMatch('class not found');
 // });
+
+test('/class/addDay class not found 404', async () => {
+  const resp = await request(app).get('/class/addDay/cis371');
+  expect(resp.status).toBe(404);
+});
+
+test('/class/readbyid/classId class not found 404', async () => {
+  const resp = await request(app).get('/class/readbyid/55598af1657fd6b735c615eb');
+  expect(resp.status).toBe(404);
+  expect(resp.body.error).toMatch('class not found');
+});
+
+test('/class/addDay class day added 200', async () => {
+  await ClassDay.create({
+    classId: '62698af1657fd6b735c615eb',
+    date: new Date('10/26/2012'),
+    type: 'Recitation',
+    topic: 'hi',
+    notes: [],
+  });
+
+  const { header } = await request(app).post('/login').send({
+    username: 'franSb',
+    password: '123pass?',
+  });
+  const token = header['set-cookie'];
+
+  const resp = await request(app).post('/class/addDay').set('Cookie', token).send({
+    className: 'CIS240',
+    date: new Date('10/26/2012'),
+    type: 'Recitation',
+    topic: 'hi',
+
+  });
+  expect(resp.status).toBe(201);
+  expect(resp.body.message).toMatch('Class Day successfully created');
+  await ClassDay.deleteOne({ type: 'Recitation' });
+});
+
+test('/class/readDays/classId class not found 404', async () => {
+  const { header } = await request(app).post('/login').send({
+    username: 'franSb',
+    password: '123pass?',
+  });
+  const token = header['set-cookie'];
+
+  const resp = await request(app).get('/class/readDays/55598af1657fd6b735c615eb').set('Cookie', token);
+  expect(resp.status).toBe(404);
+});
+
+test('/class/addNote class note found 404', async () => {
+  const { header } = await request(app).post('/login').send({
+    username: 'franSb',
+    password: '123pass?',
+  });
+  const token = header['set-cookie'];
+  const resp = await request(app).post('/class/addNote').set('Cookie', token).send({
+    classDayId: '55598af1657fd6b735c615eb',
+    description: 'these are my notes',
+    link: 'fakenote.com',
+
+  });
+  expect(resp.status).toBe(404);
+});
+
+test('/class/addNote error 500', async () => {
+  const { header } = await request(app).post('/login').send({
+    username: 'franSb',
+    password: '123pass?',
+  });
+  const token = header['set-cookie'];
+  const resp = await request(app).post('/class/addNote').set('Cookie', token).send({
+    classDayId: '55598af1657fd6b735c615',
+    description: 'CIS240',
+    link: 'fakenote.com',
+  });
+  expect(resp.status).toBe(500);
+});
+
+test('/class/updateNote updateNote successful', async () => {
+  const resp = await request(app).post('/class/updateNote').send({
+    noteId: '55598af1657fd6b735c615ggjjhjgjeb',
+    description: 'cis240',
+    link: new Date('10/26/2012'),
+
+  });
+  expect(resp.status).toBe(500);
+});
+
+test('/class/readNotes/:classId class not found 404', async () => {
+  const resp = await request(app).get('/class/readNotes/55598af1657fkkkd6b735c615eb');
+  expect(resp.status).toBe(500);
+});
+
+test('/class/readClassDay class not found 404', async () => {
+  // log in to pass authenticator
+  const { header } = await request(app).post('/login').send({
+    username: 'franSb',
+    password: '123pass?',
+  });
+  const token = header['set-cookie'];
+
+  const resp = await request(app).post('/class/readClassDay/55598af1657fd6b735c615eb').set('Cookie', token);
+  expect(resp.status).toBe(404);
+});

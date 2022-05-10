@@ -114,7 +114,7 @@ router.post('/join', authenticate, async (req, res, next) => {
   }
 });
 
-router.get('/read/:className', authenticate, async (req, res, next) => {
+router.get('/read/:className', async (req, res, next) => {
   try {
     const { params: { className } } = req;
     const result = await Class.findOne({ className });
@@ -129,7 +129,7 @@ router.get('/read/:className', authenticate, async (req, res, next) => {
   }
 });
 
-router.get('/readbyid/:classId', authenticate, async (req, res, next) => {
+router.get('/readbyid/:classId', async (req, res, next) => {
   try {
     const { params: { classId } } = req;
     const result = await Class.findOne({ _id: classId });
@@ -171,7 +171,7 @@ router.post('/addDay', authenticate, async (req, res, next) => {
   }
 });
 
-router.get('/readDays/:classId', authenticate, async (req, res, next) => {
+router.get('/readDays/:classId', async (req, res, next) => {
   try {
     const { params: { classId } } = req;
     const classObj = await Class.findById(classId);
@@ -256,7 +256,7 @@ router.post('/addNote', authenticate, async (req, res, next) => {
   }
 });
 
-router.post('/updateNote', authenticate, async (req, res, next) => {
+router.post('/updateNote', async (req, res, next) => {
   try {
     const { body: { noteId, classDayId, description, link, likes } } = req;
     if (!noteId) {
@@ -279,7 +279,7 @@ router.post('/updateNote', authenticate, async (req, res, next) => {
   }
 });
 
-router.get('/readNotes/:classDayId', authenticate, async (req, res, next) => {
+router.get('/readNotes/:classDayId', async (req, res, next) => {
   try {
     const { params: { classDayId } } = req;
     const day = await ClassDay.findById(classDayId);
