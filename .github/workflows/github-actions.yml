@@ -8,5 +8,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run: npm install && cd server && npm install
-      - run: npm test -- --coverage
+      - run: npm install 
+      - run: cd server && npm install && npm test -- --coverage
