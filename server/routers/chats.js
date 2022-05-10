@@ -101,7 +101,7 @@ router.get('/messages/:chatId', authenticate, async (req, res, next) => {
 
     res.status(200).json({
       messages,
-      message: 'Retrieved all of users classes',
+      message: 'Retrieved chat messages',
     });
   } catch (err) {
     next(err);
