@@ -14,11 +14,12 @@ function UserDashboard() {
     }
 
     // Need to get each individual class (need id, classname)
+    const curClasses = [];
     for (let i = 0; i < allClasses.length; i++) {
-      const currClass = await getClassDataById(allClasses[i])
-      setUserClasses(oldArray => [...oldArray, currClass]);
+      curClasses.push(getClassDataById(allClasses[i]));
     }
-    
+    const newClasses = await Promise.all(curClasses);
+    setUserClasses(() => newClasses);
   }
 
   useEffect(() => {

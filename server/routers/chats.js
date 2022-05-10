@@ -86,6 +86,7 @@ router.get('/messages/:chatId', authenticate, async (req, res, next) => {
     const messages = [];
     for (let i = 0; i < chat.messages.length; i++) {
       const currMessageId = chat.messages[i];
+      // eslint-disable-next-line no-await-in-loop
       const messageObj = await Message.findById(currMessageId);
 
       const messageId = messageObj.sender === req.userId ? 0 : 1;
@@ -118,12 +119,15 @@ router.get('/getchats', authenticate, async (req, res, next) => {
 
     const userChats = [];
     for (let i = 0; i < user.chats.length; i++) {
+      // eslint-disable-next-line no-await-in-loop
       const { userIdA, userIdB } = await Chat.findById(user.chats[i]);
 
       let userInfo;
       if (userIdA !== req.userId) {
+        // eslint-disable-next-line no-await-in-loop
         userInfo = await User.findById(userIdA);
       } else {
+        // eslint-disable-next-line no-await-in-loop
         userInfo = await User.findById(userIdB);
       }
 

@@ -18,7 +18,8 @@ function UserDashboard({ navigation }) {
     for (let i = 0; i < allClasses.length; i++) {
       curClasses.push(getClassDataById(allClasses[i]));
     }
-    setUserClasses(await Promise.all(curClasses));
+    const newClasses = await Promise.all(curClasses);
+    setUserClasses(() => newClasses);
   };
 
   useEffect(() => {

@@ -27,15 +27,14 @@ function Profile() {
     setUserClasses([]);
 		const allClasses = await getUserClassesByUsername(username);
     if (allClasses.err) {
-      alert(`An error occured: ${allClasses.err}`)
+      alert(`An error occured: ${allClasses.err}`);
     }
 
-    const tempArr = []
+    const curClass = []
     for (let i = 0; i < allClasses.length; i++) {
-      const currClass = getClassDataById(allClasses[i])
-      tempArr.push(currClass)
+      curClass.push(getClassDataById(allClasses[i]));
     }
-    const newClasses = await Promise.all(tempArr)
+    const newClasses = await Promise.all(curClass);
     setUserClasses(() => newClasses);
   }
 

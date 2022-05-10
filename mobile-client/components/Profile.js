@@ -25,10 +25,12 @@ function Profile({ navigation }) {
       alert(`An error occured: ${allClasses.err}`);
     }
 
+    const curClass = [];
     for (let i = 0; i < allClasses.length; i++) {
-      const currClass = await getClassDataById(allClasses[i]);
-      setUserClasses(oldArray => [...oldArray, currClass]);
+      curClass.push(getClassDataById(allClasses[i]));
     }
+    const newClasses = await Promise.all(curClass);
+    setUserClasses(() => newClasses);
   };
 
   async function clickedChatWithMe() {
