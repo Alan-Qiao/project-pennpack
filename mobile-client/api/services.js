@@ -154,7 +154,6 @@ export const readClassById = async classId => {
 };
 
 export const readClass = async name => {
-  console.log(name);
   const resp = await fetch(`${serverPath}/class/read/${name}`, {
     method: 'GET',
     credentials: 'include',
@@ -171,7 +170,6 @@ export const readClass = async name => {
 };
 
 export const joinClass = async classId => {
-  console.log(classId);
   const resp = await fetch(`${serverPath}/class/join`, {
     method: 'POST',
     headers: {
@@ -196,7 +194,6 @@ export const joinClass = async classId => {
 };
 
 export const addClassDay = async (className, date, type, topic) => {
-  console.log(JSON.stringify({ className, date, type, topic }));
   const resp = await fetch(`${serverPath}/class/addDay`, {
     method: 'POST',
     headers: {
@@ -330,13 +327,11 @@ export const readNotes = async classDayId => {
 
 /** **** ACCOUNTS ***** */
 export const getUserByUsername = async name => {
-  console.log('in getUserByUsername');
   const resp = await fetch(`${serverPath}/getuser/${name}`, {
     method: 'GET',
     credentials: 'include',
   });
   const body = await resp.json();
-  console.log(body);
 
   if (resp.status === 404) {
     throw new Error('User not found');
@@ -364,7 +359,6 @@ export const getUser = async () => {
 };
 
 export const createUser = async (name, username, password) => {
-  console.log('in createUser');
   const resp = await fetch(`${serverPath}/signup`, {
     method: 'POST',
     headers: {
@@ -384,7 +378,6 @@ export const createUser = async (name, username, password) => {
 };
 
 export const authenticateUser = async (username, password) => {
-  console.log('in authenticate user');
   const resp = await fetch(`${serverPath}/login`, {
     method: 'POST',
     headers: {

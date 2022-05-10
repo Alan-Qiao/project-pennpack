@@ -27,13 +27,15 @@ function Profile() {
     setUserClasses([]);
 		const allClasses = await getUserClassesByUsername(username);
     if (allClasses.err) {
-      alert(`An error occured: ${allClasses.err}`)
+      alert(`An error occured: ${allClasses.err}`);
     }
 
+    const curClass = []
     for (let i = 0; i < allClasses.length; i++) {
-      const currClass = await getClassDataById(allClasses[i])
-      setUserClasses(oldArray => [...oldArray, currClass]);
+      curClass.push(getClassDataById(allClasses[i]));
     }
+    const newClasses = await Promise.all(curClass);
+    setUserClasses(() => newClasses);
   }
 
   const fetchUserInfo = async () => {
@@ -67,6 +69,7 @@ function Profile() {
   useEffect(() => {
     fetchUserInfo();
 		fetchUserClasses()
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [username]);
 
 

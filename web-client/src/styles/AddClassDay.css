@@ -1,46 +1,53 @@
-.AddClassDay {
+.ClassNote {
   width: 100%;
   height: auto;
   position: absolute;
-  display: flex;
-  flex-direction: column;
   top: 15%;
   text-align: center;
-  justify-content: center;
-  /* border: 1px solid rgb(180, 13, x13); */
-  align-items: center;
+  /* border: 1px solid rgb(180, 13, 13); */
 }
 
-.title {
-  position: relative;
+h3 {
   font-family: 'Lato', sans-serif;
   color: #7EBAC7; 
-  font-size: 60px;
+  font-size: 82px;
   margin-top:10px;
-  font-weight: bold;
   margin-bottom: 10px;
-  text-align: left;
+  text-align: center;
 }
 
-h6.subtitle1 {
+.left-align-classnote {
   position: relative;
-  font-family: 'Lato', sans-serif;
-  color: #898888; 
-  font-size: 32px;
-  margin-top:10px;
-  text-align: left;
-}
-
-.left-align {
-  position: relative;
-  left: -230px;
+  left: -430px;
   margin-bottom: 10px;
+  margin-top: 20px;
   font-size: 18px;
   color: #898888;
 }
 
-.button1 {
-  width: 1200px;
+.button_1 {
+  width: 300px;
+  height: 60px;
+  border: 1px solid #3a5a3d;
+  background-color: #F1F7EE;
+  border: 1px solid #92AA83;
+  padding: 10px;
+  text-align: center;
+  text-decoration: bold;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.button_1:hover {
+  cursor: grab;
+}
+
+.button_1_checked {
+  width: 300px;
   height: 60px;
   border: 1px solid #3a5a3d;
   background-color: #E0EDC5;
@@ -53,68 +60,13 @@ h6.subtitle1 {
   line-height: 25px;
   text-align: center;
   border-radius: 10px;
-  margin: 10px;
-
+  margin-right: 10px;
 }
 
-.addNoteContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 1180px;
-  position: relative;
-  border: 1px solid #3a5a3d;
-  background-color: #E0EDC5;
-  border: 1px solid #92AA83;
-  padding: 10px;
-  text-decoration: bold;
-  font-style: normal;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 10px;
-  margin: 10px;
-}
-  
-.description-input{
-  display: flex;
-  padding: 20px;
-  border-radius: 30px;
-  margin: 10px;
-  width: 1100px;
-  height: 100px;;
-  font-size: 100%;
-  overflow: hidden;
-  position: relative;
+.button_2 {
+  width: 900px;
+  height: 60px;
   background-color: #F1F7EE;
-  border: 1px solid #B0BEA9;
-  flex-wrap: wrap;
-
-}
-
-.link-input{
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  border-radius: 30px;
-  margin: 10px;
-  width: 1100px;
-  height: 50px;;
-  font-size: 100%;
-  overflow: hidden;
-  position: relative;
-  background-color: #F1F7EE;
-  border: 1px solid #B0BEA9;
-
-}
-
-.button1:hover {
-  cursor: grab;
-}
-
-.button2 {
-  width: 1200px;
-  height: 100px;
-  background-color: rgb(126, 186, 199, .24);
   border: 1px solid #92AA83;
   padding: 10px;
   text-align: center;
@@ -124,40 +76,7 @@ h6.subtitle1 {
   line-height: 25px;
   text-align: center;
   border-radius: 10px;
-  margin: 10px;
-}
-
-.note {
-  width: 1140px;
-  position: relative;
-  background-color: rgb(126, 186, 199, .24);
-  border: 1px solid #92AA83;
-  padding: 30px;
-  text-align: left;
-  font-size: 18px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.container-2 {
-  width: 1200px;
-  height: 350px;
-  position: relative;
-  border: 1px solid #3a5a3d;
-  background-color: rgb(126, 186, 199, .24);
-  border: 1px solid #92AA83;
-  padding: 10px;
-  text-decoration: bold;
-  font-style: normal;
-  font-size: 18px;
-  line-height: 25px;
-  border-radius: 10px;
-  margin: 10px;
-  margin-left: 156px;
-}
-
-.button2:hover {
-  cursor: grab;
+  /* margin: 10px; */
 }
 
 .left-rectangle {
@@ -175,25 +94,47 @@ h6.subtitle1 {
   border-radius: 10px;
 }
 
-.button:hover {
-  cursor: grab;
+.text-area {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  height: 7vh;
+  min-width: 400px;
+  min-height: 30px;
+  font-size: 100%;
+}
+  
+.center-rectangle2 {
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  margin: 0 auto;
+  width: 900px;
+  height: 50px;;
+  font-size: 100%;
+  overflow: hidden;
+  position: relative;
+  background-color: #F1F7EE;
+  border: 1px solid #B0BEA9;
+  border-radius: 10px;
 }
 
-.enterButton {
-  width: 1100px;
-  height: 40px;
+.button_3 {
   background-color: rgb(126, 186, 199, .24);
-  border: 1px solid #92AA83;
-  border-radius: 30px;
+  width: 920px;
+  height: 60px;
+  border: 1px solid #3A405A;
+  color: #3A405A;
+  padding: 10px;
   text-align: center;
   text-decoration: bold;
   font-style: normal;
   font-size: 18px;
   line-height: 25px;
   text-align: center;
-  margin-top: 20px;
+  border-radius: 10px;
 }
 
-.enterButton:hover {
+.button_3:hover {
   cursor: grab;
 }

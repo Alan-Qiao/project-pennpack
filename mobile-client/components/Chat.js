@@ -14,7 +14,6 @@ const musicNote = require('../assets/music-note.png');
 const sendPlane = require('../assets/send-paper-plane.png');
 
 const windowHeight = Dimensions.get('window').height;
-console.log(windowHeight);
 
 function Chat({ route }) {
   const { chatId, userIdB, username, chatMessages } = route.params;

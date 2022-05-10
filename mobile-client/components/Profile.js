@@ -11,7 +11,9 @@ import {
 import ClassGrid from './ClassGrid';
 import { createChat } from './Message';
 
-function Profile({ route, navigation }) {
+const envelope = require('../assets/envelope.png');
+
+function Profile({ navigation }) {
   const [username, setUsername] = useState('');
   const [user, setUser] = useState('');
   const [userClasses, setUserClasses] = useState([]);
@@ -23,10 +25,12 @@ function Profile({ route, navigation }) {
       alert(`An error occured: ${allClasses.err}`);
     }
 
+    const curClass = [];
     for (let i = 0; i < allClasses.length; i++) {
-      const currClass = await getClassDataById(allClasses[i]);
-      setUserClasses(oldArray => [...oldArray, currClass]);
+      curClass.push(getClassDataById(allClasses[i]));
     }
+    const newClasses = await Promise.all(curClass);
+    setUserClasses(() => newClasses);
   };
 
   async function clickedChatWithMe() {
@@ -67,7 +71,7 @@ function Profile({ route, navigation }) {
             onPress={() => clickedChatWithMe()}
           >
             <Image
-              source={require('../assets/envelope.png')}
+              source={envelope}
               style={{ width: 50, height: 50, margin: 20 }}
             />
             <Text style={styles.chatText}>
@@ -98,19 +102,6 @@ function Profile({ route, navigation }) {
 export default Profile;
 
 const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#7EBAC7',
-    borderColor: '#3A405A',
-    borderRadius: 10,
-    color: '#3A405A',
-    elevation: 3,
-    fontFamily: 'arial',
-    justifyContent: 'center',
-    marginTop: 20,
-    paddingVertical: 10,
-    width: 315,
-  },
   chatText: {
     color: '#898888',
     fontSize: 15,
@@ -149,3 +140,19 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
+
+/*
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#7EBAC7',
+    borderColor: '#3A405A',
+    borderRadius: 10,
+    color: '#3A405A',
+    elevation: 3,
+    fontFamily: 'arial',
+    justifyContent: 'center',
+    marginTop: 20,
+    paddingVertical: 10,
+    width: 315,
+  },
+*/

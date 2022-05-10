@@ -284,7 +284,7 @@ export const addNote = async (classDayId, description, link) => {
   return body.note;
 }
 
-export const updateNote = async ({ classDayId, description, link, likes }) => {
+export const updateNote = async ({ noteId, classDayId, description, link, likes }) => {
   const resp = await fetch(`${serverPath}/class/updateNote`, {
     method: 'POST',
     headers: {
@@ -292,7 +292,7 @@ export const updateNote = async ({ classDayId, description, link, likes }) => {
       'Accept': 'application/json',
     },
     credentials: 'include',
-    body: JSON.stringify({ classDayId, description, link, likes }),
+    body: JSON.stringify({ noteId, classDayId, description, link, likes }),
   });
   const body = await resp.json();
 

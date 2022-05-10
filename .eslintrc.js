@@ -39,7 +39,5 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'react-native/no-color-literals': 'off',
     'react-native/no-inline-styles': 'off',
-    'no-await-in-loop': 'off',
-    'no-use-before-define': 'off',
   },
 };
