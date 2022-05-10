@@ -16,6 +16,7 @@ const envelope = require('../assets/envelope.png');
 function Profile({ navigation }) {
   const [username, setUsername] = useState('');
   const [user, setUser] = useState('');
+  const [userNotesUploaded, setNotesUploaded] = useState(0);
   const [userClasses, setUserClasses] = useState([]);
 
   const fetchUserClasses = async () => {
@@ -51,6 +52,10 @@ function Profile({ navigation }) {
     const signedInUser = await getUserInfo();
     setUser(signedInUser.name);
     setUsername(signedInUser.username);
+
+    if (signedInUser.notesUploaded) {
+      setNotesUploaded(signedInUser.notesUploaded);
+    }
   };
 
   useEffect(() => {

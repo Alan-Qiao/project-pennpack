@@ -85,6 +85,7 @@ export const dayTitle = ({ type, date, topic }) => {
 
 function ClassIcon({ navigation, classId, className, mode }) {
   const handleClick = async () => {
+    console.log('in handleClick of classIcon');
     if (mode === 'join') {
       const err = await joinNewClass(classId);
       if (err) {

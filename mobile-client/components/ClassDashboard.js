@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Pressable, View, Text, StyleSheet } from 'react-native';
-import { getClassData, dayTitle } from './Class';
+import { getClassData } from './Class';
 import { readClassDays } from '../api/services';
 
 function ClassDashboard({ route, navigation }) {
@@ -66,7 +66,9 @@ function ClassDashboard({ route, navigation }) {
               style={styles.button}
             >
               <Text>
-                {dayTitle(day.type, day.date, day.topic)}
+                {day.type}
+                {': '}
+                {day.topic}
               </Text>
             </Pressable>
           ))

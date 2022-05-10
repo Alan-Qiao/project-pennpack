@@ -10,7 +10,6 @@ import {
 const Contact = ({ chatId, userIdB, username, name, setCurrChatId, setUserIdB, setMessages }) => {
 
     async function showChat() {
-        console.log(chatId);
         setCurrChatId(chatId);
         setUserIdB(userIdB);
         const messages = await getMessages(chatId);
